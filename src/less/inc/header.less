@@ -1,0 +1,243 @@
+/*--------------------------------------------------
+    Common header classes & IDs
+    Do not remove this
+---------------------------------------------------*/
+.h-inner {
+    list-style: none;
+    padding: 17px 0;
+    margin-bottom: 0;
+    position: relative;
+    
+    .hi-avatar {
+        top: 2px;
+        left: 5px;
+        & > img {
+            border-radius: 50%;
+        }   
+    }
+
+    & > li {
+        &:not(.pull-right) {
+            float: left;
+        }
+    }
+}
+
+.hi-logo {
+    a {
+        color: #fff;
+        text-transform: uppercase;
+        display: block;
+        font-size: 16px;
+    }
+}
+
+.hi-trigger {
+    position: relative;
+    margin-left: -5px;
+    cursor: pointer;
+    display: inline-block;
+
+    &:before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.22);
+        .transition(all);
+        .transition-duration(300ms);
+        .scale(0);
+        z-index: 0;
+        margin-top: -22px;
+        margin-left: -22px;
+    }
+
+    &.toggled {
+        &:before {
+            .scale(1);
+        }
+    }
+}
+
+.hi-menu {
+    list-style: none;
+    padding: 0;
+
+    & > li {
+        display: inline-block;
+        margin: 0 1px;
+        vertical-align: top;
+        min-width: 50px;
+        position: static !important;
+        
+
+        .dropdown-menu {
+            top: -5px;
+
+            .badge {
+                float: right;
+                position: relative;
+                top: 1px;
+            }
+        }
+
+        .dropdown-menu-lg {
+            padding: 0;
+
+            .lg-body {
+                min-height: 250px;
+                overflow-x: hidden;
+            }
+        }
+
+        & > a {
+            color: #fff;
+            display: block;
+            text-align: center;
+            z-index: 1;
+            position: relative;
+            .transition(background-color);
+            .transition-duration(250ms);
+            border-radius: 2px;
+
+            & > .him-icon {
+                font-size: 24px;
+                line-height: 36px;
+            }
+
+            & > .him-label {
+                line-height: 35px;
+                white-space: nowrap;
+                padding: 0 10px;
+                font-size: @font-size-base + 1;
+                text-transform: uppercase;
+            }
+
+            & > .him-counts {
+                position: absolute;
+                font-style: normal;
+                background: @m-red;
+                padding: 1px 5px;
+                border-radius: 2px;
+                right: 7px;
+                top: -6px;
+                font-size: 10px;
+                line-height: 15px;
+            }
+        }
+
+        &.toggled > a:not(.hi-avatar),
+        &:hover > a:not(.hi-avatar) {
+            background-color: rgba(0, 0, 0, 0.08);
+        }
+    }
+
+    .him-notification {
+        .lgi-heading {
+            white-space: normal;
+        }
+
+        .no-notification {
+            padding-top: 120px;
+            color: #e0e0e0;
+            font-size: 12px;
+            text-align: center;
+        }
+    }
+    
+    .dropdown-menu-lg {
+        width: ~"calc(100% - 28px)" !important;
+    }
+
+    .dropdown-menu {
+        top: 55px !important;
+    }
+    
+}
+
+/* ----------------------------- End common header classes and IDs------------------------------------- */
+
+
+#header {
+    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.3);
+    min-height: @header-height;
+    .user-select(none);
+
+    position: fixed;
+    z-index: 11;
+    width: 100%;
+    left: 0;
+    top: 0;
+    padding: 0px 8px;
+   
+    .hi-logo a {
+        padding: 7px 10px;
+    }
+
+    .ma-backdrop {
+        position: absolute;
+    }
+
+    &.search-toggled {
+        .h-search-wrap {
+            top: 0;
+            .opacity(1);
+        }
+    }
+}
+
+.h-search-wrap {
+    position: absolute;
+    top: -65px;
+    left: 0;
+    width: 100%;
+    height: @header-height;
+    background: #fff;
+    .transition(all);
+    .transition-duration(300ms);
+    .opacity(0);
+    z-index: 10;
+
+    input[type="text"] {
+        border: 0;
+        height: 40px;
+        padding: 0 10px 0 55px;
+        font-size: 18px;
+        border-radius: 2px;
+        background-color: darken(@ace, 3%);
+        width: 100%;
+    }
+
+    .hsw-close {
+        position: absolute;
+        top: 15px;
+        font-size: 23px;
+        font-style: normal;
+        width: 45px;
+        text-align: center;
+        border-radius: 2px 0px 0px 2px;
+        cursor: pointer;
+        left: 15px;
+        height: 40px;
+        padding-top: 9px;
+
+        &:hover {
+            background-color: darken(@ace, 8%);
+        }
+
+        @media (max-width: @screen-xs-max) {
+            right: 7px;
+        }
+    }
+}
+
+.hsw-inner {
+    position: relative;
+    padding: 15px;
+    max-width: 700px;
+    display: block;
+    margin: 0 auto;
+}

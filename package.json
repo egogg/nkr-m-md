@@ -1,0 +1,32 @@
+{
+  "name": "md.m",
+  "version": "1.0.0",
+  "description": "material design mobile version",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "egogg",
+  "license": "ISC",
+  "devDependencies": {
+    "del": "^2.2.0",
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.0",
+    "gulp-cssmin": "^0.1.7",
+    "gulp-filter": "^4.0.0",
+    "gulp-gunzip": "0.0.3",
+    "gulp-less": "^3.1.0",
+    "gulp-main-bower-files": "^1.5.1",
+    "gulp-rename": "^1.2.2",
+    "gulp-replace": "^0.5.4",
+    "gulp-uglify": "^1.5.3",
+    "main-bower-files": "^2.13.1"
+  },
+  "dependencies": {
+    "decompress": "^4.0.0",
+    "gulp-filter": "^4.0.0",
+    "gulp-flatten": "^0.2.0",
+    "gulp-gunzip": "0.0.3",
+    "gulp-unzip": "^0.1.4"
+  }
+}

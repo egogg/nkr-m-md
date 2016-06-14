@@ -1,0 +1,154 @@
+.login-content {
+    min-height: 100vh;
+    text-align: center;
+    background-color: @m-white;
+}
+
+.lc-block {
+    max-width: 500px;
+    padding-top: 65px;
+    padding-bottom: 35px;
+    width: 80%;
+    display: inline-block;
+    position: relative;
+
+    .lcb-header {
+        margin-bottom: 30px;
+        h1 {
+            font-size: 18px;
+        }
+
+        .lcb-logo {
+            display: block;
+            background: url('../img/login-logo.png') center no-repeat;
+            height: 68px;
+            margin-bottom: 30px;
+        }
+
+        .lcb-title {
+            text-align: left;
+            margin: 20px 0;
+
+            h1 {
+                display: inline-block;
+                vertical-align: middle;
+                font-size: 15px;
+                padding: 0;
+                margin: 0;
+                color: @text-color;
+            }
+        }
+    }
+
+    .checkbox {
+        float: left;
+        text-align: left;
+
+        & > label {
+            padding-left: 0;
+        }
+    }
+
+    .lcb-resend-email {
+        color: @m-gray;
+    }
+
+    .lcb-change-email {
+        display: none;
+    }
+
+    .lcb-content {
+        min-height: 150px;
+    }
+
+    .lcb-form {
+        .forget-password {
+            position: relative;
+            float: right;
+            top: 3px;
+        }
+
+        .input-group {
+            width: 100%;
+        }
+
+        .input-group-addon {
+            border: none;
+            background: transparent;
+            vertical-align: top;
+        }
+
+        .help-block {
+            margin: 0;
+            position: absolute;
+            top: -6px;
+            font-size: 11px;
+            right: 0;
+        }
+
+        .form-control-feedback {
+            font-size: 14px;
+            top: 9px;
+            &.icon-check {
+                color: @m-green;
+            }
+        }
+
+        .lcb-captcha {
+            text-align: left;
+            img {
+                display: inline-block;
+            }
+
+            .input-group {
+                padding-top: 5px;
+                float: right;
+                width: 50%;
+            }
+        }
+
+        .lcb-agreement {
+            text-align: left;
+            small {
+                color: @m-gray;
+            }
+        }
+
+        .submit {
+            width: 100%;
+            float: left;
+        }
+    }
+
+    .lcb-sns {
+        margin-top: 50px;
+        .lcb-sns-title {
+            h2 {
+                padding: 0;
+                margin: 15px 0;
+                font-size: 15px;
+                color: @text-color;
+            }
+        }
+
+        .lcb-sns-items {
+            margin: 0;
+            padding: 0;
+
+            li {
+                display: inline-block;
+                text-decoration: none;
+                padding: 0 10px;
+
+                &:first-child {
+                    padding-left: 0;
+                }
+
+                &:last-child {
+                    padding-right: 0;
+                }
+            }  
+        }
+    }
+}  
+  
