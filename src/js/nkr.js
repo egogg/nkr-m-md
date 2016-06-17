@@ -1594,6 +1594,7 @@ NKR.G =
 NKR.User =
 {
 	// 关注
+	
 	follow: function(selector, type, data_id)
 	{
 		if(G_USER_ID <= 0) {
@@ -1665,26 +1666,22 @@ NKR.User =
 			{
 				if (selector.hasClass('following'))
 				{
-					selector.find('span').html('<i class="md md-check"></i> 正在关注');
-
-					selector.find('b').html(parseInt(selector.find('b').html()) + 1);
+					selector.text('已关注');
 				}
 				else
 				{
-					selector.find('span').html('<i class="md md-add"></i> 添加关注');
-
-					selector.find('b').html(parseInt(selector.find('b').html()) - 1);
+					selector.text('+ 关注');
 				}
 			}
 			else
 			{
 				if (selector.hasClass('following'))
 				{
-					selector.attr('data-original-title', _t('正在关注'));
+					selector.attr('data-original-title', '正在关注');
 				}
 				else
 				{
-					selector.attr('data-original-title', _t('添加关注'));
+					selector.attr('data-original-title', '添加关注');
 				}
 			}
 

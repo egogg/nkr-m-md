@@ -118,3 +118,63 @@
 		}
 	}
 }
+
+/*--------------------------------------------------
+     Styles for topic list
+---------------------------------------------------*/
+
+.topic-list {
+	.tl-item {
+		margin-bottom: 10px;
+
+		&.card {
+			.card-header {
+				h2 {
+					margin: 0;
+					font-size: 14px;
+					color: @text-color;
+					padding-right: 60px;
+				    white-space: nowrap;
+				    text-overflow: ellipsis;
+				    overflow: hidden;
+				}
+			}
+		}
+	}
+}
+
+.tl-follow {
+	float: right;
+	position: absolute;
+    right: 15px;
+    z-index: 2;
+    top: 11px;
+}
+
+.tl-content {
+	font-size: 12px;
+    padding-top: 10px;
+}
+
+.tl-footer {
+	margin-top: 10px;
+}
+
+.tl-stats {
+	display: inline-block;
+	margin: 0;
+	padding: 0;
+
+	& > li {
+		display: inline-block;
+		padding-right: 10px;
+		font-size: 12px;
+		color: @m-gray;
+	}
+}
+
+.tl-category {
+	font-size: 12px;
+	padding-right: 10px;
+	float: right;
+}
