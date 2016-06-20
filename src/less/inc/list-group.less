@@ -4,7 +4,7 @@
     .list-group-item {
         border: 0;
         margin: 0;
-        padding: 15px 23px;
+        padding: 15px;
 
         & > .checkbox.pull-left {
             margin: 0;
@@ -22,6 +22,15 @@
             background-color: @list-group-hover-bg;
         }
     }
+
+    &.lg-bottom-line {
+        .list-group-item {
+            border-bottom: 1px solid #f0f0f0;
+            &:last-child {
+                border-bottom: none;
+            }
+        }  
+    }
 }
 
 .lg-header {
@@ -29,9 +38,9 @@
     padding: 15px 10px 13px;
     line-height: 100%;
     text-transform: uppercase;
-    border-bottom: 1px solid #F0F0F0;
+    border-bottom: 1px solid #f0f0f0;
     font-weight: 500;
-    color: #4C4C4C;
+    color: #4c4c4c;
     margin-bottom: 10px;
 
     .actions {

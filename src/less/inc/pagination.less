@@ -1,5 +1,9 @@
 .pagination {
     border-radius: 0;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    text-align: center;
     
     & > li {
         margin: 0 2px;
@@ -28,10 +32,19 @@
          
         &.disabled {
             .opacity(0.5);
-        }  
+        } 
+
+        &.pg-indicator {
+            line-height: 40px;
+            margin: 0 20px;
+        }
+    }
+
+    .icon {
+        font-size: 17px;
+        vertical-align: text-bottom;
     }
 }
-
 
 /*-------------------------
     Listview Pagination
