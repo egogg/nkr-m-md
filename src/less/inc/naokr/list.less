@@ -278,3 +278,57 @@
 		margin-right: 15px;
 	}
 }
+
+/*--------------------------------------------------
+    Styles for category list
+---------------------------------------------------*/
+
+.category-select {
+	.card {
+		margin-bottom: 15px;
+		
+		a {
+			display: block;
+			color: @text-color;
+			text-align: center;
+			line-height: 30px;
+			font-size: 14px;
+
+			.icon {
+				vertical-align: text-bottom;
+    			font-size: 17px;
+			}
+		}
+	}
+}
+
+.category-list {
+	margin: 0;
+	padding: 0;
+	overflow-y: scroll;
+	margin-top: 15px;
+
+	li {
+		list-style: none;
+		display: inline-block;
+		width: 49%;
+		
+		a {
+			color: @text-color;
+			padding: 5px 8px;
+			margin: 15px 0;
+			display: inline-block;
+			
+			&:hover {
+				color: @m-lightblue;
+			}
+
+			&.active {
+				color: @m-lightblue;
+				padding: 4px 7px;
+				border: 1px solid @m-lightblue;
+				border-radius: 2px;
+			}
+		}
+	}
+}
