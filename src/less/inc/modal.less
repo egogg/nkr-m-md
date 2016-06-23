@@ -121,28 +121,30 @@
 	&.modal-fullpage {
 		.modal-dialog {
 			margin: 0;
-			
-			.modal-content {
-				min-height: 100vh;
-				border-radius: 0;
-				box-shadow: none;
+		}
 
-				.modal-header {
-					border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-					.modal-title {
-						font-size: 14px;
-						line-height: 30px;
-						display: inline-block;
+		.modal-content {
+			min-height: 100vh;
+			border-radius: 0;
+			box-shadow: none;
 
-						.icon {
-							font-size: 17px;
-		    				vertical-align: text-bottom;
-						}
+			.modal-header {
+				border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+				.modal-title {
+					font-size: 14px;
+					line-height: 30px;
+					display: inline-block;
+
+					.icon {
+						font-size: 17px;
+	    				vertical-align: text-bottom;
 					}
+				}
 
-					button {
-						float: right;
-						font-weight: 500;
+				.btn{
+					float: right;
+					font-weight: 500;
+					&.btn-link {
 						color: #000;
 					}
 				}

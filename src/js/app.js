@@ -205,9 +205,35 @@ $(document).ready(function(){
     }
 
     /*----------------------------------------------------------
+        Bootstrap modal scroll Fix
+    -----------------------------------------------------------*/
+    
+    if($('.modal')[0]) {
+        var cPosition = false;
+
+        $('.modal').on('show.bs.modal', function(){
+            cPosition = $(window).scrollTop();
+        })
+        .on('shown.bs.modal', function(){
+            $('body').css({
+                position:'fixed'
+            });
+        })
+        .on('hide.bs.modal', function(){
+            $('body').css({
+                position:'relative'
+            });
+
+            window.scrollTo(0, cPosition);
+        });
+    }
+        
+    /*----------------------------------------------------------
         Text Field
     -----------------------------------------------------------*/
+
     //Add blue animated border and remove with condition when focus and blur
+
     if($('.fg-line')[0]) {
         $('body').on('focus', '.fg-line .form-control', function(){
             $(this).closest('.fg-line').addClass('fg-toggled');

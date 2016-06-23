@@ -26,4 +26,71 @@
 	    	}
 	    }
 	}
+	
+	.qs-menu {
+		display: none;
+
+		.btn {
+			.z-depth(1);
+
+			.icon {
+				vertical-align: text-bottom;
+			}
+		}
+	}
+
+	&.affix {
+		z-index: 11;
+
+		.qs-bar {
+			display: none;
+		}
+
+		.qs-menu {
+			display: block;
+		}
+	}
+}
+
+/*--------------------------------------------------
+    Styles for question filter lists
+---------------------------------------------------*/
+
+
+.question-filter {
+	margin: 0;
+	padding: 0;
+
+	li {
+		list-style: none;
+
+		h3 {
+			font-size: 14px;
+		    margin: 23px 0;
+		    padding: 0;
+		}
+	}
+
+	.qf-list {
+		margin: 0;
+		padding: 0;
+
+		& > li {
+			display: inline-block;
+   			margin: 0 10px 10px 0;
+
+			a {
+				padding: 5px 8px;
+				color: @text-color;
+			}
+
+			&.active {
+				a {
+					color: @m-lightblue;
+					border: 1px solid @m-lightblue;
+					border-radius: @border-radius-base;
+				}
+			}
+		}
+	}
 }

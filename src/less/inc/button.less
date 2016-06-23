@@ -127,6 +127,65 @@
 .m-btn {
     z-index: 1;
     bottom: 40px;
-    right: 40px;
+    right: 20px;
     position: fixed !important;
+}
+
+/*----------------------------------------
+    Fixed action button
+------------------------------------------*/
+
+.fixed-action-btn {
+    position: fixed;
+    right: 20px;
+    bottom: 40px;
+    z-index: 12;
+
+    &:not(.horizontal) {
+        width: 50px;
+    }
+
+    ul {
+        left: 0;
+        right: 0;
+        text-align: center;
+        position: absolute;
+        bottom: 60px;
+        margin: 0;
+        padding: 0;
+        visibility: hidden;
+
+        li {
+            list-style: none;
+            margin-bottom: 15px;
+        }
+
+        .btn {
+            opacity: 0;
+        }
+    }
+
+    &.active {
+        ul {
+            visibility: visible;
+        }
+    }
+    &.horizontal {
+        width: 100%;
+        height: 50px;
+
+        ul {
+            text-align: right;
+            right: 60px;
+            top: 50%;
+            transform: translateY(-50%);
+            height: 100%;
+            left: auto;
+            width: 100%;
+            li {
+                display: inline-block;
+                margin: 5px 15px 0 0;
+            }
+        }
+    }
 }
