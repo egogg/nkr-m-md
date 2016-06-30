@@ -50,6 +50,11 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
     }
 }
 
+ul {
+    margin: 0;
+    padding: 0;
+}
+
 #main {
     position: relative;
     padding-bottom: @footer-height;
@@ -66,6 +71,10 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
 
 .container {
     padding: 0 0.75rem;
+
+    &.fullwidth {
+        padding: 0;
+    }
 
     &.container-alt {
         max-width: 1170px;

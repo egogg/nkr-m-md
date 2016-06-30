@@ -119,6 +119,12 @@
 	}
 }
 
+.ql-norecord {
+	font-size: 12px;
+	color: @m-gray;
+	text-align: center;
+}
+
 /*--------------------------------------------------
      Styles for topic list
 ---------------------------------------------------*/
@@ -194,17 +200,19 @@
 
 .article-list {
 	h2 {
-		font-size: 14px;
-		color: @text-color;
 		margin: 0;
-		padding: 7px 0;
-	    overflow: hidden;
-	    text-overflow: ellipsis;
-	    display: -webkit-box;
-	    -webkit-box-orient: vertical;
-	    -webkit-line-clamp: 2;
-	    line-height: 1.3;
-	    height: 43px;
+		font-size: 14px;
+		a {
+			color: @text-color;
+			padding: 7px 0;
+		    overflow: hidden;
+		    text-overflow: ellipsis;
+		    display: -webkit-box;
+		    -webkit-box-orient: vertical;
+		    -webkit-line-clamp: 2;
+		    line-height: 1.3;
+		    height: 43px;
+		}	
 	}
 
 	.card {
