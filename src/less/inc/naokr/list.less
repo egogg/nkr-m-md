@@ -5,10 +5,16 @@
 .qt-items {
 	margin: 0;
 	padding: 0;
+	font-size: 0;
 
 	& > li {
 		display: inline-block;
 		text-decoration: none;
+		margin-right: 5px;
+
+		&:last-child {
+			margin-right: 0;
+		}
 		
 		& > a {
 			display: block;

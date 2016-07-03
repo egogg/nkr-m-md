@@ -198,7 +198,7 @@ $(document).ready(function(){
 	        });
 
 	        timerElement.on('affixed-top.bs.affix', function() {
-	            initCountdownTimer(100);
+	            initCountdownTimer(90);
 	        });
 
 	        timerElement.affix({
@@ -268,6 +268,7 @@ $(document).ready(function(){
 
 		// 检查问题答案
 
+		var QUESTION_ID = $('#q-content').attr('data-id');
 		$.get(G_BASE_URL + '/question/ajax/question_quiz_submit_answer/question_id-' + QUESTION_ID + '__answer-' + answer + '__spend_time-' + spendTime + '__record_id-' + QUESTION_QUIZ_RECORD_ID, function (quiz_result) {
 
 			// 检查是否为特殊用户
@@ -289,7 +290,7 @@ $(document).ready(function(){
 			var textInfo = '';
 			if(spendTime > 0)
 			{
-				textInfo = '<p><i class="md md-timer"></i> 答题用时 <span><strong>' + spendTime + '</strong> 秒</span></p>';
+				textInfo = '<p><i class="icon icon-countdown"></i> 答题用时 <span><strong>' + spendTime + '</strong> 秒</span></p>';
 			}
 
             if (quiz_result['correct']) {
@@ -383,6 +384,7 @@ $(document).ready(function(){
 
 		// 提交超时请求
 
+		var QUESTION_ID = $('#q-content').attr('data-id');
 		$.get(G_BASE_URL + '/question/ajax/question_quiz_timeout/record_id-' + QUESTION_QUIZ_RECORD_ID + '__question_id-' + QUESTION_ID, function (result) {
 			
 			// 特殊用户
@@ -415,7 +417,7 @@ $(document).ready(function(){
 		}, 'json');
 	}
 
-	function parseQuestionQuiz(passed) {
+	function parseQuestionQuiz(enableSubmit, enableCountdown) {
 		QUESTION_QUIZ = $('input[name=qz-content]').val();
 		QUESTION_QUIZ_ID = $('input[name=qz-id]').val();
 		QUESTION_QUIZ_RECORD_ID = $('input[name=qz-record-id]').val();
@@ -431,8 +433,8 @@ $(document).ready(function(){
 		if (IS_JSON) {
 			$('.qz-content').nkrQuiz({
 				'mode' : 'single',
-				'showSubmit' : passed,
-				'enableCountdown' : passed,
+				'showSubmit' : enableSubmit,
+				'enableCountdown' : enableCountdown,
 				'data' : quizContent,
 				'enabled' : true,
 				'onSubmitAnswer' : submitAnswerHandle,
@@ -460,6 +462,7 @@ $(document).ready(function(){
 			'</div>';
 		$('#q-content').html(spinner);
 
+		var QUESTION_ID = $('#q-content').attr('data-id');
 		$.get(G_BASE_URL + '/question/ajax/init_question_content/id-' + QUESTION_ID, function (response) {
 			$('#q-content').html(response);
 
@@ -468,12 +471,136 @@ $(document).ready(function(){
 
 			initCountdownTimer(90);
 			setupCoundownTimerAffix();
-			parseQuestionQuiz(TRY_COUNT == 0 || (TRY_COUNT > 0 && PASSED_QUIZ));
+			parseQuestionQuiz(TRY_COUNT == 0 || (TRY_COUNT > 0 && PASSED_QUIZ), !PASSED_QUIZ);
 		});
 	}
 
 	loadQuestionContent();
 
+	/*----------------------------------------------------------
+	    answer question actions
+	-----------------------------------------------------------*/
+
+	function retryQuizIntegralAction(callback)
+	{
+		// 检查用户是否登录
+
+		if(G_USER_ID <= 0) {
+			window.location.href = G_BASE_URL + '/account/login/';
+			return;
+		}
+
+		// 获取答题积分
+
+		var QUESTION_ID = $('#q-content').attr('data-id');
+		$.get(G_BASE_URL + '/question/ajax/get_question_quiz_retry_integral/question_id-' + QUESTION_ID, function (result){
+			if(result.err)
+			{
+				AWS.alert(result.err);
+
+				return;
+			}
+
+			if(result.not_enough_integral)
+			{
+				textInfo = '<p>你当前剩余 <strong>' + result.user_integral + '</strong> 积分</p>' + '<p>重新答题需要 <span class="c-red">' + result.required_integral + '</span> 积分</p>';
+				textInfo += '<div class="m-t-20 alert-get-integral"><i class="md md-help"></i> 你可以通过<a class="c-lightblue" href="' + G_BASE_URL + '/publish/' + '">分享题目</a>来获取额外积分，更多获取积分的方式可以查看<a class="c-lightblue" href="' + G_BASE_URL + '/integral/rule/' + '">积分规则</a></div>';
+				swal({
+					title: '积分不足',
+		        	text: textInfo,
+		        	html: true,
+		        	confirmButtonText: "获取积分",
+		        	showCancelButton: true,
+				    cancelButtonText: "返回问题",
+		        	type: 'info'
+		        	},
+		        	function() {
+		        		window.location.href = G_BASE_URL + '/integral/rule/';
+						return;	
+		        	}
+		        );
+
+				return;
+			}
+				
+			if(result.required_integral > 0)
+			{
+				swal({   
+		        	title: '积分提示',
+		        	text: '<p>你当前剩余 <strong>' + result.user_integral + '</strong> 积分</p>' + '<p>重新答题需要 <span class="c-red">' + result.required_integral + '</span> 积分</p>',   
+		        	html: true,
+		        	confirmButtonText: "继续",
+		        	showCancelButton: true,
+		        	cancelButtonText: "取消",
+		        	type: 'info'
+		        	},
+		        	function() {
+		        		// 添加积分记录
+
+		        		$.get(G_BASE_URL + '/question/ajax/save_question_quiz_retry_integral/question_id-' + QUESTION_ID, function (result) {
+							if (result.err)
+							{
+								AWS.alert(result.err);
+
+								return;
+							}
+							
+							callback();
+						}, 'json');
+		        	}
+		        );
+			}
+		}, 'json');
+	}
+
+	function beginCountdownQuestion() {
+		// 检查用户是否登录
+
+		if(G_USER_ID <= 0) {
+			window.location.href = G_BASE_URL + '/account/login/';
+			return;
+		}
+
+		// 倒计时问题开始答题
+
+		var QUESTION_ID = $('#q-content').attr('data-id');
+		$.get(G_BASE_URL + '/question/ajax/begin_question_quiz_countdown/id-' + QUESTION_ID, function (response) {
+			$('#q-content').html(response).css('opacity',0).animate({opacity:1}, 300);
+			initCountdownTimer(90);
+			setupCoundownTimerAffix();
+			parseQuestionQuiz(true, true);
+		});
+	}
+
+	$('body').on('click', '[data-qz-action]', function (e) {
+		e.preventDefault();
+
+        var $this = $(this);
+        var action = $(this).data('qz-action');
+
+        switch(action) {
+        	case 'retry':
+        		retryQuizIntegralAction(function(){
+        			$('.qz-state').hide();
+					parseQuestionQuiz(true, true);
+				});
+        	break;
+
+        	case 'retry-countdown':
+        		retryQuizIntegralAction(function(){
+        			beginCountdownQuestion();
+				});
+        	break;
+
+        	case 'discuss':
+        		
+        	break;
+
+        	case 'answer-countdown':
+        		beginCountdownQuestion();
+        	break;
+        }
+	});
 });
 
 	
