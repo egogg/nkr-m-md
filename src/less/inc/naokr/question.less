@@ -2,6 +2,10 @@
     Styles for question filter bar
 ---------------------------------------------------*/
 
+.question {
+	padding-bottom: 35px !important;
+}
+
 .question-select {
 	.card {
 		margin-bottom: 15px;
@@ -342,3 +346,235 @@
 		}
 	}	
 }
+
+.question-user-record {
+	.qur-title {
+		font-size: 14px;
+		color: @text-color;
+		line-height: 1.5;
+	}
+
+	.qur-user {
+		float: right;
+
+		img {
+			height: 24px;
+			width: 24px;
+		}
+	}
+
+	.qur-count {
+		display: inline-block;
+		line-height: 24px;
+		color: #000;
+	}
+
+	.qur-records {
+		padding: 15px 0;
+	
+		.qur-result	{
+			&.failed {
+				color: @m-red;
+			}
+
+			&.success {
+				color: @m-green;
+			}
+
+			&.timeout {
+				color: @m-orange;
+			}
+		}
+
+		.qur-date {
+			color: @m-gray;
+			float: right;
+		}	
+	}
+}
+
+#qzr-summary {
+	.list-group-item {
+		.icon {
+			margin-right: 10px;
+		}
+	}
+}
+
+#qzr-chart {
+	width: 100%;
+	height: 250px;
+}
+
+.qi-invited-list {
+	.qii-user-img {
+		height: 40px;
+		width: 40px;
+		border-radius: 50%;
+	}
+
+	.qii-invited-by {
+		position: absolute;
+		right: 15px;
+		font-size: 12px;
+		color: @m-gray;
+	}
+
+	.qii-answer-state {
+		font-size: 12px;
+		margin-top: 4px;
+	}
+
+	.qii-answer-result {
+		color: @m-gray;
+
+		&.success {
+			color: @m-green;
+		}
+
+		&.failed {
+			color: @m-red;
+		}
+
+		.icon {
+			font-size: 15px;
+		}
+	}
+
+	.qii-answer-count {
+		float: right;
+	}
+}
+
+.qia-invite-list {
+	.qia-user-img {
+		width: 40px;
+		height: 40px;
+		border-radius: 50%;
+	}
+
+	.qia-invite {
+		position: absolute;
+		right: 15px;
+	}
+	
+	.qia-more {
+		display: block;
+	    padding: 10px 10px 0 11px;
+	    line-height: 100%;
+	    font-size: 12px;
+	    text-align: center;
+	    color: @m-lightblue;
+	}
+}
+
+.qia-header {
+	padding: 0 15px;
+	position: relative;
+}
+
+.qia-search {
+	margin-bottom: 10px;
+	padding-right: 90px;
+	position: relative;
+
+	input {
+		padding-right: 60px;
+	}
+}
+
+.qia-search-clear {
+	display: none;
+	font-size: 17px;
+    position: absolute;
+    right: 0;
+    top: 7px;
+    z-index: 3;
+    color: @m-gray;
+}
+
+.qia-search-none {
+	padding: 15px;
+	text-align: center;
+	color: @m-gray;
+}
+
+.qia-email {
+	color: @m-gray;
+	position: absolute;
+    right: 0;
+    top: 10px;
+    font-size: 12px;
+
+    .icon {
+		font-size: 15px;
+    	vertical-align: text-bottom;
+	}
+}
+
+.qia-toggle-invitation {
+	color: #fff !important;
+	background-color: @m-green;
+
+	&.invited {
+		background-color: @m-gray;
+	}
+}
+
+.qim-invites {
+	border-left: 3px solid @m-orange;
+    border-top: 1px dashed #eee;
+    border-bottom: 1px dashed #eee;
+    padding: 10px 0 10px 10px;
+    margin-bottom: 15px;
+    font-size: 12px;
+    color: @m-gray;
+
+    .qim-invited-users {
+		display: inline-block;
+
+		img {
+			width: 24px;
+			height: 24px;
+			border-radius: 50%;
+		}
+
+		li {
+			display: inline-block;
+			margin-right: 5px;
+		}
+    }
+
+    .qim-cancel-invites {
+    	font-size: 12px;
+    }
+
+    .qim-cancel-list {
+    	img {
+    		width: 40px;
+    		height: 40px;
+    		border-radius: 50%;
+    	}
+    }
+}
+
+/*--------------------------------------------------
+    Styles for question comments
+---------------------------------------------------*/
+
+.qcmt-reply-box {
+	margin: 15px;
+	textarea {
+		height: 100px;
+	}
+}
+
+.qcmt-load-hint {
+	border-top: 1px dashed #f7f7f7;
+	border-bottom: 1px dashed #f7f7f7;
+	border-left: 3px solid @m-amber;
+	padding: 15px 0 15px 15px;
+	margin: 20px 15px;
+}
+
+

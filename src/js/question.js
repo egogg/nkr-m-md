@@ -496,7 +496,7 @@ $(document).ready(function(){
 		$.get(G_BASE_URL + '/question/ajax/get_question_quiz_retry_integral/question_id-' + QUESTION_ID, function (result){
 			if(result.err)
 			{
-				AWS.alert(result.err);
+				NKR.alert(result.err);
 
 				return;
 			}
@@ -540,7 +540,7 @@ $(document).ready(function(){
 		        		$.get(G_BASE_URL + '/question/ajax/save_question_quiz_retry_integral/question_id-' + QUESTION_ID, function (result) {
 							if (result.err)
 							{
-								AWS.alert(result.err);
+								NKR.alert(result.err);
 
 								return;
 							}
@@ -593,7 +593,7 @@ $(document).ready(function(){
         	break;
 
         	case 'discuss':
-        		
+
         	break;
 
         	case 'answer-countdown':
@@ -601,6 +601,207 @@ $(document).ready(function(){
         	break;
         }
 	});
+});
+
+$(document).ready(function(){
+
+	// toogle user invitation
+
+	$('body').on('click', '.qia-toggle-invitation', function(e) {
+		e.preventDefault();
+
+    	if(G_USER_ID <= 0) {
+			window.location = G_BASE_URL + '/account/login/';
+			return;
+		}
+
+    	var _this = $(e.target);
+    	if(_this.hasClass('invited')) {
+    		$.post(G_BASE_URL + '/question/ajax/cancel_question_invite/question_id-' + QUESTION_ID + "__recipients_uid-" + _this.attr('data-id'), function (result) {
+				if(result.errno == -1) {
+					NKR.alert(result.err);
+				} else {
+					updateInvitedUsers();
+					updateUserInvitations();
+					_this.removeClass('invited').text('发送邀请');
+				}
+			}, 'json');
+    		
+    	} else {
+    		$.post(G_BASE_URL + '/question/ajax/save_invite/question_id-' + QUESTION_ID + '__uid-' + _this.attr('data-id'), function (result) {
+				if(result.errno == -1) {
+					NKR.alert(result.err);
+				} else {
+					updateInvitedUsers();
+					updateUserInvitations();
+					_this.addClass('invited').text('取消邀请');
+				}
+			}, 'json');
+    	}
+	});
+	
+	$('body').on('click', '.qim-cancel-invitation', function(e) {
+    	e.preventDefault();
+
+    	var _this = $(this);
+    	var invitedUser = $('#qia-recommend-list .qia-toggle-invitation[data-id="' + _this.attr('data-id') + '"]')[0];
+    	if(invitedUser) {
+    		
+    		// 如果用户还在推荐列表中，直接通过点击取消	
+
+    		invitedUser.click();
+    	} else {
+
+    		// 直接发送删除用户请求
+
+    		$.post(G_BASE_URL + '/question/ajax/cancel_question_invite/question_id-' + QUESTION_ID + "__recipients_uid-" + _this.attr('data-id'), function (result) {
+				if(result.errno == -1) {
+					NKR.alert(result.err);
+				} else {
+					updateInvitedUsers();
+					updateUserInvitations();
+				}
+			}, 'json');
+    	}
+    });
+
+	// invited user list
+
+	function onInvitedListLoadMore(element, complete) {
+        if(complete) {
+            element.addClass('no-more');
+            element.html('没有更多');
+        }
+    }
+
+	function updateInvitedUsers() {
+		if(typeof QUESTION_ID != 'undefined') {
+			$.get(G_BASE_URL + '/question/ajax/invited_users/question_id-' + QUESTION_ID + '__page-1', function (response) {
+	    		if(response != '') {
+	    			$('#qi-invited-list').html(response);
+
+	    			$('#qi-invited .load-more').html('<a href="#" auto-load="false" id="qi-load-more"><i class="icon icon-load-more"></i> 加载更多</a>').show();
+	    			NKR.load_list_view(G_BASE_URL + "/question/ajax/invited_users/question_id-" + QUESTION_ID, $('#qi-load-more'), $('#qi-invited-list'), 2, onInvitedListLoadMore);
+
+	    		} else {
+	    			$('#qi-invited-list').html('<div class="text-center no-invited-users"><p class="c-gray">目前还没有被邀请的用户</p><a href="javascript:void(0);" class="c-blue qia-add-invite"><i class="icon icon-persion-add"></i> 邀请答题</a></div>');
+	    			$('#qi-invited .load-more').hide();
+	    		}
+			});
+		}	
+    }
+
+    updateInvitedUsers();
+
+    $('body').on('click', '.qia-more', function(e) {
+    	var _this = $(this);
+    	e.preventDefault();
+    	_this.siblings().removeClass('hide');
+    	_this.detach();
+    });
+
+    // my invitations
+
+    function updateUserInvitations() {
+    	if(typeof QUESTION_ID != 'undefined') {
+    		$.get(G_BASE_URL + '/question/ajax/user_invited_users/uid-' + G_USER_ID + '__question_id-' + QUESTION_ID, function (response) {
+				$('#qim-invites').html(response);
+			});
+    	}  	
+    }
+
+    updateUserInvitations();
+
+    // invite search
+
+    function updateInviteSearchResult() {
+    	var searchInput = $('#qia-search-input');
+    	var resultContainer = $('#qia-search-result');
+    	var clearSearch = $('#qia-search-clear');
+    	var searchText = searchInput.val().trim();
+    	var recommendList = $('#qia-recommend-list');
+
+    	if(searchText.length > 0) {
+    		
+    		// clear search button 
+
+    		clearSearch.show();
+
+    		// search
+
+			var url = G_BASE_URL + '/search/ajax/search/?type=users&q=' + encodeURIComponent(searchText) + '&limit=10';
+			var request = $.get(url, function (result) {
+				if (result.length != 0 && request != undefined) {
+					resultContainer.html('');
+					$.each(result, function (i, a) {
+						resultContainer.append(Mustache.render(TEMPLATE.inviteSearch, {
+							'uid': a.uid,
+							'name': a.name,
+							'img': a.detail.avatar_file,
+							'intro': a.detail.signature,
+							'url': a.url,
+							'hide': i > 2
+						}));
+					});
+					resultContainer.append('<a class="qia-more qia-more-search" href="#">更多搜索结果</a>');
+				} else {
+					resultContainer.html('<div class="qia-search-none">没有找到相关用户</div>');
+				}
+			}, 'json');
+			resultContainer.show();
+
+			// recommend list
+
+			recommendList.hide();
+    	} else {
+    		clearSearch.hide();
+    		resultContainer.hide();
+    		recommendList.show();
+    	}
+    }
+
+    $('#qia-search-input').on('keyup', function(e) {
+    	updateInviteSearchResult();
+    });
+
+    $('#qia-search-clear').on('click', function(e) {
+    	e.preventDefault();
+
+    	$('#qia-search-input').val('');
+    	updateInviteSearchResult();
+    })
+});
+
+$(document).ready(function(){
+	function loadComments() {
+		if(typeof QUESTION_ID != 'undefined') {
+			$.get(G_BASE_URL + '/question/ajax/load_answers/question_id-' + QUESTION_ID, function (response) {
+				$('#qcmt-comments').hide().html(response).fadeIn();
+			});
+		}	
+	}
+
+	if($('#qcmt-comments').attr('data-show-comments') == 1) {
+		loadComments();
+	}
+
+	$('.qcmt-load-comments').on('click', function (e){
+		e.preventDefault();
+
+		// 检查用户是否登录
+
+		if(G_USER_ID <= 0) {
+			window.location.href = G_BASE_URL + '/account/login/';
+			return;
+		}
+
+		loadComments();
+		$('.qcmt-load-hint').hide();
+	});
+
+	$('body').on('click', '.qcmt-reply',function(e) {
+		e.preventDefault();
+	})
 });
 
 	

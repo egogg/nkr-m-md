@@ -1,0 +1,79 @@
+/*--------------------------------------------------
+    Styles for comments
+---------------------------------------------------*/
+
+.comment-header {
+	border-bottom: 1px solid #eee;
+	h3 {
+		font-size: 16px;
+		margin: 0;
+		padding: 0;
+		color: @text-color;
+	}
+}
+
+.comment-item {
+	.ci-user-img {
+		height: 40px;
+		width: 40px;
+		border-radius: 50%;
+	}
+
+	.ci-content {
+		padding: 15px 0;
+	}
+
+	.ci-actions {
+		display: inline-block;
+		font-size: 0;
+
+		li {
+			display: inline-block;
+			font-size: 12px;
+			margin-right: 10px;
+
+			&:last-child {
+				margin-right: 0;
+			}
+		}
+	}
+
+	.ci-subitems {
+		border-left: 3px solid #eee;
+		margin-top: 15px;
+
+		& > li {
+			padding-right: 0;
+			border-top: 1px dashed #eee;
+
+			&:last-child {
+				border-bottom: 1px dashed #eee;
+			}
+		}
+
+		.cis-header {
+			margin-bottom: 5px;
+		}
+
+		.cis-actions {
+			font-size: 0;
+			li {
+				margin-right: 10px;
+				display: inline-block;
+				font-size: 12px;
+
+				&:last-child {
+					margin-right: 0;
+				}
+			}
+		}
+	}
+
+	.ci-reply-box {
+		display: none;
+		margin: 15px 0;
+		textarea {
+			height: 80px;
+		}
+	}
+}

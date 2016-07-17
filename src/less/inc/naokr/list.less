@@ -346,3 +346,31 @@
 		}
 	}
 }
+
+.qzr-list {
+	img {
+		height: 40px;
+		width: 40px;
+		border-radius: 50%;
+	}
+
+	.qzr-result {
+		&.success {
+			color: @m-green;
+		}
+
+		&.timeout {
+			color: @m-orange;
+		}
+
+		&.failed {
+			color: @m-red;
+		}
+	}
+
+	.qzr-date {
+		color: @m-gray;
+		font-size: 12px;
+		float: right;
+	}
+}
