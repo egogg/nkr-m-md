@@ -28,11 +28,11 @@ $(document).ready(function () {
         Header events
     ---------------------------------------------*/
 
-    $('body').on('click', '[data-ma-action]', function (e) {
+    $('body').on('click', '[data-ma-act]', function (e) {
         e.preventDefault();
 
         var $this = $(this);
-        var action = $(this).data('ma-action');
+        var action = $(this).data('ma-act');
 
         switch (action) {
 
@@ -41,7 +41,7 @@ $(document).ready(function () {
             ---------------------------------------------*/
             case 'sidebar-open':
                 var target = $this.data('ma-target');
-                var backdrop = '<div data-ma-action="sidebar-close" class="ma-backdrop" />';
+                var backdrop = '<div data-ma-act="sidebar-close" class="ma-backdrop" />';
 
                 $('body').addClass('sidebar-toggled');
                 $('#header, #header-alt, #main').append(backdrop);
