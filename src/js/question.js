@@ -9,6 +9,7 @@ $(document).ready(function(){
 	var qs = $('#question-select');
     if(qs.length != 0)
     {
+    	$('.question-select-wrap').height(qs.height());
         qs.affix({
             offset: { top: qs.offset().top}
         });

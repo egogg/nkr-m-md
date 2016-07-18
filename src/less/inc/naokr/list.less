@@ -62,6 +62,7 @@
 		margin: 0;
 		padding: 0;
 		font-size: 14px;
+		line-height: 1.5;
 
 		& > a {
 			color: @text-color;
@@ -76,7 +77,13 @@
 .qli-publisher {
 	display: inline-block;
 
+	a {
+		display: inline-block;
+		vertical-align: middle;
+	}
+
 	img {
+		display: block;
 		height: 18px;
 		width: 18px;
 		border-radius: 50%;
@@ -84,8 +91,9 @@
 }
 
 .qli-img {
+	display: block;
 	width: 90px;
-    height: 100%;
+    height: auto;
 }
 
 .qli-excerpt {
@@ -299,7 +307,7 @@
 
 .category-select {
 	.card {
-		margin-bottom: 15px;
+		margin-bottom: 10px;
 		
 		a {
 			display: block;
@@ -339,9 +347,6 @@
 
 			&.active {
 				color: @m-lightblue;
-				padding: 4px 7px;
-				border: 1px solid @m-lightblue;
-				border-radius: 2px;
 			}
 		}
 	}
