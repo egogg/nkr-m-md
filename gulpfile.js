@@ -86,6 +86,6 @@ gulp.task('clean', function(){
 	return del.sync([distpath + '/js/*', distpath + '/css/*', distpath + '/fonts/*', distpath + '/img/*'], {force : true});
 });
 
-gulp.task('default', ['clean', 'less', 'js', 'js-libs', 'css-libs', 'img', 'fonts'],function() {
+gulp.task('default', ['clean', 'less', 'js', 'js-libs', 'css-libs', 'fonts'],function() {
 	console.log(mainBowerFiles());
 });
