@@ -685,7 +685,7 @@ $(document).ready(function(){
 	    			NKR.load_list_view(G_BASE_URL + "/question/ajax/invited_users/question_id-" + QUESTION_ID, $('#qi-load-more'), $('#qi-invited-list'), 2, onInvitedListLoadMore);
 
 	    		} else {
-	    			$('#qi-invited-list').html('<div class="text-center no-invited-users"><p class="c-gray">目前还没有被邀请的用户</p><a href="javascript:void(0);" class="c-blue qia-add-invite"><i class="icon icon-persion-add"></i> 邀请答题</a></div>');
+	    			$('#qi-invited-list').html('<div class="qia-no-invites"><p>目前还没有被邀请的用户</p><a href="#" class="qia-add-invite"><i class="icon icon-person-add"></i> 邀请答题</a></div>');
 	    			$('#qi-invited .load-more').hide();
 	    		}
 			});
@@ -770,19 +770,29 @@ $(document).ready(function(){
 
     	$('#qia-search-input').val('');
     	updateInviteSearchResult();
-    })
+    });
+
+    $('body').on('click', '.qia-add-invite', function(e) {
+    	e.preventDefault();
+    	$.scrollTo($('#question-invites').offset().top - 70, 300, {queue:true});
+    	$('#qi-add-invite-tab').click();
+    });
 });
 
 $(document).ready(function(){
-	function loadComments() {
+	function loadComments(callback) {
 		if(typeof QUESTION_ID != 'undefined') {
 			$.get(G_BASE_URL + '/question/ajax/load_answers/question_id-' + QUESTION_ID, function (response) {
-				$('#qcmt-comments').hide().html(response).fadeIn();
+				$('#qcmt-comment-list').html(response);
+				$('.qcmt-comments').show();
+				if(typeof callback == 'function') {
+					callback();
+				}
 			});
 		}	
 	}
 
-	if($('#qcmt-comments').attr('data-show-comments') == 1) {
+	if($('#qcmt-comment-list').attr('data-show-comments') == 1) {
 		loadComments();
 	}
 
@@ -796,13 +806,197 @@ $(document).ready(function(){
 			return;
 		}
 
-		loadComments();
-		$('.qcmt-load-hint').hide();
+		loadComments(function() {
+			$('.qcmt-load-hint').hide();
+			$.scrollTo($('#question-comments').offset().top - 70, 300, {queue:true});
+			$('.qcmt-reply-box textarea').focus();
+		});
 	});
 
 	$('body').on('click', '.qcmt-reply',function(e) {
 		e.preventDefault();
-	})
+
+		var replyButton = $(this);
+		var targetUser = replyButton.attr('data-user-name');
+		var index = replyButton.attr('data-index');
+		var commentBox = $('#ci-reply-box-' + replyButton.attr('data-answer-id'));
+		var commentInput = commentBox.find('textarea');
+		var currentIndex = commentInput.attr('data-index');
+
+		var atUser = '@' + targetUser + ' ';
+		if(typeof targetUser == 'undefined') {
+			atUser = '';
+		}
+
+		if(commentBox.is(":visible")){
+			if(index != currentIndex) {
+				commentInput.attr('data-index', index);
+				commentInput.val(atUser);
+				commentInput.focus();
+			} else {
+				commentInput.removeAttr('data-index');
+				commentBox.hide();
+				commentInput.val('');
+			}
+			
+		} else {
+			commentBox.show();
+			commentInput.attr('data-index', index);
+			commentInput.insertAtCaret(atUser);
+			commentInput.focus();
+			$.scrollTo(commentInput.offset().top - 250, 300, {queue:true});
+		}
+	});
+
+	if(typeof QUESTION_ID != 'undefined') {
+		NKR.load_list_view(G_BASE_URL + '/question/ajax/load_answers/question_id-' + QUESTION_ID, $('#qcmt-load-more'), $('#qcmt-comment-list'), 2, function(element, complete) {
+				if(complete) {
+					element.addClass('no-more');
+		            element.html('没有更多讨论');
+				}
+			}
+		);
+	}
 });
 
-	
+
+$(document).ready(function(){
+	function showQuestionSolution() {
+		$.get(G_BASE_URL + '/question/ajax/get_question_solution/question_id-' + QUESTION_ID, function (response) {
+			if (!response) {
+				AWS.alert('获取答案解析失败！');
+
+				return;
+			}
+
+			$('#solution-content').html(response);
+			$('#dlg-solution').modal();
+		});
+	}
+
+	$('body').on('click', '[data-act]', function (e) {
+        e.preventDefault();
+
+        var _this = $(this);
+        var action = _this.data('act');
+
+        switch (action) {
+        	case 'qtba-solution' :
+				if (G_USER_ID <= 0) {
+				    window.location.href = G_BASE_URL + '/account/login/';
+				    return;
+				}
+
+				$.get(G_BASE_URL + '/question/ajax/get_question_solution_record/question_id-' + QUESTION_ID, function(result) {
+				    if (result.err) {
+				        AWS.alert(result.err);
+
+				        return;
+				    }
+
+				    // 没有答案
+
+				    if (result.solution_not_exist) {
+				        swal({
+				            title: '系统提示',
+				            text: '该问题目前还没有答案解析！',
+				            html: true,
+				            confirmButtonText: "确定",
+				            type: 'info'
+				        });
+
+				        return;
+				    }
+
+				    if (result.record_exist) {
+				        // 直接获取答案
+
+				        showQuestionSolution();
+				    } else {
+
+				        // 发送购买答案请求
+
+				        $.get(G_BASE_URL + '/question/ajax/get_question_view_solution_integral/question_id-' + QUESTION_ID, function(result) {
+				            if (result.err) {
+				                AWS.alert(result.err);
+
+				                return;
+				            }
+
+				            if (result.not_enough_integral) {
+				                textInfo = '<p>你当前剩余 <strong>' + result.user_integral + '</strong> 积分</p>' + '<p>查看答案解析需要 <span class="required-integral c-red">' + result.required_integral + '</span> 积分</p>';
+				                textInfo += '<div class="m-t-20 alert-get-integral"><i class="md md-help"></i> 你可以通过<a class="c-lightblue" href="' + G_BASE_URL + '/publish/' + '">分享题目</a>来获取额外积分，更多获取积分的方式可以查看<a class="c-lightblue" href="' + G_BASE_URL + '/integral/rule/' + '">积分规则</a></div>';
+				                swal({
+				                        title: '积分不足',
+				                        text: textInfo,
+				                        html: true,
+				                        confirmButtonText: "获取积分",
+				                        showCancelButton: true,
+				                        cancelButtonText: "返回问题",
+				                        type: 'info'
+				                    },
+				                    function() {
+				                        window.location.href = G_BASE_URL + '/integral/rule/';
+				                        return;
+				                    }
+				                );
+
+				                return;
+				            }
+
+				            // 提示并查看答案
+
+				            if (result.required_integral > 0) {
+				                swal({
+				                        title: '积分提示',
+				                        text: '<p>你当前剩余 <strong>' + result.user_integral + '</strong> 积分</p>' + '<p>查看答案解析需要 <span class="c-red">' + result.required_integral + '</span> 积分</p>',
+				                        html: true,
+				                        confirmButtonText: "继续",
+				                        showCancelButton: true,
+				                        cancelButtonText: "取消",
+				                        type: 'info'
+				                    },
+				                    function() {
+				                        $.get(G_BASE_URL + '/question/ajax/save_question_view_solution_integral/question_id-' + QUESTION_ID, function(result) {
+				                            if (result.err) {
+				                                AWS.alert(result.err);
+				                            }
+
+				                            // 添加答案解析查看记录
+
+				                            $.get(G_BASE_URL + '/question/ajax/save_question_solution_record/question_id-' + QUESTION_ID, function(result) {
+				                                if (result.err) {
+				                                    AWS.alert(result.err);
+				                                } else {
+				                                    // 获取答案
+
+				                                    showQuestionSolution();
+				                                }
+				                            }, 'json');
+				                        });
+				                    }
+				                );
+				            }
+				        }, 'json');
+				    }
+				}, 'json');
+
+		        break;
+
+        	case 'qtba-comment' :
+        		$.scrollTo($('#question-comments').offset().top - 70, 300, {queue:true});
+        		if($('.qcmt-reply-box').is(':visible')) {
+        			$('.qcmt-reply-box textarea').focus();
+        		}
+        		break;
+
+        	case 'qtba-invite' :
+        		$.scrollTo($('#question-invites').offset().top - 70, 300, {queue:true});
+    			$('#qi-add-invite-tab').click();
+        		break;
+
+        	case 'qtba-share' :
+        		break;
+        }
+    });
+});

@@ -2,10 +2,6 @@
     Styles for question filter bar
 ---------------------------------------------------*/
 
-.question {
-	padding-bottom: 35px !important;
-}
-
 .question-select-wrap {
 	margin-bottom: 10px;
 }
@@ -141,9 +137,7 @@
 ---------------------------------------------------*/
 
 .question {
-	.card {
-		margin-bottom: 10px;
-	}
+	padding-bottom: 60px !important;
 
 	.q-publisher {
 		display: inline-block;
@@ -480,6 +474,19 @@
 	}
 }
 
+.qia-no-invites {
+	text-align: center;
+	padding: 20px 0;
+	color: @m-gray;
+
+	.qia-add-invite {
+		border: 1px solid @m-lightblue;
+		color: @m-lightblue;
+		padding: 8px 10px;
+		border-radius: 2px;
+	}
+}
+
 .qia-header {
 	padding: 0 15px;
 	position: relative;
@@ -574,19 +581,63 @@
     Styles for question comments
 ---------------------------------------------------*/
 
-.qcmt-reply-box {
-	margin: 15px;
-	textarea {
-		height: 100px;
+.question-comments {
+	margin-bottom: 0;
+}
+
+.qcmt-content {
+	padding: 20px 0;
+}
+
+.qcmt-comments {
+	display: none;
+
+	.qcmt-reply-box {
+		margin: 0 15px;
+		textarea {
+			height: 80px;
+		}
+	}
+
+	#qcmt-comment-list {
+		margin-top: 15px;
 	}
 }
 
 .qcmt-load-hint {
-	border-top: 1px dashed #f7f7f7;
-	border-bottom: 1px dashed #f7f7f7;
 	border-left: 3px solid @m-amber;
-	padding: 15px 0 15px 15px;
-	margin: 20px 15px;
+	padding: 15px 10px;
+	margin: 0 15px;
+	background-color: rgba(0, 0, 0, .02);
 }
 
+.qcmt-reply {
+	color: @m-lightblue !important;
+}
 
+/*--------------------------------------------------
+    Styles for question solution
+---------------------------------------------------*/
+
+.question-solution {
+	padding-top: 20px;
+	
+	.sol-block {
+		margin-bottom: 10px;
+	}
+
+	.sol-title {
+		margin: 0;
+	    font-size: 1em;
+	    padding: 10px 0;
+	}
+		
+	.sol-content {
+		padding-left: 0.5em;
+	}
+
+	.sol-options li {
+		list-style: none;
+		color: @m-green;
+	}
+}

@@ -218,14 +218,13 @@ var NKR =
 		else if (type == 'reply_question')
 		{
 			NKR.loading('show');
-
-			$('.btn-reply').addClass('disabled');
+			$('.qcmt-reply').attr('disabled', 'disabled');
 
 			// 删除草稿绑定事件
-			if (EDITOR != undefined)
-			{
-				EDITOR.removeListener('blur', EDITOR_CALLBACK);
-			}
+			// if (EDITOR != undefined)
+			// {
+			// 	EDITOR.removeListener('blur', EDITOR_CALLBACK);
+			// }
 		}
 
 		var custom_data = {
@@ -330,9 +329,9 @@ var NKR =
 			if (type == 'comments_form')
 			{
 				NKR.reload_comments_list(result.rsm.item_id, result.rsm.item_id, result.rsm.type_name);
-				$('#comment-box-' + result.rsm.type_name + '-' + result.rsm.item_id + ' form textarea').val('');
-				$('#comment-box-' + result.rsm.type_name + '-' + result.rsm.item_id).hide();
-				$('.submit-comment-box').removeClass('disabled');
+				$('#ci-reply-box-' + result.rsm.item_id + ' form textarea').val('');
+				$('#ci-reply-box-' + result.rsm.item_id).hide();
+				$('.ci-submit').removeAttr('disabled');
 			}
 
 			if (result.rsm && result.rsm.url)
@@ -380,17 +379,22 @@ var NKR =
 						if (result.rsm.ajax_html)
 						{
 							// $('#comment-items').append(result.rsm.ajax_html);
-							$('.load-question-answers').click();
-
-							$('.comment-box .btn-reply').removeClass('disabled');
+							$('.qcmt-load-comments').click();
+							$.get(G_BASE_URL + '/question/ajax/new_post_hash/', function (result) {
+								if(result.errno != -1) {
+									$('#answer_form input[name="post_hash"]').val(result.rsm.post_hash);
+								}
+							}, 'json');
+							$('.qcmt-reply-box textarea').val('');
+							$('.comment-box .btn-reply').removeAttr('disabled');
 
 							// $.scrollTo($('#' + $(result.rsm.ajax_html).attr('id')), 600, {queue:true});
 
 							// 问题
 							// $('.question_answer_form').detach();
-							if(EDITOR != 'undefined') {
-								EDITOR.setData('');
-							}
+							// if(EDITOR != 'undefined') {
+							// 	EDITOR.setData('');
+							// }
 
 							// if ($('.aw-replay-box.question').length)
 							// {
@@ -510,11 +514,9 @@ var NKR =
 	// 重新加载评论列表
 	reload_comments_list: function(item_id, element_id, type_name)
 	{
-		// $('#aw-comment-box-' + type_name + '-' + element_id + ' .aw-comment-list').html('<p align="center" class="aw-padding10"><i class="aw-loading"></i></p>');
-
 		$.get(G_BASE_URL + '/question/ajax/get_' + type_name + '_comments/' + type_name + '_id-' + item_id, function (data)
 		{
-			$('#comment-list-' + type_name + '-' + element_id).html(data);
+			$('#comment-item-' + element_id).html(data);
 		});
 	},
 
@@ -2040,14 +2042,13 @@ NKR.User =
 
 	remove_answer: function(selector, answer_id) {
 		$.get(G_BASE_URL + '/question/ajax/remove_answer/answer_id-' + answer_id);
-		selector.parents('li.comment-item[id=comment-id-' + answer_id + ']').fadeOut();
+		selector.parents('li.comment-item[id=comment-id-' + answer_id + ']').addClass('animated fadeOutLeft').fadeOut(300, function(){$(this).remove(); });
 	},
 
 	// 提交评论
 	save_comment: function(selector)
 	{
-		selector.addClass('disabled');
-
+		selector.attr('disabled', 'disabled');
 		NKR.ajax_post(selector.parents('form'), NKR.ajax_processer, 'comments_form');
 	},
 
@@ -2055,8 +2056,7 @@ NKR.User =
 	remove_comment: function(selector, type, comment_id)
 	{
 		$.get(G_BASE_URL + '/question/ajax/remove_comment/type-' + type + '__comment_id-' + comment_id);
-
-		selector.parents('li.sub-comment-item').fadeOut();
+		selector.parents('.ci-subitem').fadeOut(300, function(){$(this).remove();});
 	},
 
 	// 文章赞同
@@ -3114,15 +3114,10 @@ function _t(string, replace)
 	$.extend(
 	{
 		// 滚动到指定位置
-		scrollTo : function (type, duration, options)
+		scrollTo : function (offset, duration, options)
 		{
-			if (typeof type == 'object')
-			{
-				var type = $(type).offset().top
-			}
-
 			$('html, body').animate({
-				scrollTop: type
+				scrollTop: offset
 			}, {
 				duration: duration,
 				queue: options.queue
