@@ -1,5 +1,3 @@
-	
-
 $(document).ready(function(){
 
 	/*----------------------------------------------------------
@@ -573,11 +571,11 @@ $(document).ready(function(){
 		});
 	}
 
-	$('body').on('click', '[data-qz-action]', function (e) {
+	$('body').on('click', '[data-qz-act]', function (e) {
 		e.preventDefault();
 
         var $this = $(this);
-        var action = $(this).data('qz-action');
+        var action = $(this).data('qz-act');
 
         switch(action) {
         	case 'retry':
@@ -594,7 +592,7 @@ $(document).ready(function(){
         	break;
 
         	case 'discuss':
-
+        		questionComment();
         	break;
 
         	case 'answer-countdown':
@@ -780,16 +778,23 @@ $(document).ready(function(){
 });
 
 $(document).ready(function(){
+	window.questionComment = function() {
+		$.scrollTo($('#question-comments').offset().top - 70, 300, {queue:true});
+		if($('.qcmt-reply-box').is(':visible')) {
+			$('.qcmt-reply-box textarea').focus();
+		}
+	}
+
 	function loadComments(callback) {
 		if(typeof QUESTION_ID != 'undefined') {
 			$.get(G_BASE_URL + '/question/ajax/load_answers/question_id-' + QUESTION_ID, function (response) {
 				$('#qcmt-comment-list').html(response);
-				$('.qcmt-comments').show();
+				$('.qcmt-comments').removeClass('hide');
 				if(typeof callback == 'function') {
 					callback();
 				}
 			});
-		}	
+		}
 	}
 
 	if($('#qcmt-comment-list').attr('data-show-comments') == 1) {
@@ -808,8 +813,7 @@ $(document).ready(function(){
 
 		loadComments(function() {
 			$('.qcmt-load-hint').hide();
-			$.scrollTo($('#question-comments').offset().top - 70, 300, {queue:true});
-			$('.qcmt-reply-box textarea').focus();
+			questionComment();
 		});
 	});
 
@@ -852,7 +856,7 @@ $(document).ready(function(){
 		NKR.load_list_view(G_BASE_URL + '/question/ajax/load_answers/question_id-' + QUESTION_ID, $('#qcmt-load-more'), $('#qcmt-comment-list'), 2, function(element, complete) {
 				if(complete) {
 					element.addClass('no-more');
-		            element.html('没有更多讨论');
+		            element.html('已加载全部讨论');
 				}
 			}
 		);
@@ -874,14 +878,14 @@ $(document).ready(function(){
 		});
 	}
 
-	$('body').on('click', '[data-act]', function (e) {
+	$('body').on('click', '[data-qtb-act]', function (e) {
         e.preventDefault();
 
         var _this = $(this);
-        var action = _this.data('act');
+        var action = _this.data('qtb-act');
 
         switch (action) {
-        	case 'qtba-solution' :
+        	case 'solution' :
 				if (G_USER_ID <= 0) {
 				    window.location.href = G_BASE_URL + '/account/login/';
 				    return;
@@ -983,19 +987,16 @@ $(document).ready(function(){
 
 		        break;
 
-        	case 'qtba-comment' :
-        		$.scrollTo($('#question-comments').offset().top - 70, 300, {queue:true});
-        		if($('.qcmt-reply-box').is(':visible')) {
-        			$('.qcmt-reply-box textarea').focus();
-        		}
+        	case 'comment' :
+        		questionComment();
         		break;
 
-        	case 'qtba-invite' :
+        	case 'invite' :
         		$.scrollTo($('#question-invites').offset().top - 70, 300, {queue:true});
     			$('#qi-add-invite-tab').click();
         		break;
 
-        	case 'qtba-share' :
+        	case 'share' :
         		break;
         }
     });

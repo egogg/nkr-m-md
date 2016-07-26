@@ -335,19 +335,22 @@
 			a {
 				padding: 5px 0;
 				display: block;
+				color: @m-gray;
+
+				&:active {
+					color: @m-lightblue;
+				}
 			}
 
 			.icon {
 				display: block;
 				font-size: 20px;
-				color: @m-gray;
 			}
-
+			
 			.qtb-icon-text {
 				display: block;
 				padding-top: 3px;
 				font-size: 12px;
-				color: @m-gray;
 			}
 		}
 	}	
@@ -590,8 +593,6 @@
 }
 
 .qcmt-comments {
-	display: none;
-
 	.qcmt-reply-box {
 		margin: 0 15px;
 		textarea {

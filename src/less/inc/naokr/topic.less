@@ -2,3 +2,68 @@
      Styles for topic page
 ---------------------------------------------------*/
 
+.tp-header {
+	padding: 0 !important;
+	position: relative;
+}
+
+.tp-img {
+	width: 100%;
+}
+
+.tp-marker {
+	position: absolute;
+    left: 0;
+    background: @m-lightblue;
+    color: #fff;
+    padding: 5px 8px;
+}
+
+.tp-title {
+	position: relative;
+	margin-top: 5px;
+
+	h2 {
+		font-size: 16px;
+		margin: 0;
+		padding: 10px 0;
+		line-height: 1.5;
+		padding-right: 60px;
+	}
+
+	.actions {
+		position: absolute;
+		top: 5px;
+		right: 0;
+	}
+}
+
+.tp-stats {
+	position: relative;
+
+	& > li {
+		display: inline-block;
+		margin-right: 10px;
+		font-size: 12px;
+		color: @m-gray;
+
+
+		&:last-child {
+			margin-right: 0;
+		}
+	}	
+}
+
+.tp-content {
+	margin-bottom: 15px;
+}
+
+.tp-footer {
+	position: relative;
+
+	.tp-follow {
+		position: absolute;
+		right: 0;
+		top: -3px;
+	}	
+}

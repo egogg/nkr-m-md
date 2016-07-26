@@ -76,7 +76,7 @@
 
         .dropdown-menu {
             top: -5px;
-
+            
             .badge {
                 float: right;
                 position: relative;
@@ -120,12 +120,13 @@
                 position: absolute;
                 font-style: normal;
                 background: @m-red;
-                padding: 1px 5px;
+                padding: 1px 3px;
                 border-radius: 2px;
-                right: 7px;
-                top: -6px;
+                right: 6px;
+                top: -3px;
                 font-size: 10px;
                 line-height: 15px;
+                min-width: 18px;
             }
         }
 
@@ -241,3 +242,21 @@
     display: block;
     margin: 0 auto;
 }
+
+#header {
+    &.headroom {
+        will-change: transform;
+        transition: -webkit-transform 200ms linear;
+        transition: transform 200ms linear;
+        transition: transform 200ms linear, -webkit-transform 200ms linear;
+    }
+    &.headroom--pinned {
+        -webkit-transform: translateY(0%);
+                transform: translateY(0%);
+    }
+    &.headroom--unpinned {
+        -webkit-transform: translateY(-100%);
+                transform: translateY(-100%);
+        box-shadow: none;
+    }
+} 
