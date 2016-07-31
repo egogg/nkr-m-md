@@ -417,23 +417,20 @@ var NKR =
 					case 'reply':
 						NKR.loading('hide');
 
-						if (result.rsm.ajax_html)
-						{
-							$('.article-comment-items').append(result.rsm.ajax_html);
+						if (result.rsm.ajax_html) {
+							$('#arc-comment-list').prepend(result.rsm.ajax_html);
+							$('.btn-reply').removeClass('disabled');
+							$.get(G_BASE_URL + '/article/ajax/new_post_hash/', function (result) {
+								if(result.errno != -1) {
+									$('.arc-form input[name="post_hash"]').val(result.rsm.post_hash);
+								}
+							}, 'json');
 
-							$('.article-reply-button').removeClass('disabled');
-
-							$.scrollTo($('#' + $(result.rsm.ajax_html).attr('id')), 600, {queue:true});
-
-							// 文章
-							$('#comment_editor').val('');
-						}
-						else if(result.rsm.url)
-						{
+							$.scrollTo($('#' + $(result.rsm.ajax_html).attr('id')).offset().top - 120, 600, {queue:true});
+							$('.arc-reply-box textarea').val('');
+						} else if(result.rsm.url) {
 							window.location = decodeURIComponent(result.rsm.url);
-						}
-						else
-						{
+						} else {
 							window.location.reload();
 						}
 					break;
@@ -2078,30 +2075,19 @@ NKR.User =
 
 			NKR.loading('hide');
 
-			if (result.errno != 1)
-			{
+			if (result.errno != 1) {
 				NKR.alert(result.err);
 			}
-			else
-			{
-				if (rating == 0)
-				{
-					selector.removeClass('active').find('b').html(parseInt(selector.find('b').html()) - 1);
+			else {
+				if (rating == 0) {
+					selector.removeClass('active').find('.ar-agree-count').html(parseInt(selector.find('.ar-agree-count').html()) - 1);
 				}
-				else if (rating == -1)
-				{
-					if (selector.parents('.aw-article-vote').find('.agree').hasClass('active'))
-					{
-						selector.parents('.aw-article-vote').find('b').html(parseInt(selector.parents('.aw-article-vote').find('b').html()) - 1);
-						selector.parents('.aw-article-vote').find('a').removeClass('active');
+				else if (rating == -1) {
+					if (selector.hasClass('active')) {
+						selector.removeClass('active').find('.ar-agree-count').html(parseInt(selector.find('.ar-agree-count').html()) - 1);
 					}
-
-					selector.addClass('active');
-				}
-				else
-				{
-					selector.parents('.aw-article-vote').find('a').removeClass('active');
-					selector.addClass('active').find('b').html(parseInt(selector.find('b').html()) + 1);
+				} else {
+					selector.addClass('active').find('.ar-agree-count').html(parseInt(selector.find('.ar-agree-count').html()) + 1);
 				}
 			}
 		}, 'json');
@@ -2875,166 +2861,6 @@ NKR.Init =
 			}
 
 			NKR.at_user_lists($(this).parents('.aw-item').find('.aw-comment-txt'));
-		});
-	},
-
-	// 初始化文章评论框
-	init_article_comment_box: function(selector)
-	{
-		$(document).on('click', selector, function ()
-		{
-			var _editor_box = $(this).closest('.comment-item').find('.article-reply-comment-box');
-			if (_editor_box.length)
-			{
-				if (_editor_box.css('display') == 'block')
-				{
-				   _editor_box.fadeOut();
-				}
-				else
-				{
-					_editor_box.fadeIn();
-				}
-			}
-			else
-			{
-				$(this).closest('.comment-item').find('.media-body').append(Hogan.compile(AW_TEMPLATE.articleCommentBox).render(
-				{
-					'at_uid' : $(this).attr('data-id'),
-					'article_id' : ARTICLE_ID
-				}));
-			}
-		});
-	},
-
-	// 初始化话题编辑box
-	init_topic_edit_box: function(selector) //selector -> .aw-edit-topic
-	{
-		$(selector).click(function ()
-		{
-			var _topic_editor = $(this).parents('.aw-topic-bar'),
-				data_id = _topic_editor.attr('data-id'),
-				data_type = _topic_editor.attr('data-type');
-
-			if (!_topic_editor.hasClass('active'))
-			{
-				_topic_editor.addClass('active');
-
-				if (!_topic_editor.find('.topic-tag .close').length)
-				{
-					_topic_editor.find('.topic-tag').append('<a class="close"><i class="icon icon-delete"></i></a>');
-				}
-			}
-			else
-			{
-				_topic_editor.addClass('active');
-			}
-
-			// 判断插入编辑box
-			if (_topic_editor.find('.aw-edit-topic-box').length == 0)
-			{
-				_topic_editor.append(AW_TEMPLATE.editTopicBox);
-
-				// 给编辑box添加按钮添加事件
-				_topic_editor.find('.add').click(function ()
-				{
-					if (_topic_editor.find('#aw_edit_topic_title').val() != '')
-					{
-						switch (data_type)
-						{
-							case 'publish':
-								_topic_editor.find('.tag-bar').prepend('<span class="topic-tag"><a class="text">' + _topic_editor.find('#aw_edit_topic_title').val() + '</a><a class="close" onclick="$(this).parents(\'.topic-tag\').remove();"><i class="icon icon-delete"></i></a><input type="hidden" value="' + _topic_editor.find('#aw_edit_topic_title').val() + '" name="topics[]" /></span>').hide().fadeIn();
-
-								_topic_editor.find('#aw_edit_topic_title').val('');
-							break;
-
-							case 'question':
-								$.post(G_BASE_URL + '/topic/ajax/save_topic_relation/', 'type=question&item_id=' + data_id + '&topic_title=' + encodeURIComponent(_topic_editor.find('#aw_edit_topic_title').val()), function (result)
-								{
-									if (result.errno != 1)
-									{
-										NKR.alert(result.err);
-
-										return false;
-									}
-
-									_topic_editor.find('.tag-bar').prepend('<span class="topic-tag" data-id="' + result.rsm.topic_id + '"><a href="' + G_BASE_URL + '/topic/' + result.rsm.topic_id + '" class="text">' + _topic_editor.find('#aw_edit_topic_title').val() + '</a><a class="close"><i class="icon icon-delete"></i></a></span>').hide().fadeIn();
-
-									_topic_editor.find('#aw_edit_topic_title').val('');
-								}, 'json');
-							break;
-
-							case 'article':
-								$.post(G_BASE_URL + '/topic/ajax/save_topic_relation/', 'type=article&item_id=' + data_id + '&topic_title=' + encodeURIComponent(_topic_editor.find('#aw_edit_topic_title').val()), function (result)
-								{
-									if (result.errno != 1)
-									{
-										NKR.alert(result.err);
-
-										return false;
-									}
-
-									_topic_editor.find('.tag-bar').prepend('<span class="topic-tag" data-id="' + result.rsm.topic_id + '"><a href="' + G_BASE_URL + '/topic/' + result.rsm.topic_id + '" class="text">' + _topic_editor.find('#aw_edit_topic_title').val() + '</a><a class="close"><i class="icon icon-delete"></i></a></span>').hide().fadeIn();
-
-									_topic_editor.find('#aw_edit_topic_title').val('');
-								}, 'json');
-							break;
-
-
-							case 'topic':
-								$.post(G_BASE_URL + '/topic/ajax/save_related_topic/topic_id-' + data_id, 'topic_title=' + encodeURIComponent(_topic_editor.find('#aw_edit_topic_title').val()), function (result)
-								{
-									if (result.errno != 1)
-									{
-										NKR.alert(result.err);
-
-										return false;
-									}
-
-									_topic_editor.find('.tag-bar').prepend('<span class="topic-tag"><a href="' + G_BASE_URL + '/favorite/tag-' + encodeURIComponent(_topic_editor.find('#aw_edit_topic_title').val()) + '" class="text">' + _topic_editor.find('#aw_edit_topic_title').val() + '</a><a class="close"><i class="icon icon-delete"></i></a></span>').hide().fadeIn();
-
-									_topic_editor.find('#aw_edit_topic_title').val('');
-								}, 'json');
-							break;
-
-							case 'favorite':
-								$.post(G_BASE_URL + '/favorite/ajax/update_favorite_tag/', 'item_id=' + data_id + '&item_type=' + _topic_editor.attr('data-item-type') + '&tags=' + encodeURIComponent(_topic_editor.find('#aw_edit_topic_title').val()), function (result)
-								{
-									if (result.errno != 1)
-									{
-										NKR.alert(result.err);
-
-										return false;
-									}
-
-									_topic_editor.find('.tag-bar').prepend('<span class="topic-tag"><a href="' + G_BASE_URL + '/favorite/tag-' + encodeURIComponent(_topic_editor.find('#aw_edit_topic_title').val()) + '" class="text">' + _topic_editor.find('#aw_edit_topic_title').val() + '</a><a class="close"><i class="icon icon-delete"></i></a></span>').hide().fadeIn();
-
-									_topic_editor.find('#aw_edit_topic_title').val('');
-								}, 'json');
-							break;
-						}
-					}
-				});
-
-				// 给编辑box取消按钮添加事件
-				_topic_editor.find('.close-edit').click(function ()
-				{
-					_topic_editor.removeClass('active');
-					_topic_editor.find('.aw-edit-topic-box').hide();
-					_topic_editor.find('.aw-edit-topic').show();
-				});
-
-				NKR.Dropdown.bind_dropdown_list($(this).parents('.aw-topic-bar').find('#aw_edit_topic_title'),'topic');
-			}
-
-			$(this).parents('.aw-topic-bar').find('.aw-edit-topic-box').fadeIn();
-
-			// 是否允许创建新话题
-			if (!G_CAN_CREATE_TOPIC)
-			{
-				$(this).parents('.aw-topic-bar').find('.add').hide();
-			}
-
-			$(this).hide();
 		});
 	}
 }
