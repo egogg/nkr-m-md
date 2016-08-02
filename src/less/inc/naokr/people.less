@@ -1,17 +1,21 @@
 .user-info-details {
 	text-align: center;
 	
-	.usri-img {
-		height: 64px;
-		width: 64px;
-		border-radius: 50%;
-	}
+	.usri-header {
+		padding-top: 15px;
 
-	h1 {
-		font-size: 20px;
-	    margin: 15px 0;
-	    padding: 0;
-	    color: #555;
+		.usri-img {
+			height: 64px;
+			width: 64px;
+			border-radius: 50%;
+		}
+
+		h1 {
+			font-size: 20px;
+		    margin: 15px 0 0 0;
+		    padding: 0;
+		    color: #555;
+		}
 	}
 
 	.usri-signature {
@@ -19,8 +23,6 @@
 	}
 
 	.usri-stats {
-		margin-bottom: 10px;
-
 		& > li {
 			display: inline-block;
 			margin-right: 10px;
@@ -30,11 +32,38 @@
 			}
 		}	
 	}
+}
 
-	.usri-follow {
-		padding: 5px 10px;
-		margin-top: 10px;
-		display: inline-block;
+.usri-footer {
+	padding: 25px 0 15px 0;
+
+	.usri-actions {
+		& > li {
+			display: inline-block;
+			font-size: 0;
+			margin-right: 10px;
+
+			a {
+				padding: 5px 10px;
+				color: @m-green;
+				border: 1px solid @m-green;
+				border-radius: 2px;
+				font-size: 12px;
+
+				&.usri-follow {
+					color: #fff;
+				}
+
+				.icon {
+					font-size: 13px;
+    				vertical-align: middle;
+				}
+			}
+
+			&:last-child {
+				margin-right: 0;
+			}
+		}
 	}
 }
 
@@ -52,5 +81,56 @@
 
 	.icon-right {
 		float: right;
+	}
+}
+
+
+.usri-signature-content {
+	padding-top: 10px;
+}
+
+.usri-signature-edit {
+	.usri-signature-toggle {
+		color: #555;
+		font-size: 12px;
+	}
+
+	textarea {
+		padding: 25px;
+        resize: none;
+        width: 100%;
+        border: 0;
+        outline: none;
+	}
+
+	.tab-actions {
+        width: 100%;
+        padding: 5px 10px;
+        border-top: 1px solid #EEE;
+        z-index: 1;
+
+        & > a {
+            font-size: 25px;
+            padding: 0 6px;
+            border-radius: 50%;
+            text-align: center;
+            height: 40px;
+            width: 40px;
+            display: inline-block;
+
+            &:hover {
+                background-color: #eee;
+            }
+        }
+
+        .icon {
+        	vertical-align: middle;
+        }
+	}
+
+	.dropdown-menu {
+		border-radius: 0;
+		width: 100%;
+		padding: 0;
 	}
 }
