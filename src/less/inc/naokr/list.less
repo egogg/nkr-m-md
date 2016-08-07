@@ -133,10 +133,50 @@
 	}
 }
 
-.ql-norecord {
+.list-norecord {
 	font-size: 12px;
 	color: @m-gray;
 	text-align: center;
+}
+
+/*--------------------------------------------------
+     Styles for answer list
+---------------------------------------------------*/
+
+.answer-list {
+	.anl-item {
+		.anl-question-title {
+			margin: 0;
+			padding: 10px 0;
+			color: @m-lightblue;
+			font-size: 13px;
+		}
+
+		.anl-answer-content {
+			font-size: 12px;
+			padding-left: 10px;
+			border-left: 3px solid @m-gray;
+		}
+
+		.anl-footer {
+			margin-top: 10px;
+
+			.anl-stats {
+				display: inline-block;
+
+				li {
+					display: inline-block;
+					font-size: 12px;
+					color: @m-gray;
+
+					.icon {
+						font-size: 13px;
+						vertical-align: bottom;
+					}
+				}
+			}
+		}
+	}
 }
 
 /*--------------------------------------------------
@@ -145,8 +185,6 @@
 
 .topic-list {
 	.tl-item {
-		margin-bottom: 10px;
-
 		&.card {
 			.card-header {
 				h2 {
