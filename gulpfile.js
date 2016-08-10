@@ -13,6 +13,7 @@ var replace = require('gulp-replace');
 var flatten = require('gulp-flatten');
 var merge = require('merge-stream');
 var htmlmin = require('gulp-htmlmin');
+var order = require('gulp-order');
 
 var diststatic = '/Users/dengxiaodi/Sites/m.wecenter/static/m';
 var disthtml = '/Users/dengxiaodi/Sites/m.wecenter/views/default';
@@ -53,6 +54,10 @@ gulp.task('js', function() {
 	var jsStream = gulp.src('./src/js/*.js');
 
 	return merge(jsLibStream, jsStream)
+		.pipe(order([
+            'src/js/libs/jquery/**/*.js',
+            'src/js/libs/bootstrap/**/*.js'
+	        ], { base: './' }))
 		.pipe(concat('app.js'))
 		.pipe(rename('app.min.js'))
 		.pipe(uglify())
