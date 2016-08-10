@@ -1,0 +1,49 @@
+<?php if($this->comment_list) { ?>
+    <?php foreach ($this->comment_list AS $key => $val) { ?>
+        <li class="list-group-item comment-item" id="comment-id-<?php echo $val['id']; ?>">
+            <div class="ci-header media">
+                <div class="pull-left">
+                    <a class="user-tag user-img" data-id="<?php echo $val['user_info']['uid']; ?>" href="people/<?php echo $val['user_info']['url_token']; ?>">
+                        <img class="ci-user-img" src="<?php echo get_avatar_url($val['uid'], 'mid'); ?>" alt="<?php echo $val['user_info']['user_name']; ?>" />
+                    </a>
+                </div>
+                <div class="media-body">
+                    <div class="lgi-heading">
+                        <a class="user-tag user-name" href="people/<?php echo $val['user_info']['url_token']; ?>" data-id="<?php echo $val['uid']; ?>">
+                            <?php echo $val['user_info']['user_name']; ?>
+                        </a>
+                        <?php if ($val['at_user_info']) { ?> 
+                            <a class="user-tag user-name" data-id="<?php echo $val['at_user_info']['uid']; ?>" href="people/<?php echo $val['at_user_info']['url_token']; ?>">@ <?php echo $val['at_user_info']['user_name']; ?></a>
+                        <?php } ?>
+                    </div>
+                    <small class="lgi-text">
+                        <?php echo date_friendly($val['add_time'], 604800, 'Y-m-d'); ?>
+                    </small>
+                </div>
+            </div>
+            <div class="ci-body">
+                <div class="ci-content">
+                    <?php echo nl2br($val['message']); ?>
+                </div>
+                <ul class="ci-actions">
+                    <li>
+                        <a class="agree-answer <?php if (!$this->user_id) { ?>disabled<?php } ?> c-gray <?php if ($val['vote_info']['rating'] == 1) { ?> active<?php } ?>" onclick="AWS.User.article_comment_vote($(this), <?php echo $val['id']; ?>, 1)" data-placement="right" title="<?php if($val['vote_info']['rating'] == 1) { ?>取消赞同<?php } else { ?>赞同<?php } ?>" data-toggle="tooltip"><i  class="icon icon-agree"></i> <span><?php if ($val['vote_info']['rating'] == 1) { ?>已赞同<?php } else { ?>赞同<?php } ?></span>(<b class="count"><?php echo $val['votes']; ?></b>)
+                        </a>
+                    </li>
+                </ul>
+                <ul class="ci-actions pull-right">
+                    <?php if ($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator']) { ?>
+                        <li>
+                            <a href="#" class="arc-action arc-remove" data-arc-act="remove" data-id="<?php echo $val['id']; ?>">删除</a>
+                        </li>
+                    <?php } ?>
+                    <?php if ($this->user_id) { ?>
+                        <li >
+                            <a href="#" class="arc-action arc-reply" data-id="<?php echo $val['user_info']['uid']; ?>" data-arc-act="reply">回复</a>
+                        </li>
+                    <?php } ?>
+                </ul>
+            </div>
+        </li>
+    <?php } ?>   
+<?php } ?>

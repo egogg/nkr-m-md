@@ -1,0 +1,250 @@
+<?php TPL::output('global/header.tpl.htm'); ?>
+
+<section id="main" class="question">
+	<section id="content">
+		<div class="container fullwidth">
+			<div class="card">
+				
+				<!-- 答题信息  -->
+				
+				<div class="card-header q-header">
+					<!-- 作者信息 -->
+					<div class="q-publisher">
+						<?php if ($this->question_info['user_info']) { ?>
+							<a href="people/<?php echo $this->question_info['user_info']['url_token']; ?>" target="_blank" rel="nofollow" class="user-tag user-img" data-id="<?php echo $this->question_info['user_info']['uid']; ?>">
+								<img src="<?php echo get_avatar_url($this->question_info['user_info']['uid'], 'min'); ?>" alt="" />
+							</a>
+							<a href="people/<?php echo $this->question_info['user_info']['url_token']; ?>" target="_blank" rel="nofollow" class="user-tag user-name" data-id="<?php echo $this->question_info['user_info']['uid']; ?>">
+								<?php echo $this->question_info['user_info']['user_name']; ?>
+							</a>
+						<?php } ?>
+					</div>
+
+					<!-- 题目标签 -->
+					<div class="q-tags">
+						<div class="qt-items">
+							<!-- 问题分类 -->
+							<?php TPL::assign('category_info', $this->question_info['category_info']); ?>
+		            			<li>
+		            				<?php TPL::output('question/ajax/question_category'); ?>
+		            			</li>
+							<!-- 问题难度 -->
+							<?php TPL::assign('question_difficulty', $this->question_info['difficulty']); ?>
+							<li>
+								<?php TPL::output('question/ajax/question_difficulty'); ?>
+							</li>
+							
+							<!-- 答题类型 -->
+							<?php TPL::assign('question_quiz_type', $this->question_info['question_quiz']['type']); ?>
+							<li>
+								<?php TPL::output('question/ajax/question_quiz_type'); ?>
+							</li>
+						</div>
+					</div>
+				</div>
+				
+				<div class="card-body card-padding" id="q-content" data-id="<?php echo $this->question_info['question_id'];?>">
+				</div>
+
+				<div class="q-footer">
+
+					<!-- 答题统计 -->
+					
+					<ul class="q-stats">
+						<li><a href="javascript:void(0);"><i class="icon icon-view"></i> <?php echo $this->question_info['view_count']; ?></a></li>
+						<?php if($this->question_info['quiz_id']) { ?>
+							<li><a href="question/record/<?php echo $this->question_info['question_id']; ?>"><i class="icon icon-count"></i> <?php echo $this->question_info['quiz_count_total']; ?></a></li>
+							<li><a href="question/record/<?php echo $this->question_info['question_id']; ?>"><i class="icon icon-flag"></i> <?php echo number_format($this->question_info['quiz_success_ratio'] * 100, 0); ?>%</a></li>
+						<?php } ?>
+					</ul>
+
+					<a class="q-follow follow <?php if ($this->question_focus) { ?>following<?php } ?>" href="javascript:void(0);" onclick="NKR.User.follow($(this), 'question', <?php echo $this->question_info['question_id']; ?>);">
+						<?php if ($this->question_focus) { ?>已关注<?php } else { ?>+ 关注<?php } ?>
+					</a>
+				</div>
+			</div>
+			
+			<!-- 答题邀请 -->
+			<div class="card" id="question-invites">
+				<div class="card-body">
+                    <ul class="tab-nav tn-justified tn-icon" role="tablist" tabindex="1">
+                        <li role="presentation" class="active">
+                            <a href="#qi-invited" aria-controls="tab-1" role="tab" data-toggle="tab" aria-expanded="true"><i class="icon icon-people"></i> 被邀答题</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#qi-add-invite" id="qi-add-invite-tab" aria-controls="tab-2" role="tab" data-toggle="tab" aria-expanded="false"><i class="icon icon-person-add"></i> 邀请答题</a>
+                        </li>
+                    </ul>
+                    
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane active" id="qi-invited">
+                        	 <div class="qi-invited-list list-group" id="qi-invited-list">  
+                        	 </div>
+                        	 <div class="load-more">
+						        <a href="#" auto-load="false" id="qi-load-more"><i class="icon icon-load-more"></i> 加载更多</a>
+						    </div>
+                        </div>
+                        
+                        <div role="tabpanel" class="tab-pane" id="qi-add-invite">
+                        	<div class="qia-header">
+								<?php if($this->user_id) { ?>
+									<div class="qim-invites clearfix" id="qim-invites">
+                        			</div>
+								<?php } ?>
+
+                        		<div class="qia-search">
+                        			<div class="input-group">
+                        				<span class="input-group-addon"><i class="icon icon-search"></i></span>
+		                                <div class="fg-line">
+		                                    <input type="text" class="form-control" id="qia-search-input" placeholder="站内搜索你想邀请的人">
+		                                </div>
+		                                <a href="#" class="qia-search-clear" id="qia-search-clear"><i class="icon icon-clear"></i></a>
+		                            </div>
+
+									<div class="qia-email">
+	                    				或 <a data-toggle="modal" href="#modalInviteFriend"><i class="icon icon-mail"></i> 邮件邀请</a>
+	                    			</div>
+                        		</div>
+                        	</div>
+
+                        	<ul id="qia-search-result" class="qia-invite-list list-group"></ul>
+                            <?php if ($this->recommend_users) { ?>
+								<ul class="qia-invite-list list-group" id="qia-recommend-list">
+									<?php foreach ($this->recommend_users AS $key => $val) { ?>
+										<li class="list-group-item media <?php if($key > 2) { ?>hide<?php } ?>">
+		                                    <div class="pull-left">
+		                                        <a class="user-tag user-img" data-id="<?php echo $val['user_info']['uid']; ?>" href="people/<?php echo $val['user_info']['url_token']; ?>">
+		                                        	<img class="qia-user-img" alt="" src="<?php echo get_avatar_url($val['user_info']['uid'], 'mid'); ?>" />
+		                                        </a>
+		                                    </div>
+		                                    <div class="media-body">
+												<div class="qia-invite">
+													<?php if ($val['has_invite']) { ?>
+														<?php if($val['sender_uid'] == $this->user_id) { ?>
+															<a class="btn btn-xs qia-toggle-invitation invited" data-id="<?php echo $val['user_info']['uid']; ?>">取消邀请</a>
+														<?php } else { ?>
+															<a class="btn btn-xs bgm-green" href="javascript:void(0);" disabled="disabled">已被邀请</a>
+														<?php } ?>
+													<?php } else { ?>
+														<a class="btn btn-xs qia-toggle-invitation" data-id="<?php echo $val['user_info']['uid']; ?>">发送邀请</a>
+													<?php } ?>
+												</div>
+
+		                                    	<div class="lgi-heading">
+	                                    			<a class="user-tag user-name" data-id="<?php echo $val['user_info']['uid']; ?>" href="people/<?php echo $val['user_info']['url_token']; ?>">
+		                                        		<?php echo $val['user_info']['user_name']; ?>
+		                                        	</a>
+		                                    	</div>
+
+		                                    	<small class="lgi-text">
+	                                        		<?php if($val['recommend'] == 'CATEGORY_QUIZ') { ?>
+	                                        			在 <a href="question/category-<?php echo $this->question_info['category_info']['id']; ?>"><?php echo $this->question_info['category_info']['title']; ?></a> 分类中答题 <?php echo $val['count']; ?> 次
+	                                        		<?php } else if($val['recommend'] == 'CATEGORY_COMMENT') { ?>
+	                                        			在 <a href="question/category-<?php echo $this->question_info['category_info']['id']; ?>"><?php echo $this->question_info['category_info']['title']; ?></a> 分类中讨论 <?php echo $val['count']; ?> 次
+	                                        		<?php } else { ?>
+	                                        			参与答题 <?php echo $val['count']; ?> 次
+	                                        		<?php } ?>
+	                                        	</small>
+		                                    </div>
+										</li>
+									<?php } ?>
+									
+									<a class="qia-more qia-more-recommend" href="#">更多推荐</a>
+								</ul>
+							<?php } ?>
+                        </div>
+                    </div>
+                </div>
+			</div>
+			
+			<!-- 答题讨论 -->
+			<div class="card question-comments" id="question-comments">
+				<div class="card-header comment-header">
+					<h3>
+						<i class="icon icon-comment"></i> <?php echo $this->answer_count; ?> 条答题讨论
+					</h3>
+				</div>
+				<!-- 回复内容 -->
+				<div class="card-body qcmt-content">
+					<div class="qcmt-comments <?php if(!$this->show_comments and $this->answer_count > 0) { ?>hide<?php } ?>">
+						<form action="question/ajax/save_answer/" onsubmit="return false;" method="post" id="answer_form">
+							<input type="hidden" name="post_hash" value="<?php echo new_post_hash(); ?>" />
+				        	<input type="hidden" name="question_id" value="<?php echo $this->question_info['question_id']; ?>" />
+				        	<input type="hidden" name="attach_access_key" value="<?php echo $this->attach_access_key; ?>" />
+
+							<div class="qcmt-reply-box wp-post">
+								<textarea class="wp-text auto-size" name="answer_content" placeholder="<?php if($this->question_info['lock'] || (!$this->user_id)) { ?>请登录后参与问题讨论<?php } else { ?>发表你对问题的看法<?php } ?>" <?php if($this->question_info['lock'] || (!$this->user_id)) { ?>disabled="disabled"<?php } ?>></textarea>
+		                        <div class="wp-actions clearfix">
+		                        	<div class="wp-hint">
+		                        		<?php if ($this->question_info['lock']) { ?>
+											该题目被锁定
+										<?php } else if (!$this->user_id) { ?>
+												<a href="account/login/">登录</a> 后参与答题讨论
+										<?php } ?>
+		                        	</div>
+		                            <button class="btn btn-primary btn-sm pull-right" onclick="NKR.ajax_post($('#answer_form'), NKR.ajax_processer, 'reply_question');" <?php if($this->question_info['lock'] || (!$this->user_id)) { ?>disabled="disabled"<?php } ?>>提交讨论</button>
+		                        </div>
+							</div>
+						</form>
+						<ul class="list-group" id="qcmt-comment-list" data-show-comments="<?php if($this->show_comments) { ?>1<?php } else { ?>0<?php }?>"></ul>
+						<?php if($this->answer_count > 3) { ?>
+							<div class="load-more">
+								<a href="#" auto-load="false" id="qcmt-load-more" data-page="1"><i class="icon icon-load-more"></i> 更多讨论</a>
+							</div>
+						<?php } ?>
+					</div>
+				
+					<div class="qcmt-load-hint <?php if($this->show_comments or $this->answer_count <= 0) { ?>hide<?php } ?>">
+						<p>答题讨论中可能包含答题线索，是否再独立思考一下？</p>
+						<a class="qcmt-load-comments btn btn-warning" href="javascript:void(0);">参与讨论</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="question-toolbar">
+		<ul class="qtb-list">
+			<li><a href="#" data-qtb-act="solution"><i class="icon icon-solution"></i> <span class="qtb-icon-text">答案</span></a></li>
+			<li><a href="#" data-qtb-act="comment"><i class="icon icon-comment"></i> <span class="qtb-icon-text">讨论</span></a></li>
+			<li><a href="#" data-qtb-act="invite"><i class="icon icon-person-add"></i> <span class="qtb-icon-text">邀请</span></a></li>
+			<li><a href="#" data-qtb-act="share"><i class="icon icon-share"></i> <span class="qtb-icon-text">分享</span></a></li>
+		</ul>
+	</section>
+
+	<!-- solution dialog -->
+
+    <div class="modal modal-fullpage fade right" id="dlg-solution" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title"><i class="icon icon-solution"></i> 参考答案</h4>
+                    <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal" aria-label="Close">取消</button>
+                </div>
+                <div class="modal-body" id="solution-content">
+                    abc
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script type="text/javascript">
+	var ATTACH_ACCESS_KEY = '<?php echo $this->attach_access_key; ?>';
+	var ITEM_IDS = '<?php echo addslashes($_GET['item_id']); ?>';
+	var COMMENT_UNFOLD = '<?php echo addslashes($_GET['comment_unfold']); ?>';
+	var QUESTION_ID = <?php echo $this->question_info['question_id'];?>;
+	var UNINTERESTED_COUNT = <?php echo get_setting('uninterested_fold'); ?>;
+	var ANSWER_EDIT_TIME = <?php echo get_setting('answer_edit_time'); ?>;
+	var USER_ANSWERED = '<?php echo $this->user_answered; ?>';
+	var UPLOAD_ENABLE = '<?php echo get_setting('upload_enable') ?>';
+	var ANSWER_TYPE = 'answer';
+	var ANSWER_COUNT = '<?php echo $this->answer_count; ?>';
+	
+	var QUESTION_QUIZ_STATS_TOTAL = '<?php echo $this->question_quiz_stats['total']; ?>';
+	var QUESTION_QUIZ_STATS_PASSED = '<?php echo $this->question_quiz_stats['passed']; ?>';
+
+	var PUBLISH_SUCCESS_HINT = '<?php echo $this->is_first_visited; ?>';
+	var PUBLISH_SUCCESS_INTEGRAL = '<?php echo $this->publish_integral; ?>' ;
+	var USER_INTEGRAL = '<?php echo $this->user_integral; ?>';
+</script>

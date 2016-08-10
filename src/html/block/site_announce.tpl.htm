@@ -1,0 +1,8 @@
+<?php if (get_setting('site_announce')) { ?>
+	<?php if ($_COOKIE['announce_close'] != substr(md5(get_setting('site_announce')), 0, 10)) { ?>
+		<section id="site-announce" class="alert alert-warning alert-dismissible" role="alert">
+            <button type="button" class="close" onclick="$('#site-announce').fadeOut(); $.cookie('announce_close', ANNOUNCE_CLOSE, { expires: 30 });" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+            <i class="icon icon-announce"></i> <?php echo get_setting('site_announce'); ?>
+        </section>
+	<?php } ?>
+<?php } ?>

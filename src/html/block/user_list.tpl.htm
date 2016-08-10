@@ -1,0 +1,44 @@
+<?php if ($this->user_list) { ?>
+	<?php foreach($this->user_list as $key => $val) { ?>
+		<div class="list-group-item ul-item media">
+            <div class="pull-left">
+                <a href="people/<?php echo $val['url_token']; ?>" class="user-tag user-img" data-id="<?php echo $val['uid']; ?>">
+                    <img class="ul-img" src="<?php echo get_avatar_url($val['uid'], 'mid'); ?>" alt="">
+                </a>
+                
+                <?php if($val['rank']) { ?>
+                    <div class="ul-rank-mark">
+                        <?php echo $val['rank']; ?>
+                    </div>
+                <?php } ?>
+            </div>
+            <div class="media-body">
+                <?php if($val['uid'] != $this->user_id) { ?>
+                	<a href="javascript:void(0);" onclick="NKR.User.follow($(this), 'user', <?php echo $val['uid']; ?>);" class="ul-follow follow <?php if ($val['following']) { ?>following<?php } ?>">
+        				<?php if (!$val['following']) { ?>
+        					+ 关注
+        				<?php } else { ?>
+        					已关注
+        				<?php } ?>
+            		</a>
+                <?php } ?>
+
+                <div class="lgi-heading">
+                	<a href="people/<?php echo $val['url_token']; ?>" class="user-tag user-name" data-id="<?php echo $val['uid']; ?>"><span class="title"><?php echo $val['user_name']; ?></span></a>
+					<a class="uli-mail" onclick="NKR.dialog('inbox', '<?php echo $val['user_name']; ?>');"><i class="icon icon-mail"></i></a>
+					<small class="lgi-text"><?php echo $val['signature']; ?></small>
+                </div>
+                
+                <ul class="ul-stats">
+                	<li class="<?php if($this->sort_type == 'success_ratio') { ?>active<?php } ?> <?php if($val['question_quiz_success_ratio'] >= 0.5) { ?>c-green<?php }else{ ?>c-red<?php } ?>">正确率: <?php echo number_format($val['question_quiz_success_ratio'] * 100, 1); ?>%</li>
+                	<li class="<?php if($this->sort_type == 'poft') { ?>active<?php } ?> <?php if($val['question_quiz_poft_ratio'] >= 0.5) { ?>c-green<?php }else{ ?>c-red<?php } ?>">一次通过率: <?php echo number_format($val['question_quiz_poft_ratio'] * 100, 1); ?>%</li>
+                </ul>
+                <ul class="ul-stats">
+                    <li class="<?php if($this->sort_type == 'quiz_count') { ?>active<?php } ?>">答题: <?php echo $val['question_quiz_count_total']; ?></li>
+                    <li class="<?php if($this->sort_type == 'question_count') { ?>active<?php } ?>">出题: <?php echo $val['question_count']; ?></li>
+                    <li class="<?php if($this->sort_type == 'integral') { ?>active<?php } ?>">积分: <?php echo $val['integral']; ?></li>
+                </ul>
+            </div>
+        </div>
+	<?php } ?>
+<?php } ?>

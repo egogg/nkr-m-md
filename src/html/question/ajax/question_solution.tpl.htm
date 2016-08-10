@@ -1,0 +1,23 @@
+
+<div class="question-solution">
+	<?php if ($this->quiz_answer) { ?>
+		<div class="sol-block">
+			<h3 class="sol-title">【正确答案】</h3>
+			<div class="sol-content">
+				<ul class="sol-options">
+					<?php echo $this->quiz_answer; ?>
+				</ul>
+			</div>
+		</div>
+	<?php } ?>
+	<div class="sol-block">
+		<h3 class="sol-title">【详细分析】</h3>
+		<div class="sol-content">
+			<?php if($this->question_solution) { ?>
+				<?php echo $this->question_solution; ?>
+			<?php } else { ?>
+				<p class="sol-nocontent">:-( 暂时没有该问题的详细分析</p>
+			<?php } ?>
+		</div>
+	</div>
+</div>

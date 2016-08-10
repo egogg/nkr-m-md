@@ -55,4 +55,8 @@ $(document).ready(function(){
 	}
 
 	NKR.load_list_view(G_BASE_URL + '/notifications/ajax/list/', $('#notifications-load-more'), $('#notification-list'), 1, onListLoadComplete);
+
+	if(typeof DIALOG_ID != 'undefined') {
+		NKR.load_list_view(G_BASE_URL + '/inbox/ajax/load_more_inbox_read/id-' + DIALOG_ID, $('#ibr-load-more'), $('#ibr-list'), 2, onListLoadComplete);
+	}
 });

@@ -1,0 +1,11 @@
+<?php if($this->question_quiz_type == 1) { ?>
+	<a href="question/quiztype-1" data-type="quiztype" data-id="1" class="qt-quiztype bgm-lightgreen">单选</a> 
+<?php } elseif($this->question_quiz_type == 2) { ?>
+	<a href="question/quiztype-2" data-type="quiztype" data-id="2" class="qt-quiztype bgm-cyan">多选</a> 
+<?php } elseif($this->question_quiz_type == 3) { ?>
+	<a href="question/quiztype-3" data-type="quiztype" data-id="3" class="qt-quiztype bgm-amber">字谜</a> 
+<?php } elseif($this->question_quiz_type == 4) { ?>
+	<a href="question/quiztype-4" data-type="quiztype" data-id="4" class="qt-quiztype bgm-deeppurple">填空</a> 
+<?php } else { ?>
+	<a href="question/quiztype-5" data-type="quiztype" data-id="-1" class="qt-quiztype bgm-brown">讨论</a>
+<?php } ?>

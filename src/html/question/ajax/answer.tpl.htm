@@ -1,0 +1,64 @@
+<li class="list-group-item comment-item" data-uninterested-count="<?php echo $this->answer_info['uninterested_count']; ?>" data-force-fold="<?php if ($this->answer_info['user_rated_uninterested']) { ?>1<?php } else { ?><?php echo $this->answer_info['force_fold']; ?><?php } ?>" id="comment-id-<?php echo $this->answer_info['answer_id']; ?>">
+    <div class="ci-header media">
+        <div class="pull-left">
+            <a class="user-tag user-img" data-id="<?php echo $this->answer_info['uid']; ?>" href="people/<?php echo $this->answer_info['user_info']['url_token']; ?>" class="pull-left">
+                <img class="ci-user-img" src="<?php echo get_avatar_url($this->answer_info['uid'], 'mid'); ?>" alt="" /> 
+            </a>
+        </div>
+        <div class="media-body">
+            <div class="lgi-heading">
+               <a class="user-tag user-name" data-id="<?php echo $this->answer_info['uid']; ?>" href="people/<?php echo $this->answer_info['user_info']['url_token']; ?>"><?php echo $this->answer_info['user_info']['user_name']; ?></a>
+            </div>
+            <small class="lgi-text">
+                <?php echo date_friendly($this->answer_info['add_time'], 604800, 'Y-m-d'); ?>
+            </small>
+        </div>
+    </div>
+        
+    <div class="ci-body">
+        <div class="ci-content">
+            <?php echo $this->answer_info['answer_content']; ?>
+        </div>
+        
+        <ul class="ci-actions">
+            <li>
+                <a class="agree-answer <?php if ($this->user_info['user_name'] == $this->answer_info['user_info']['user_name']) { ?> disabled<?php } ?> <?php if ($this->answer_info['agree_status'] == 1) { ?>active<?php } ?> <?php if (!$this->user_id) { ?>disabled<?php } ?> c-gray" 
+                    <?php if ($this->user_id && $this->user_info['user_name'] != $this->answer_info['user_info']['user_name']) { ?>onclick="NKR.User.agree_vote(this, '<?php echo $this->user_info['user_name']; ?>', <?php echo $this->answer_info['answer_id']; ?>);"<?php } ?> 
+                    <?php if(!$this->user_id) { ?>href="account/login/"<?php } ?> data-agreed="<?php echo $this->answer_info['agree_status']? 1 : 0; ?>" data-placement="bottom" title="<?php if($this->answer_info['agree_status']){ ?>取消赞同<?php } else { ?>赞同<?php } ?>" data-toggle="tooltip">
+                    <i class="icon icon-agree"></i>
+                    <span><?php if ($this->answer_info['agree_status'] == 1) { ?>已赞同<?php } else { ?> 赞同<?php } ?></span>(<b class="count"><?php echo $this->answer_info['agree_count']; ?></b>)
+                </a>
+            </li>
+            <li>
+                <a href="javascript:void(0);" onclick="NKR.dialog('favorite', {item_id:<?php echo $this->answer_info['answer_id']; ?>, item_type:'answer'});" class="c-gray"><i class="icon icon-bookmark"></i> 收藏</a>
+            </li>
+        </ul>
+        <ul class="ci-actions pull-right">
+            <?php if (($this->answer_info['uid'] == $this->user_id AND !$this->question['lock']) OR $this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator']) { ?>
+                <li><a href="javascript:void(0);" class="qcmt-remove" onclick="NKR.User.remove_answer($(this), <?php echo $this->answer_info['answer_id']; ?>);">删除</a></li>
+            <?php } ?>
+            <?php if ($this->user_id) { ?>
+                <li>
+                    <a class="qcmt-reply" data-index="-1" data-user-name="<?php echo $this->answer_info['user_info']['user_name']; ?>" data-answer-id="<?php echo $this->answer_info['answer_id']; ?>" href="javascript:void(0);">回复</a>
+                </li>
+            <?php } ?>
+        </ul>
+        
+        <ul class="list-group ci-subitems" id="comment-item-<?php echo $this->answer_info['answer_id']; ?>">
+            <?php TPL::assign('answer_comments', $this->comments[$this->answer_info['answer_id']]); ?>
+            <?php TPL::assign('answer_id', $this->answer_info['answer_id']); ?>
+            <?php TPL::output('question/ajax/comments'); ?>
+        </ul>
+        
+        <div class="ci-reply-box wp-post" id="ci-reply-box-<?php echo $this->answer_info['answer_id']; ?>">
+            <form action="<?php echo 'question/ajax/save_answer_comment/answer_id-' . $this->answer_info['answer_id']; ?>" method="post" onsubmit="return false">
+                <textarea class="wp-text auto-size" data-answer-id="<?php echo $this->answer_info['answer_id']; ?>" name="message" placeholder="你对这种思路的看法"></textarea>
+                <div class="wp-actions clearfix">
+                    <button class="btn btn-primary btn-sm pull-right ci-submit" onclick="NKR.User.save_comment($(this));">发表回复</button>
+                </div>
+                <!-- <textarea class="form-control sub-comment-input" data-answer-id="<?php echo $this->answer_info['answer_id']; ?>" row="5" placeholder="你对这种思路的看法" name="message"></textarea>
+                <button class="m-t-15 submit-comment-box btn btn-success btn-sm waves-effect" onclick="NKR.User.save_comment($(this));">发表回复</button> -->
+            </form>
+        </div>
+    </div>
+</li>

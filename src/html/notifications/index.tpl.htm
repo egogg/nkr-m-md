@@ -1,0 +1,36 @@
+<?php TPL::output('global/header.tpl.htm'); ?>
+
+<section id="main">
+    <section id="content">
+        <div class="container notifications">
+            <div class="card">
+                <div class="card-header upg-header">
+                    <h2>
+                        <i class="icon icon-notifications"></i>我的消息
+                    </h2>
+                    <ul class="actions">
+                        <li>
+                            <a href="account/setting/privacy/#!notifications">
+                                <i class="icon icon-settings"></i>
+                            </a>
+                        </li>
+                        <li data-toggle="tooltip" data-original-title="全部已读" data-placement="bottom">
+                            <a href="javascript:;" onclick="NKR.Message.read_notification(true, 0, true);">
+                                <i class="icon icon-check-all"></i>
+                            </a>
+                        </li>
+                    </ul>                           
+                </div>
+                
+                <ul class="list-group" id="notification-list">
+                </ul>
+            </div>
+
+            <div class="load-more">
+                <a href="javascript:void(0);" auto-load="true" id="notifications-load-more"><i class="icon icon-load-more"></i> 加载更多</a>
+            </div>
+        </div>
+    </section>
+</section>
+
+<?php TPL::output('global/footer.tpl.htm'); ?>

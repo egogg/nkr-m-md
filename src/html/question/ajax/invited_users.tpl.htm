@@ -1,0 +1,44 @@
+<?php if($this->invited_users) { ?>                          
+	<?php foreach ($this->invited_users AS $key => $val) { ?>
+		<div class="list-group-item media qi-item">
+            <div class="pull-left">
+                <a class="user-tag user-img" data-id="<?php echo $val['recipient_info']['uid']; ?>" href="people/<?php echo $val['recipient_info']['url_token']; ?>">
+                	<img class="qii-user-img" alt="" src="<?php echo get_avatar_url($val['recipient_info']['uid'], 'mid'); ?>" />
+                </a>
+            </div>
+            <div class="media-body">
+                <div class="qii-invited-by">
+                    由<a class="user-tag user-img" data-id="<?php echo $val['sender_info']['uid']; ?>" href="people/<?php echo $val['sender_info']['url_token']; ?>">
+                        <?php echo $val['sender_info']['user_name']; ?>
+                    </a>邀请
+                </div>
+                <div class="lgi-heading">
+                	<a class="user-tag user-name" data-id="<?php echo $val['recipient_info']['uid']; ?>" href="people/<?php echo $val['recipient_info']['url_token']; ?>">
+                		<?php echo $val['recipient_info']['user_name']; ?>
+                	</a>
+                </div>
+                <small class="lgi-text">
+                    <?php if($this->question_info['quiz_id']) { ?>
+                        <?php if($val['quiz_count']) { ?>
+                            <?php if($val['quiz_passed']) { ?>
+                                <span class="qii-answer-result success">答题通过</span>
+                            <?php } else { ?>
+                                <span class="qii-answer-result failed">答题失败</span>
+                            <?php } ?>
+                            <a class="qii-answer-count" href="question/record/id-<?php echo $this->question_info['question_id']; ?>__uid-<?php echo $val['recipient_info']['uid']; ?>"> <?php echo $val['quiz_count']; ?> 次答题
+                            </a>
+                        <?php } else { ?>
+                            <span class="qii-answer-result">尚未答题</span>
+                        <?php } ?>
+                    <?php } else { ?>
+                        <?php if($val['comment_count']) { ?>
+                            <span class="qii-answer-result">已发表<?php echo $val['comment_count']; ?>条回答</span>
+                        <?php } else { ?>
+                            <span class="qii-answer-result">尚未答题</span>
+                        <?php } ?>
+                    <?php } ?>
+                </small>
+            </div>
+		</div>
+	<?php } ?>
+<?php } ?>

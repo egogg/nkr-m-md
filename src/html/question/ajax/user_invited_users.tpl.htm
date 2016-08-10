@@ -1,0 +1,45 @@
+<?php if($this->user_id and $this->user_invitations) { ?>
+	你已邀请：
+	<ul class="qim-invited-users">
+		<?php foreach($this->user_invitations as $key => $val) { ?>
+			<li>
+				<a class="user-tag user-img" data-id="<?php echo $val['recipients_uid']; ?>" href="people/<?php echo $val['recipients_uid']; ?>">
+                	<img class="img-circle" alt="" src="<?php echo get_avatar_url($val['recipients_uid'], 'min'); ?>" />
+                </a>
+			</li>
+		<?php } ?>
+	</ul>
+	<?php if($this->user_invite_count > 3) { ?>
+		等
+	<?php } else { ?>
+		共
+	<?php } ?>
+	<?php echo $this->user_invite_count; ?> 人
+	，还可以邀请 <?php echo $this->remaind_invite_count; ?> 人
+	<span class="dropdown pull-right">
+        <a href="#" data-toggle="dropdown" aria-expanded="false" class="qim-cancel-invitations">取消邀请</a>
+
+        <div class="dropdown-menu pull-right">
+	    	<ul class="list-group qim-cancel-list">
+	    		<?php foreach($this->user_invitations_all as $key => $val) { ?>
+					<li class="list-group-item media">
+						<div class="pull-left">
+	                        <img alt="" src="<?php echo get_avatar_url($val["recipients_uid"], "mid"); ?>" />
+	                    </div>
+	                    	
+	                    <div class="media-body">
+	                    	<div class="lgi-heading">
+	                    		<?php echo $val["recipient_info"]["user_name"]; ?>
+	                    	</div>
+	                    	<small class="lgi-text">
+	                    		<a href="javascript:void(0);" class="qim-cancel-invitation btn btn-xs bgm-gray" data-id="<?php echo $val["recipients_uid"]; ?>">取消邀请</a>
+	                    	</small>
+	                    </div>
+					</li>
+				<?php } ?>
+	    	</ul>
+        </div>
+    </span>
+<?php } else { ?>
+	<div class="">你还没有邀请任何人，你可以邀请 <?php echo $this->remaind_invite_count; ?> 个人回答这个题</div>
+<?php } ?>

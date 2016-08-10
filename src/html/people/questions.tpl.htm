@@ -1,0 +1,102 @@
+<?php TPL::output('global/header.tpl.htm'); ?>
+
+<section id="main">
+    <section id="content">
+        <div class="container">
+            <div class="card">
+                <div class="card-header upg-header">
+                    <h2>
+                        <?php if ($this->current_menu == 'questions_comments') { ?>
+                            <i class="icon icon-comment"></i>讨论 (<?php echo $this->user['answer_count']; ?>) 
+                        <?php } else if ($this->current_menu == 'questions_failed') { ?>
+                            <i class="icon icon-wrong-question"></i>错题 (<?php echo $this->user_failed_question_count; ?>)
+                        <?php } else if ($this->current_menu == 'questions_publish') { ?>
+                            <i class="icon icon-publish"></i>出题 (<?php echo $this->user['question_count']; ?>)
+                        <?php } else { ?>
+                            <i class="icon icon-answered-question"></i>答题 (<?php echo $this->user_answered_question_count; ?>)
+                        <?php } ?>
+                    </h2>
+                    <ul class="actions">
+                        <li>
+                            <a href="people/<?php echo $this->user['url_token']; ?>"><i class="icon icon-left"></i></a>
+                        </li>
+                    </ul>  
+                </div>
+            </div>
+            <div class="flw-lists">
+                <?php if ($this->current_menu == 'questions_comments') { ?>
+                    <div class="usrq-answer-list card list-group answer-list" id="usrq-answer-list">
+                        <?php TPL::assign('answer_list', $this->user_answer_list); ?>
+                        <?php TPL::output('block/answer_list'); ?>  
+                    </div>
+                    
+                    <?php if($this->user['answer_count'] > 0) { ?>
+                        <div class="load-more">
+                            <a href="javascript:void(0);" id="usrq-answer-load-more" auto-load="false" data-page="1"><i class="icon icon-load-more"></i> 加载更多</a>
+                        </div>
+                    <?php } else { ?>
+                        <div class="card">
+                            <div class="card-body card-padding">
+                                <div class="list-norecord">没有讨论记录</div>
+                            </div>
+                        </div>
+                    <?php } ?>
+                <?php } else if ($this->current_menu == 'questions_failed') { ?>
+                    <div class="usrq-failed-list" id="usrq-failed-list">
+                        <?php TPL::assign('question_list', $this->user_question_list_failed); ?>
+                        <?php TPL::output('block/question_list'); ?>
+                    </div>
+                    <?php if($this->user_failed_question_count > 0) { ?>
+                        <div class="load-more">
+                            <a href="javascript:void(0);" id="usrq-failed-load-more" auto-load="false" data-page="1"><i class="icon icon-load-more"></i> 加载更多</a>
+                        </div>
+                    <?php } else { ?>
+                        <div class="card">
+                            <div class="card-body card-padding">
+                                <div class="list-norecord">没有错题记录</div>
+                            </div>
+                        </div>
+                    <?php } ?>
+                <?php } else if ($this->current_menu == 'questions_publish') { ?>
+                    <div class="usrq-publish-list" id="usrq-publish-list">
+                        <?php TPL::assign('question_list', $this->user_question_list_publish); ?>
+                        <?php TPL::output('block/question_list'); ?>
+                    </div>
+                    <?php if($this->user['question_count'] > 0) { ?>
+                        <div class="load-more">
+                            <a href="javascript:void(0);" id="usrq-publish-load-more" auto-load="false" data-page="1"><i class="icon icon-load-more"></i> 加载更多</a>
+                        </div>
+                    <?php } else { ?>
+                        <div class="card">
+                            <div class="card-body card-padding">
+                                <div class="list-norecord">没有出题记录</div>
+                            </div>
+                        </div>
+                    <?php } ?>
+                <?php } else { ?>
+                    <div class="usrq-answered-list" id="usrq-answered-list">
+                        <?php TPL::assign('question_list', $this->user_question_list_answered); ?>
+                        <?php TPL::output('block/question_list'); ?>
+                    </div>
+                    <?php if($this->user_answered_question_count > 0) { ?>
+                        <div class="load-more">
+                            <a href="javascript:void(0);" id="usrq-answered-load-more" auto-load="false" data-page="1"><i class="icon icon-load-more"></i> 加载更多</a>
+                        </div>
+                    <?php } else { ?>
+                        <div class="card">
+                            <div class="card-body card-padding">
+                                <div class="list-norecord">没有答题记录</div>
+                            </div>
+                        </div>
+                    <?php } ?>
+                <?php } ?>
+            </div>
+        </div>
+    </section>
+</section>
+
+<script type="text/javascript">
+    var PEOPLE_USER_ID = '<?php echo $this->user['uid']; ?>';
+</script>
+
+<?php TPL::output('global/footer.tpl.htm'); ?>

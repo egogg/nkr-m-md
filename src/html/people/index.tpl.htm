@@ -1,0 +1,116 @@
+<?php TPL::output('global/header.tpl.htm'); ?>
+
+<section id="main">
+    <section id="content">
+        <div class="container">
+            <div class="card user-info-details">
+                <div class="card-header">
+                    <div class="usri-header">
+                        <a href="people/<?php echo $this->user['url_token']; ?>">
+                            <img class="usri-img" src="<?php echo get_avatar_url($this->user['uid'], 'max'); ?>" alt="<?php echo $this->user['user_name']; ?>">
+                        </a>
+                        
+                        <h1>
+                            <?php echo $this->user['user_name']; ?>
+                        </h1>
+                    </div>
+
+                    <div class="usri-signature">
+                        <div class="usri-signature-edit dropdown" id="usri-signature-dlg">
+                            <div class="usri-signature-content" id="usri-signature-content">
+                                <?php echo $this->user['signature']; ?> 
+                                <?php if($this->user_id and $this->user_id == $this->user['uid']) { ?>
+                                    <a class="usri-signature-toggle" href="#" data-usri-act="signature-edit"><i class="icon icon-publish"></i> 
+                                        <?php if(!count($this->user['signature'])) { ?>编辑个人介绍<?php } ?>
+                                    </a>
+                                <?php } ?>
+                            </div>
+                                                                
+                            <div class="dropdown-menu">
+                                <textarea id="usri-signature-input" placeholder="简短介绍一下自己"><?php echo $this->user['signature']; ?></textarea>
+                                <div class="tab-actions">
+                                    <a data-usri-act="signature-close" href="#" class="c-red"><i class="icon icon-close"></i></a>
+                                    <a data-usri-act="signature-update" href="#" class="c-green"><i class="icon icon-check"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body card-padding">
+                    <ul class="usri-stats m-b-10">
+                        <li class="<?php if($this->user['question_quiz_success_ratio'] < 0.5) { ?>c-red<?php } else { ?>c-green<?php } ?>">正确率 <?php echo number_format($this->user['question_quiz_success_ratio'] * 100, 1); ?>%</li>
+
+                        <li class="<?php if($this->user['question_quiz_poft_ratio'] < 0.5) { ?>c-red<?php } else { ?>c-green<?php } ?>">一次通过率 <?php echo number_format($this->user['question_quiz_poft_ratio'] * 100, 1); ?>%</li>
+                    </ul>
+                    <ul class="usri-stats">
+                        <li>答题 <?php echo $this->user['question_quiz_count_total']; ?></li>
+                        <li>出题 <?php echo $this->user['question_count']; ?></li>
+                        <li>积分 <?php echo $this->user['integral']; ?></li>
+                    </ul>
+                    <div class="usri-footer">
+                        <?php if($this->user_id and $this->user_id == $this->user['uid']) { ?>
+                            <ul class="usri-actions">
+                                <li><a href="account/setting/">个人资料</a></li>
+                            </ul>
+                        <?php } else { ?>
+                            <ul class="usri-actions">
+                                <li>
+                                    <a href="javascript:void(0);" onclick="NKR.User.follow($(this), 'user', <?php echo $this->user['uid']; ?>);" class="follow usri-follow <?php if ($this->user_follow_check) { ?>following<?php } ?>">
+                                        <?php if ($this->user_follow_check) { ?>
+                                            已关注
+                                        <?php } else { ?>
+                                             + 关注
+                                        <?php } ?>
+                                    </a>
+                                </li>
+                                <li><a href="#"><i class="icon icon-mail"></i> 私信</a></li>
+                            </ul>
+                        <?php } ?>
+                    </div>  
+                </div>
+            </div>
+            
+            <div class="card user-info-entry">
+                <div class="list-group">
+                    <a class="list-group-item" href="people/following/id-<?php echo $this->user['uid']; ?>__type-topics"><i class="icon icon-topic-focus"></i>关注的专题<i class="icon icon-right"></i><span class="usri-count"><?php echo $this->user['topic_focus_count']; ?></span></a>
+                   
+                    <a class="list-group-item" href="people/following/id-<?php echo $this->user['uid']; ?>__type-friends"><i class="icon icon-people-focus"></i>关注的人<i class="icon icon-right"></i><span class="usri-count"><?php echo $this->user['friend_count']; ?></span></a>
+                    
+                    <a class="list-group-item" href="people/following/id-<?php echo $this->user['uid']; ?>__type-fans"><i class="icon icon-people"></i>被人关注<i class="icon icon-right"></i><span class="usri-count"><?php echo $this->user['fans_count']; ?></span></a>
+                </div>
+            </div>
+
+            <div class="card user-info-entry">
+                <div class="list-group">
+                    <a class="list-group-item" href="people/questions/id-<?php echo $this->user['uid']; ?>__type-answered" ><i class="icon icon-answered-question"></i>答题<i class="icon icon-right"></i><span class="usri-count"><?php echo $this->user_answered_question_count; ?></span></a>
+                    <a class="list-group-item" href="people/questions/id-<?php echo $this->user['uid']; ?>__type-comments" > <i class="icon icon-comment"></i>讨论<i class="icon icon-right"></i><span class="usri-count"><?php echo $this->user['answer_count']; ?></span></a>
+                    <a class="list-group-item" href="people/questions/id-<?php echo $this->user['uid']; ?>__type-failed" > <i class="icon icon-wrong-question"></i>错题<i class="icon icon-right"></i><span class="usri-count"><?php echo $this->user_failed_question_count; ?></span></a>
+                    <a class="list-group-item" href="people/questions/id-<?php echo $this->user['uid']; ?>__type-publish" > <i class="icon icon-publish"></i>出题<i class="icon icon-right"></i><span class="usri-count"><?php echo $this->user['question_count']; ?></span></a>
+                </div>
+            </div>
+
+            <div class="card user-info-entry">
+                <div class="list-group">
+                    <?php if($this->user_id and $this->user_id == $this->user['uid']) { ?>
+                        <a class="list-group-item" href="favorite/"><i class="icon icon-bookmark"></i>我的收藏<i class="icon icon-right"></i><span class="usri-count"><?php echo $this->user_favorite_count; ?></span></a>
+                        <a class="list-group-item" href="notifications/"><i class="icon icon-notifications"></i>我的消息<i class="icon icon-right"></i><?php if($this->user['notification_unread'] > 0) { ?><span class="badge usri-count"><?php echo $this->user['notification_unread']; ?></span><?php } ?></a>
+                        <a class="list-group-item" href="inbox/"><i class="icon icon-mail"></i>我的私信<i class="icon icon-right"></i><?php if($this->user['inbox_unread'] > 0) { ?><span class="badge usri-count"><?php echo $this->user['inbox_unread']; ?></span><?php } ?></a>
+                        <a class="list-group-item" href="draft/"><i class="icon icon-draft"></i>我的草稿<i class="icon icon-right"></i><?php if ($this->user['draft_count']) { ?><span class="badge usri-count"><?php echo $this->user['draft_count']; ?></span><?php } ?></a>
+                        <a class="list-group-item" href="integral/"> <i class="icon icon-integral"></i>我的积分<i class="icon icon-right"></i><span class="usri-count"><?php echo $this->user['integral']; ?></span></a>
+                    <?php } ?>
+                </div>
+            </div>
+
+            <?php if($this->user_id and $this->user_id == $this->user['uid']) { ?>
+                <div class="card user-info-entry">
+                    <div class="list-group">
+                        <a href="account/setting/" class="list-group-item"> <i class="icon icon-settings"></i>帐号设置<i class="icon icon-right"></i></a>
+                         <a href="invitation/" class="list-group-item"><i class="icon icon-person-add"></i> 邀请注册 <?php if ($this->user['invitation_available']) { ?><i class="icon icon-right"></i><span class="usri-count badge"><?php echo $this->user['invitation_available']; ?></span><?php } ?></a>
+                    </div>
+                </div> 
+            <?php } ?>
+        </div>
+    </section>
+</section>
+
+<?php TPL::output('global/footer.tpl.htm'); ?>

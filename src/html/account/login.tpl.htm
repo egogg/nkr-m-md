@@ -1,0 +1,53 @@
+<?php TPL::output('global/header_meta.tpl.htm'); ?>
+
+<div class="login-content">
+    <div class="lc-block">
+    	<div class="lcb-header">
+    		<a class="lcb-logo" href="<?php echo base_url(); ?>">
+    			<i class="icon icon-naokr"></i>
+    			<span class="lcb-slogan">思考很快乐</span>
+    		</a>
+    		<div class="lcb-title">
+    			<h1>账号登录</h1>
+				<span class="pull-right">
+					<a href="account/register/" class="c-lightblue">注册用户</a>
+				</span>
+    		</div>
+    	</div>
+        <div class="lcb-form clearfix">
+            <form id="login_form" method="post" onsubmit="return false" action="account/ajax/login_process/">
+				<input type="hidden" name="return_url" value="<?php echo $this->return_url; ?>" />
+				
+				<div class="m-b-20 input-group">
+					<span class="input-group-addon"><i class="icon icon-person"></i></span>
+					<div class="fg-line">
+						<input type="text" id="aw-login-user-name" class="form-control" placeholder="邮箱/用户名" name="user_name" />
+					</div>
+				</div>
+				<div class="m-b-20 input-group">
+					<span class="input-group-addon"><i class="icon icon-lock"></i></span>
+					<div class="fg-line">
+						<input type="password" id="aw-login-user-password" class="form-control" placeholder="密码" name="password" />
+					</div>
+				</div>
+				
+				<div class="clearfix">
+					<div class="checkbox checkbox-inline m-b-20">
+			            <label>
+			                <input type="checkbox" checked="checked" name="net_auto_login">
+			                <i class="input-helper"></i>
+			                记住我
+			            </label>
+			        </div>
+			        <span class="forget-password">
+		            	<a href="account/find_password/">忘记密码</a>
+		            </span>
+				</div>
+				
+				<button onclick="NKR.ajax_post($('#login_form'), NKR.ajax_processer, 'error_message');" id="login_submit" class="btn btn-lg btn-primary submit">登录</button>
+			</form>
+        </div>
+
+        <?php TPL::output('account/ajax/sns_login'); ?>
+    </div>
+</div>

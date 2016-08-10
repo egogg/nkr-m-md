@@ -1,0 +1,11 @@
+<?php if ($this->list) { ?>
+	<?php $unread_num = count($this->list); $this->list = array_slice($this->list, 0, 5); ?>
+	<?php foreach($this->list AS $key => $val) { ?>
+		<div class="list-group-item media">
+			<div class="media-body">
+	            <div class="lgi-heading"><?php echo $val['message']; ?></div>
+	            <small class="lgi-text"><?php echo date_friendly($val['add_time']); ?></small>
+	        </div>
+		</div>
+	<?php } ?>
+<?php } ?>

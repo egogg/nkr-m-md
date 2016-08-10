@@ -1,0 +1,167 @@
+<div class="qc-title">
+    <h2>
+    	<?php if(!$this->show_question_content) { ?>
+    		<i class="md md-access-alarm"></i> 限时答题：***<?php echo cjk_substr($this->question_info['question_content'], 2, 4, 'UTF-8', '***'); ?>
+    	<?php } else { ?>
+    		<?php echo $this->question_info['question_content']; ?>
+    	<?php } ?>
+    	<small class="c-gray"><?php echo date_friendly($this->question_info['update_time']); ?></small>
+    </h2>
+
+	<!-- 管理选项 -->
+
+	<?php if ((!$this->question_info['lock'] AND ($this->question_info['published_uid'] == $this->user_id OR $this->user_info['permission']['edit_question'])) OR $this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator']) { ?>			
+	    <ul class="actions">
+	    	<li class="dropdown">
+	            <a href="#" data-toggle="dropdown" aria-expanded="false">
+	                <i class="icon icon-more-vert"></i>
+	            </a>
+	            <ul class="dropdown-menu dropdown-menu-right">
+	            	<li>
+			    		<a href="publish/<?php echo $this->question_info['question_id']; ?>">编辑问题</a>
+			    	</li>
+			    	<li data-tigger="hover" data-toggle="tooltip" data-placement="bottom" data-content="编写答案解析" title data-original-title="编写答案解析">
+			    		<a href="javascript:void(0);" onclick="AWS.dialog('solutionEdit', {question_id:<?php echo $this->question_info['question_id']; ?>,solution_id:<?php echo $this->question_info['solution_id']; ?>,attach_access_key:'<?php echo $this->attach_access_key; ?>'});">编辑答案</a>
+			    	</li>
+			    	<li class="divider"></li>
+	            	<?php if($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator']) { ?>
+		                <li>
+		                    <a href="javascript:void(0);" onclick="AWS.ajax_request(G_BASE_URL + '/question/ajax/lock/', 'question_id=<?php echo $this->question_info['question_id']; ?>');"><?php if ($this->question_info['lock']) { ?>解除锁定<?php } else { ?>锁定问题<?php } ?></a>
+		                </li>
+						<li>
+							<a href="javascript:void(0);" onclick="AWS.ajax_request(G_BASE_URL + '/question/ajax/set_recommend/', 'action=<?php if ($this->question_info['is_recommend']) { ?>un<?php } ?>set&question_id=<?php echo $this->question_info['question_id']; ?>');"><?php if ($this->question_info['is_recommend']) { ?>取消推荐<?php } else { ?>推荐问题<?php } ?></a>
+						</li>
+						<li>
+							<a href="javascript:void(0);" onclick="AWS.ajax_request(G_BASE_URL + '/recommend/ajax/recommend_homepage/', 'type=question&id=<?php echo $this->question_info['question_id']; ?>');"><?php if ($this->is_recommend_homepage) { ?>取消精选<?php } else { ?>首页精选<?php } ?></a>
+						</li>
+						<li>
+							<a href="javascript:void(0);" onclick="AWS.ajax_request(G_BASE_URL + '/recommend/ajax/recommend_homepage/', 'type=top_question&id=<?php echo $this->question_info['question_id']; ?>');"><?php if ($this->is_top_question) { ?>取消置顶<?php } else { ?>首页置顶<?php } ?></a>
+						</li>
+					<?php } ?>
+	            </ul>
+	        </li>
+	    </ul>
+    <?php } ?>
+</div>
+
+<div class="qc-body">
+	<!-- 倒计时 -->
+	<?php if($this->question_info['question_quiz'] and $this->question_info['question_quiz']['countdown'] > 0 and !$this->passed_quiz) { ?>
+		<div class="countdown-timer-wrap" >
+			<ul class="countdown-timer" id="countdown-timer" data-countdown="<?php echo $this->question_info['question_quiz']['countdown']; ?>">
+				<li>
+					<div class="easy-pie countdown-hour" data-percent="100">
+						<div class="dial hour">60</div>
+						<div class="dial-title">时</div>
+					</div>
+				</li>
+				<li>
+					<div class="easy-pie countdown-minute" data-percent="100">
+						<div class="dial minute">60</div>
+						<div class="dial-title">分</div>
+					</div>
+				</li>
+				<li>
+					<div class="easy-pie countdown-second" data-percent="100">
+						<div class="dial second">60</div>
+						<div class="dial-title">秒</div>
+					</div>
+				</li>
+			</ul>
+		</div>
+	<?php } ?>
+			
+	<!-- 问题详细描述 -->
+		
+	<?php if($this->show_question_content) { ?>
+
+		<!-- 非限时答题 -->
+
+		<div class="qc-detail">
+			<?php echo $this->question_info['question_detail']; ?>
+		</div>
+	<?php } ?>
+	
+	<!-- 答题选项 -->
+
+	<div class="qc-quiz">
+		<h3 class="qz-title">
+			<i class="icon icon-help"></i> 
+			<?php if($this->question_info['question_quiz']['type'] == '1') { ?>
+				该题为单选题
+			<?php } else if($this->question_info['question_quiz']['type'] == '2') { ?>
+				该题为多选题
+			<?php } else if($this->question_info['question_quiz']['type'] == '3') { ?>
+				该题为字谜题
+			<?php } else if($this->question_info['question_quiz']['type'] == '4') { ?>
+				该题为填空题
+			<?php } else { ?>
+				该题为开放讨论题</span>
+			<?php } ?>
+		</h3>
+		
+		<!-- 答题选项 -->
+
+		<?php if($this->show_question_quiz) { ?>
+			<div class="qz-body">
+				<input type="hidden" name="qz-id" value="<?php echo $this->question_info['question_quiz']['id']; ?>">
+				<input type="hidden" name="qz-content" value='<?php echo $this->question_info['question_quiz']['content']; ?>'>
+				<input type="hidden" name="qz-record-id" value="<?php echo $this->question_quiz_record_id; ?>">
+				<input type="hidden" name="qz-record-try-count" value="<?php echo $this->quiz_record_count; ?>">
+				<input type="hidden" name="qz-record-passed" value="<?php echo $this->passed_quiz; ?>">
+				
+				<div class="qz-content"></div>
+			</div>
+		<?php } ?>		
+	</div>
+
+	<!-- 答题状态及记录 -->
+	
+	<?php if(!$this->answer_question_mode) { ?>
+		<div class="qz-state">
+			<?php if($this->quiz_record_count) { ?>
+				
+				<!-- 有答题记录 -->
+
+				<?php if(!$this->passed_quiz) { ?>
+					<div class="qzs-title failed">
+						<i class="icon icon-close"></i> 答题失败!
+					</div>
+					<div class="qzs-actions">
+						<a href="#" class="btn bgm-red" data-qz-act="<?php if($this->question_info['question_quiz']['countdown'] > 0){echo 'retry-countdown'; } else {echo 'retry';} ?>"><i class="icon icon-refresh"></i> 重新答题</a>
+					</div>
+				<?php } else { ?>
+					<div class="qzs-title success">
+						<i class="icon icon-check"></i> 答题通过
+					</div>
+				<?php } ?>
+
+				<a href="question/record/id-<?php echo $this->question_info['question_id']; ?>__uid-<?php echo $this->user_id; ?>" class="qzs-record-detail">我的记录（<?php echo $this->quiz_record_count; ?>）</a>
+			<?php } else { ?>
+
+				<!-- 无答题记录 -->
+			
+				<?php if(!$this->question_info['question_quiz']) { ?>
+					<!-- 开放讨论题 -->
+					<?php if(!$this->user_answered) { ?>
+						<div class="qzs-title">这道题目我有些思路</div>
+						<div class="qzs-actions">
+							<a href="#" class="btn bgm-orange" data-qz-act="discuss">发表我的看法</a>
+						</div>
+					<?php } else { ?>
+						<div class="qzs-title">你已经发表了对问题的看法</div>
+						<div class="qzs-actions">
+							<a href="#" class="btn bgm-orange" data-qz-act="discuss">继续参与讨论</a>
+						</div>
+					<?php } ?>
+				<?php } else if($this->question_info['question_quiz']['countdown'] > 0) { ?>
+					<!-- 限时答题 -->
+					<div class="qzs-title">你需要在规定的时间内完成答题</div>
+					<div class="qzs-actions">
+						<a href="#" class="btn bgm-green" data-qz-act="answer-countdown">开始答题</a>
+					</div>
+				<?php } ?>
+			<?php } ?>
+		</div>
+	<?php } ?>
+</div>

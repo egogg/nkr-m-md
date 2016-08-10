@@ -1,0 +1,77 @@
+<?php TPL::output('global/header.tpl.htm'); ?>
+
+<section id="main">
+	<section id="content">
+		<div class="container topic">
+			<div class="card">
+				<div class="card-header tp-header">
+	            	<div class="tp-marker">专题</div>
+	                <img class="tp-img" src="<?php echo get_topic_pic_url('max', $this->topic_info['topic_pic']); ?>" alt="<?php echo $this->topic_info['topic_title']; ?>" />
+				</div>
+
+				<div class="card-body card-padding">
+					<div class="tp-title">
+						<?php if($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator']) { ?>
+		        			<ul class="actions">
+		                        <li class="dropdown">
+		                            <a href="#" data-toggle="dropdown">
+		                            	<i class="icon icon-more-vert"></i>
+		                            </a>
+		                            
+		                            <ul class="dropdown-menu dropdown-menu-right">
+		                                <li>
+		                                   <a href="javascript:;" onclick="NKR.ajax_request(G_BASE_URL + '/recommend/ajax/recommend_homepage/', 'type=topic&id=<?php echo $this->topic_info['topic_id']; ?>');"><?php if ($this->topic_info['is_recommend_homepage']) { ?>取消精选<?php } else { ?>首页精选<?php } ?></a>
+		                                </li>
+		                            </ul>
+		                        </li>
+		                    </ul>
+	                    <?php } ?>
+	        				
+		                <h2><?php echo $this->topic_info['topic_title']; ?></h2>
+					</div>
+
+                    <div class="tp-content">
+						<?php echo $this->topic_info['topic_description']; ?>
+					</div>
+					<div class="tp-footer">
+						<ul class="tp-stats">
+							<li>收录 <strong class="c-lightblue"> <?php echo $this->topic_info['question_count']; ?></strong></li>
+							<li>关注 <?php echo $this->topic_info['focus_count']; ?></li>
+							<li>
+								<a class="c-lightblue" href="topic/channel-topic__topic_id-<?php echo $this->parent_topic_info['topic_id']; ?>"><i class="icon icon-tag"></i> <?php echo $this->parent_topic_info['topic_title']; ?></a>
+							</li>
+						</ul>
+						<a href="javascript:void(0);" onclick="NKR.User.follow($(this), 'topic', <?php echo $this->topic_info['topic_id']; ?>);" class="tp-follow follow <?php if ($this->topic_info['has_focus']) { ?> following <?php } ?>">
+			                <?php if ($this->topic_info['has_focus']) { ?>已关注<?php } else { ?>+ 关注<?php } ?>
+			            </a>
+					</div>
+        		</div>
+			</div>
+
+			<!-- 问题列表 -->
+
+			<div class="question-list">
+				<?php TPL::output('block/question_list.tpl.htm'); ?>
+
+				<!-- 分页 -->
+				<?php if($this->pagination) { ?>
+			        <div class="card">
+			        	<div class="card-body card-padding">
+			        		<?php echo $this->pagination; ?>
+			        	</div>
+			        </div>
+			    <?php } ?>
+			</div>
+		</div>
+	</section>
+</section>
+
+<script type="text/javascript">
+	var TOPIC_ID = '<?php echo $this->topic_info['topic_id']; ?>';
+	var CONTENTS_TOPIC_ID = '<?php echo $this->contents_topic_id; ?>';
+	var CONTENTS_RELATED_TOPIC_IDS = '<?php echo $this->contents_related_topic_ids; ?>';
+	var CONTENTS_TOPIC_TITLE = '<?php echo $this->contents_topic_title; ?>';
+</script>
+
+<?php TPL::output('block/fixed_side_toolbar.tpl.htm'); ?>
+<?php TPL::output('global/footer.tpl.htm'); ?>

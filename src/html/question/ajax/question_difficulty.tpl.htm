@@ -1,0 +1,21 @@
+<?php if($this->question_difficulty == 5) { ?>
+	<a href="question/difficulty-5" data-type="difficulty" data-id="5" class="qt-difficulty bgm-orange">
+		<span><?php echo get_setting('difficulty_level_5_text'); ?></span>
+	</a>
+<?php } elseif($this->question_difficulty == 4) { ?>
+	<a href="question/difficulty-4" data-type="difficulty" data-id="4" class="qt-difficulty bgm-purple">
+		<span><?php echo get_setting('difficulty_level_4_text'); ?></span>
+	</a>
+<?php } elseif($this->question_difficulty == 3) { ?>
+	<a href="question/difficulty-3" data-type="difficulty" data-id="3" class="qt-difficulty bgm-lime">
+		<span><?php echo get_setting('difficulty_level_3_text'); ?></span>
+	</a>
+<?php } elseif($this->question_difficulty == 2) { ?>
+	<a href="question/difficulty-2" data-type="difficulty" data-id="2" class="qt-difficulty bgm-blue">
+		<span><?php echo get_setting('difficulty_level_2_text'); ?></span>
+	</a>
+<?php } else { ?>
+	<a href="question/difficulty-1" data-type="difficulty" data-id="1" class="qt-difficulty bgm-green">
+		<span><?php echo get_setting('difficulty_level_1_text'); ?></span>
+	</a>
+<?php } ?>

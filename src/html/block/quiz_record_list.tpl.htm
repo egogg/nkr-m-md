@@ -1,0 +1,30 @@
+<?php foreach($this->quiz_record_list AS $key => $val) { ?>
+    <a href="people/<?php echo $val['user_info']['url_token']; ?>" class="list-group-item media">
+        <div class="pull-left">
+            <img src="<?php echo get_avatar_url($val['user_info']['uid'], 'mid'); ?>" alt="<?php echo $val['user_info']['user_name']; ?>" />
+        </div>
+        
+        <div class="media-body">
+            <div class="lgi-heading">
+                <?php echo $val['user_info']['user_name']; ?>
+                <span class="qzr-date"><?php echo date_friendly($val['start_time']); ?></span>
+            </div>
+            <small class="lgi-text">
+                <?php if($val['passed']) { ?>
+                    <span class="qzr-result success">
+                        答题通过
+                    </span>
+                <?php } else if($val['is_countdown'] and $val['time_spend'] <= 0) { ?>
+                    <span class="qzr-result timeout">
+                        答题超时
+                    </span>
+                <?php } else { ?>
+                    <span class="qzr-result failed">
+                        答题失败
+                    </span>
+                <?php } ?>
+                <?php if($val['is_countdown'] and $val['time_spend'] > 0) { ?><span>（用时<?php echo $val['time_spend']; ?>秒）</span><?php } ?>
+            </small>
+        </div>
+    </a>
+<?php } ?>

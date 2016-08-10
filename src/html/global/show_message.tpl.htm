@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html> 
+	<head>
+		<meta content="text/html;charset=utf-8" http-equiv="Content-Type" />
+	    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0" />
+		<title><?php if ($this->url_bit) { ?><?php _e('请稍候'); ?>...<?php } else { ?><?php _e('提示信息'); ?><?php } ?></title>
+		<?php if ($this->url_bit) { ?>
+		<meta http-equiv="refresh" content="<?php echo $this->interval; ?>; url=<?php echo $this->url_bit; ?>" />
+		<?php } ?>
+		
+		<style type="text/css">
+		
+		body{background:#fff;font:normal 15px arial, verdana, tahoma, sans-serif;}
+		
+		.alert-success {
+			background-color: #dff0d8;
+		    border-color: #dff0d8;
+		    color: #4caf50;
+		}
+		.alert-info {
+			background-color: #d9edf7;
+		    border-color: #d9edf7;
+		    color: #2196f3;
+		}
+		.alert-box{
+		    position: absolute;
+		    top: 50%;
+		    margin-top: -150px;
+		    text-align: center;
+		    padding: 15px;
+		    height: 300px;
+		    width: 500px;
+		    left: 50%;
+		    margin-left: -250px;
+		    border-left: 3px solid #FFC107;
+		    background-color: #f9f9f9;
+		    color: #555;
+		}
+
+	    .alert-box .message {
+	    	position: relative;
+			top: 50%;
+			-webkit-transform: translateY(-50%);
+			-ms-transform: translateY(-50%);
+			transform: translateY(-50%);
+	    }
+
+	    .alert-box a {
+	    	color: #03A9F4;
+	    }
+
+	    .alert-box .desc {
+	    	font-size: 13px;
+	    	margin-top: 5px;
+	    }
+
+	    .alert-box a {
+	    	font-weight: bold;
+	    	text-decoration: none;
+	    }
+
+	    .alert-success a {
+	    	color: #3d8b40;
+	    }
+
+	    .alert-info a {
+	    	color: #0c7cd5;
+	    }
+		
+		@media (max-width:767px) {
+   			.alert-box{
+				width: calc(100% - 70px);
+			    left: 20px;
+			    margin-left: 0;
+			    height: 260px;
+			    margin-top: -130px;
+   			}
+		}
+
+		</style>
+		
+		<?php if ($this->url_bit) { ?>
+		<script type='text/javascript'>
+		//<![CDATA[
+		// Fix Mozilla bug: 209020
+		if ( navigator.product == 'Gecko' )
+		{
+			navstring = navigator.userAgent.toLowerCase();
+			geckonum  = navstring.replace( /.*gecko\/(\d+)/, "$1" );
+			
+			setTimeout("moz_redirect()", 5000);
+		}
+		
+		function moz_redirect()
+		{
+			var url_bit = "<?php echo $this->url_bit; ?>";
+			
+			window.location = url_bit.replace( new RegExp( "&amp;", "g" ) , '&' );
+		}
+		//>
+		</script>
+		<?php } ?>
+	</head>
+
+	<body>
+		<div class="alert-box">
+			<div class="message">
+				<strong><?php echo $this->message; ?></strong>
+				
+				<?php if ($this->url_bit) { ?>
+					<div class='desc'>(<a href="<?php echo $this->url_bit; ?>"><?php _e('点击这里返回'); ?></a>)</div>
+				<?php } ?>
+			</div>
+		</div>
+	</body>
+</html>

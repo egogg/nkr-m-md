@@ -1,0 +1,69 @@
+<?php if ($this->favorite_list) { ?>
+	<?php foreach ($this->favorite_list AS $key => $val) { ?>
+		<div class="list-group-item favorite-item">
+			<div class="favi-header media">
+				<div class="pull-left">
+					<a class="user-tag user-img" href="people/<?php echo $val['user_info']['url_token']; ?>">
+						<img class="avatar-img" src="<?php echo get_avatar_url($val['user_info']['uid'], 'mid'); ?>" alt="<?php echo $val['user_info']['user_name']; ?>" />
+					</a>
+				</div>
+				<div class="media-body">
+					<div class="lgi-text">
+						<?php if ($val['last_action_str']) { ?>
+							<?php echo $val['last_action_str']; ?> • <?php echo date_friendly($val['add_time']); ?>
+						<?php } ?>
+						<?php if ($val['answer_info']) { ?>
+							<?php if ($val['answer_info']['anonymous'] == 0) { ?>
+								<a class="user-tag user-name" data-id="<?php echo $val['user_info']['uid']; ?>" href="people/<?php echo $val['user_info']['url_token']; ?>">
+									<?php echo $val['user_info']['user_name']; ?>
+								</a>
+								发表回复 • <?php echo date_friendly($val['answer_info']['add_time']); ?>
+							<?php } ?>
+						<?php } ?>
+					</div>
+					<div class="lgi-heading">
+						<a href="<?php echo $val['link']; ?>"><?php echo $val['title']; ?></a>
+					</div>
+				</div>
+			</div>
+			<div class="favi-body">
+				<?php if ($val['answer_info']) { ?>
+					<div class="favi-content">
+			      		<?php echo preg_replace('|\[attach\].*\[\/attach\]|', '', FORMAT::parse_bbcode($val['answer_info']['answer_content'])); ?>
+
+						<?php if ($val['answer_info']['attachs']) { ?>
+							<div class="favi-preview lightbox clearfix">
+								<?php foreach($val['answer_info']['attachs'] AS $k => $v) { ?>
+									<?php if ($v['is_image']) { ?>
+										<div class="favip-item" data-src="<?php echo $v['attachment']; ?>" style="background-image: url(<?php echo $v['attachment']; ?>);">
+											<img src="<?php echo $v['attachment']; ?>" alt="<?php echo $val['title']; ?>" />
+										</div>
+									<?php } ?>
+							  <?php } ?>
+							</div>
+						<?php } ?>
+					</div>
+					<!-- end 评论内容 -->
+				<?php } ?>
+			</div>
+			<div class="favi-footer">
+				<?php if ($this->favorite_items_tags[$val['item_id']]) { ?>
+					<ul class="favi-tags">
+						<?php foreach ($this->favorite_items_tags[$val['item_id']] AS $k => $v) { ?>
+							<li>
+								<a class="<?php if($this->filter_tag == $v['title']) { ?>active<?php } ?>" href="favorite/tag-<?php echo $v['title']; ?>"><?php echo $v['title']; ?></a>
+							</li>
+						<?php } ?>
+					</ul>
+				<?php } ?>
+				<ul class="favi-actions">
+					<li>
+						<a onclick="NKR.ajax_request(G_BASE_URL + '/favorite/ajax/remove_favorite_item/', 'item_type=<?php echo $val['item_type']; ?>&item_id=<?php echo $val['item_id']; ?>');">
+							取消收藏
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	<?php } ?>
+<?php } ?>

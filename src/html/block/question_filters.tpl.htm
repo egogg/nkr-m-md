@@ -1,0 +1,48 @@
+<ul class="question-filter" id="question-filter">  
+	<li>
+		<h3>分类：</h3>
+		<ul class="qf-list">
+			<li class="qf-category <?php if(!$this->filter_info OR !$this->filter_info['category_id']) { echo 'active'; } ?>"><a>全部</a></li>
+
+			<?php foreach ($this->category_list as $key => $val) { ?>
+				<?php if($val['type'] == 'category') { ?>
+					<li class="qf-category <?php if($this->filter_info AND $this->filter_info['category_id'] == $val['type_id']) { echo 'active'; } ?>" data-id="<?php echo $val['type_id']; ?>">
+						<a> 
+							<?php echo $val['title']; ?> 
+						</a>
+					</li>
+				<?php } ?>
+			<?php } ?>	
+		</ul>
+	</li>
+	<li>
+		<h3>题型：</h3>
+		<ul class="qf-list">
+			<li class="qf-quiztype <?php if(!$this->filter_info OR !$this->filter_info['quiztype']) { echo 'active'; } ?>"><a>全部</a></li>
+			<li class="qf-quiztype <?php if($this->filter_info AND $this->filter_info['quiztype'] == 1) { echo 'active'; } ?>" data-id="1"><a>单选</a></li>
+			<li class="qf-quiztype <?php if($this->filter_info AND $this->filter_info['quiztype'] == 2) { echo 'active'; } ?>" data-id="2"><a>多选</a></li>
+			<li class="qf-quiztype <?php if($this->filter_info AND $this->filter_info['quiztype'] == 3) { echo 'active'; } ?>" data-id="3"><a>字谜</a></li>
+			<li class="qf-quiztype <?php if($this->filter_info AND $this->filter_info['quiztype'] == 4) { echo 'active'; } ?>" data-id="4"><a>填空</a></li>
+			<li class="qf-quiztype <?php if($this->filter_info AND $this->filter_info['quiztype'] < 0) { echo 'active'; } ?>" data-id="-1"><a>开放</a></li>
+		</ul>
+	</li>
+	<li>
+		<h3>难度：</h3>
+		<ul class="qf-list">
+			<li class="qf-difficulty <?php if(!$this->filter_info OR !$this->filter_info['difficulty']) { echo 'active'; } ?>"><a>全部</a></li>
+			<li class="qf-difficulty <?php if($this->filter_info AND $this->filter_info['difficulty'] == 1) { echo 'active'; } ?>" data-id="1"><a><?php echo get_setting('difficulty_level_1_text'); ?></a></li>
+			<li class="qf-difficulty <?php if($this->filter_info AND $this->filter_info['difficulty'] == 2) { echo 'active'; } ?>" data-id="2"><a><?php echo get_setting('difficulty_level_2_text'); ?></a></li>
+			<li class="qf-difficulty <?php if($this->filter_info AND $this->filter_info['difficulty'] == 3) { echo 'active'; } ?>" data-id="3"><a><?php echo get_setting('difficulty_level_3_text'); ?></a></li>
+			<li class="qf-difficulty <?php if($this->filter_info AND $this->filter_info['difficulty'] == 4) { echo 'active'; } ?>" data-id="4"><a><?php echo get_setting('difficulty_level_4_text'); ?></a></li>
+			<li class="qf-difficulty <?php if($this->filter_info AND $this->filter_info['difficulty'] == 5) { echo 'active'; } ?>" data-id="5"><a><?php echo get_setting('difficulty_level_5_text'); ?></a></li>
+		</ul>
+	</li>
+	<li>
+		<h3>时限：</h3>
+		<ul class="qf-list">
+			<li class="qf-countdown <?php if(!$this->filter_info OR !$this->filter_info['countdown']) { echo 'active'; } ?>"><a>全部</a></li>
+			<li class="qf-countdown <?php if($this->filter_info AND $this->filter_info['countdown'] > 0) { echo 'active'; } ?>" data-id="1"><a>限时答题</a></li>
+			<li class="qf-countdown <?php if($this->filter_info AND $this->filter_info['countdown'] < 0) { echo 'active'; } ?>" data-id="-1"><a>非限时答题</a></li>
+		</ul>
+	</li>
+</ul>

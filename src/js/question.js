@@ -460,8 +460,7 @@ $(document).ready(function(){
 			'<div class="sk-circle12 sk-child"></div>' +
 			'</div>';
 		$('#q-content').html(spinner);
-
-		var QUESTION_ID = $('#q-content').attr('data-id');
+		
 		$.get(G_BASE_URL + '/question/ajax/init_question_content/id-' + QUESTION_ID, function (response) {
 			$('#q-content').html(response);
 
@@ -474,7 +473,9 @@ $(document).ready(function(){
 		});
 	}
 
-	loadQuestionContent();
+	if(typeof QUESTION_ID != 'undefined') {
+		loadQuestionContent();
+	}
 
 	/*----------------------------------------------------------
 	    answer question actions

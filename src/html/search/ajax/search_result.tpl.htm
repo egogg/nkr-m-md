@@ -1,0 +1,16 @@
+<?php if($this->search_result_questions) { ?>
+    <?php TPL::assign('question_list_lite', $this->search_result_questions); ?>
+    <?php TPL::output('block/question_list_lite'); ?>
+<?php } ?>
+<?php if($this->search_result_users) { ?>
+    <?php TPL::assign('user_list_lite', $this->search_result_users); ?>
+    <?php TPL::output('block/user_list_lite.tpl.htm'); ?>
+<?php } ?>
+<?php if ($this->search_result_topics) { ?>
+    <?php TPL::assign('topic_list_lite', $this->search_result_topics); ?>
+    <?php TPL::output('block/topic_list_lite.tpl.htm'); ?>
+<?php } ?>
+<?php if ($this->search_result_articles) { ?>
+    <?php TPL::assign('article_list_lite', $this->search_result_articles); ?>
+    <?php TPL::output('block/article_list_lite.tpl.htm'); ?>
+<?php } ?>

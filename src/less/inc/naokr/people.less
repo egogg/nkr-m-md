@@ -139,13 +139,6 @@
 	}
 }
 
-.user-page-back {
-	color: @text-color;
-	font-size: 17px;
-	position: absolute;
-	right: 10px;
-}
-
 .favorite {
 	.fav-category-action {
 		float: right;
@@ -263,19 +256,24 @@
 	}
 }
 
-
-.ntf-header {
+.upg-header {
 	&.card-header {
-		.actions {
-			top: 14px;
+		h2 {
+			.icon {
+				font-size: 17px;
+				vertical-align: text-bottom;
+				margin-right: 5px;
+			}
+		}
 
+		.actions {
 			li {
 				a {
 					padding-top: 0;
 
 					.icon {
 						font-size: 17px;
-						color: @text-color;
+						color: #adadad;
 					}
 				}
 			}		
@@ -286,6 +284,93 @@
 .nft-item {
 	.lgi-heading {
 		white-space: normal;
+	}
+}
+
+.ibi-body {
+	padding: 10px 0;
+}
+
+.ibi-actions {
+	display: inline-block;
+
+	li {
+		display: inline-block;
+		margin-right: 10px;
+
+		&:last-child {
+			margin-right: 0;
+		}
+		
+		a {
+			font-size: 12px;
+			color: @m-gray;
+		}
+	}
+}
+
+.ibr-reply-box {
+	position: relative;
+	border-top: 1px solid #f5f5f5;
+	border-bottom: 1px solid #f5f5f5;
+
+	textarea {
+		width: 100%;
+	    border: 0;
+	    padding: 15px 60px 15px 15px;
+	    resize: none;
+	    height: 60px;
+	}
+
+	button {
+		position: absolute;
+	    top: 0;
+	    right: 0;
+	    border: 0;
+	    height: 100%;
+	    width: 60px;
+	    font-size: 25px;
+	    background: #F5F5F5;
+	    color: @m-lightblue;
+	}
+}
+
+.ibr-item {
+	&.right {
+		.ibri-time {
+			clear: right;
+			float: right;
+		}
+
+		.ibri-content {
+			text-align: right;
+			background-color: #eee;
+			color: @text-color;
+			float: right;
+		}
+	}
+
+	.ibri-content {
+		background: @m-amber;
+		color: #fff;
+		padding: 10px;
+		border-radius: 2px;
+		display: inline-block;
+
+		.ibri-sent-time {
+			display: block;
+			margin-bottom: 5px;
+		}
+	}
+
+	.ibri-time {
+		display: block;
+		color: @m-gray;
+		margin-top: 5px;
+
+		.icon {
+			font-size: 14px;
+		}
 	}
 }
 	

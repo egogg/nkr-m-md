@@ -1,0 +1,69 @@
+<?php TPL::output('global/header.tpl.htm'); ?>
+<?php TPL::output('account/setting/setting_header.tpl.htm'); ?>
+
+<form class="setting-profile" id="setting_form" method="post" action="account/ajax/profile_setting/">
+
+	<!-- 基本信息 -->
+
+	<section class="user-setting-group">
+        <div class="user-setting-group-header">
+            <h2><i class="md md-person m-r-5"></i> 基本信息</h2>
+        </div>
+        <div class="user-setting-group-body p-l-25">
+            <dl class="dl-horizontal">
+                <dt>昵称</dt>
+                <dd>
+                    <div class="col-xs-6 p-l-0">
+                        <div class="form-group">
+                            <input class="form-control" type="text" id="user_name" name="user_name" placeholder="昵称" errortips="用户名长度不符合" data-original-value="<?php echo $this->user_info['user_name']; ?>" value="<?php echo $this->user_info['user_name']; ?>" />
+                        </div> 
+                    </div> 
+                </dd>
+            </dl>
+            <dl class="dl-horizontal">
+                <dt>电子邮件</dt>
+                <dd>
+                    <?php if ($this->user_info['valid_email']) { ?>
+                        <?php echo $this->user_info['email']; ?>
+                    <?php } else { ?>
+                        <div class="col-xs-6 p-l-0">
+                            <input class="form-control" type="text" id="email" name="email" placeholder="电子邮件" value="<?php echo $this->user_info['email']; ?>" />
+                        </div>
+                        <div class="col-xs-6">
+                            <a class="btn bgm-blue" id="valid_email">重发验证邮件</a>
+                        </div>
+                    <?php } ?>
+                </dd>
+            </dl>
+            <dl class="dl-horizontal">
+                <dt>头像</dt>
+                <dd>
+                	<img class="img-circle" src="<?php echo get_avatar_url($this->user_id, 'max'); ?>?rand=<?php echo rand(1, 999); ?>" alt="" id="avatar_src" />
+                	<div class="user-avatar-upload">
+                		<a class="btn btn-mini btn-success" id="avatar_uploader" href="javascript:;"><?php _e('上传头像'); ?></a> <span id="avatar_uploading_status" class="hide"><i class="aw-loading"></i> <?php _e('文件上传中...'); ?></span>
+                	</div>
+                </dd>
+            </dl>
+            <dl class="dl-horizontal">
+                <dt>简介</dt>
+                <dd>
+                	<textarea class="form-control user-signature" name="signature" maxlength="128" type="text" placeholder="自己的简单介绍" <?php if ($this->user_info['verified']) { ?> disabled="disabled"<?php } ?>><?php echo $this->user_info['signature']; ?></textarea>
+                </dd>
+            </dl>
+        </div>
+    </section>
+</form>
+
+<a href="javascript:;" class="btn btn-primary m-t-25" onclick="AWS.ajax_post($('#setting_form'));"><?php _e('保存'); ?></a>
+
+<?php TPL::output('account/setting/setting_footer.tpl.htm'); ?>
+
+<script type="text/javascript">
+	$(document).ready(function () {
+	    var fileUpload = new FileUpload('avatar', $('#avatar_uploader'), $('#avatar_src'), G_BASE_URL + '/account/ajax/avatar_upload/', {'loading_status' : '#avatar_uploading_status'});
+	});
+</script>
+
+<script type="text/javascript" src="<?php echo G_STATIC_URL; ?>/js/app/setting.js"></script>
+
+<?php TPL::output('global/footer.tpl.htm'); ?>

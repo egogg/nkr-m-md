@@ -1,0 +1,57 @@
+<?php TPL::output('global/header.tpl.htm'); ?>
+
+<section id="main">
+    <section id="content">
+        <div class="container"> 
+            <div class="card question-user-record">
+                <div class="card-header ch-alt">
+                    <h2>
+                        <a href="question/<?php echo $this->question_info['question_id']; ?>" class="qur-title">
+                            问题：<?php echo $this->question_info['question_content']; ?>
+                        </a>
+                    </h2>
+                    
+                    <div class="m-t-10">
+                        <div class="qur-count">答题记录（<?php echo $this->user_quiz_record_count; ?>）</div>
+                        <div class="qur-user">
+                            <a class="user-tag user-img" data-id="<?php echo $this->quiz_user_info['uid']; ?>" href="people/<?php echo $this->quiz_user_info['url_token']; ?>">
+                                <img class="img-circle" alt="" src="<?php echo get_avatar_url($this->quiz_user_info['uid'], 'min'); ?>" />
+                            </a>
+                            <a class="user-tag user-name" data-id="<?php echo $this->quiz_user_info['uid']; ?>" href="people/<?php echo $this->quiz_user_info['url_token']; ?>">
+                                <?php echo $this->quiz_user_info['user_name']; ?>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="list-group qur-records" id="qur-records">
+                        <?php TPL::assign('quiz_record', $this->user_quiz_record); ?>
+                        <?php TPL::output('question/ajax/user_quiz_record_list'); ?>
+                    </div>  
+                </div>
+            </div>
+
+            <div class="load-more">
+                <a href="#" id="qur-load-more" auto-load="false"><i class="icon icon-load-more"></i> 加载更多</a>
+            </div>
+        </div>  
+    </section>
+</section>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+
+        function onUserQuizRecordLoadMore(element, complete) {
+            if(complete) {
+                element.addClass('no-more');
+                element.html('没有更多记录');
+            }
+        }
+
+        // 加载更多
+
+        NKR.load_list_view(G_BASE_URL + "/question/ajax/load_more_question_quiz_record_user/question_id-<?php echo $this->question_info['question_id']; ?>__uid-<?php echo $this->quiz_user_info['uid']; ?>", $('#qur-load-more'), $('#qur-records'), 2, onUserQuizRecordLoadMore);
+    });
+</script>
+
+<?php TPL::output('global/footer.tpl.htm'); ?>

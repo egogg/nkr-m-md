@@ -1,0 +1,69 @@
+<?php TPL::output('global/header.tpl.htm'); ?>
+
+<section id="main">
+	<section id="content">
+		<div class="container">
+			<section class="article-category category-select">
+                <div class="card">
+                    <div class="card-header">
+                    	<h2>
+	                        <a href="#dlg-article-category" data-toggle="modal">
+                                <i class="icon icon-filter"></i>
+                                <?php if ($this->category_info) { ?>
+                                    <?php echo $this->category_info['title']; ?>
+                                <?php } else { ?>
+                                    全部知识
+                                <?php } ?> 
+                                <i class="caret"></i>
+	                        </a>
+                        </h2>
+                    </div>
+                </div>
+
+                <!-- article category modal -->
+
+                <div class="modal modal-fullpage fade" id="dlg-article-category" tabindex="-1" role="dialog" aria-hidden="true">
+	                <div class="modal-dialog">
+	                    <div class="modal-content">
+	                        <div class="modal-header">
+	                            <h4 class="modal-title"><i class="icon icon-filter"></i> 知识分类</h4>
+	                            <button type="button" class="btn btn-link" data-dismiss="modal" aria-label="Close">取消</button>
+	                        </div>
+	                        <div class="modal-body">
+	                            <?php if ($this->article_categories) { ?>
+	                                <ul class="category-list">
+	                                    <li>
+	                                        <a <?php if (!$_GET['category']) { ?>class="active"<?php } ?> href="article/">全部知识</a>
+	                                    </li>
+	                                    <?php foreach($this->article_categories AS $key => $val) { ?>
+	                                        <li>
+	                                            <a <?php if ($_GET['category'] == $val['id']) { ?> class="active"<?php } ?> href="article/category-<?php echo $val['id']; ?>"> <?php echo $val['title']; ?></a>
+	                                        </li>
+	                                    <?php } ?>
+	                                </ul>
+	                            <?php } ?>
+	                        </div>
+	                    </div>
+	                </div>
+	            </div>
+            </section>
+
+			<section class="article-list">
+				<?php TPL::assign('article_list', $this->article_list); ?>
+				<?php TPL::output('block/article_list'); ?>
+
+				
+			</section>
+
+			<?php if($this->pagination) { ?> 
+                <div class="card">
+                    <div class="card-body card-padding">
+                        <?php echo $this->pagination; ?>
+                    </div>
+                </div>     
+            <?php } ?>
+		</div>
+	</section>
+</section>
+
+<?php TPL::output('global/footer.tpl.htm'); ?>

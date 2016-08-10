@@ -1,0 +1,7 @@
+<!-- 问题分类 -->
+<?php if ($this->category_info) { ?>
+	<?php $category_colors = array("bgm-red", "bgm-purple", "bgm-indigo", "bgm-lightblue", "bgm-teal", "bgm-lightgreen", "bgm-yellow", "bgm-orange", "bgm-brown", "bgm-bluegray", "bgm-pink", "bgm-deeppurple", "bgm-blue", "bgm-cyan", "bgm-green", "bgm-lime", "bgm-amber", "bgm-deeporange"); ?>	
+	<a data-type="category" data-id="<?php echo $this->category_info['id']; ?>" class="qt-category <?php echo $category_colors[$this->category_info['id'] % count($category_colors)]; ?>" href="question/category-<?php echo $this->category_info['id']; ?>">
+		<span><?php echo $this->category_info['title']; ?></span>
+	</a>	
+<?php } ?>

@@ -1,0 +1,46 @@
+<?php TPL::output('global/header_meta.tpl.htm'); ?>
+
+<section id="main" class="account-main">
+	<section id="content" class="account-content">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-2"></div>
+				<div class="col-sm-8">
+					<div class="card p-b-30">
+						<div class="login-block">
+							<div class="card-header card-padding login-header text-center p-b-0">
+								<a href="<?php echo base_url(); ?>" class="login-logo"></a>
+								<h1 class="c-green f-20"><?php if($this->sns_type == 'QQ') { ?>QQ<?php } else if($this->sns_type == "weibo") { ?>新浪微博<?php } ?>登录授权成功</h1>
+								<p class="f-500 f-15 m-b-0">您是第一次登录，请完善您在脑壳网的信息</p>
+							</div>
+							<div class="card-body card-padding">
+								<div class="login-form">
+									<form id="register_form" method="post" onsubmit="return false" action="<?php echo $this->register_url; ?>">
+										<input type="hidden" name="return_url" value="<?php echo $this->return_url; ?>" />
+										<ul>
+											<li class="m-b-20">
+												<input name="user_name" class="form-control" type="text" placeholder="昵称" tips="请输入一个 2-14 位的昵称" errortips="昵称的长度不符合" value="<?php echo $this->user_name; ?>" />
+											</li>
+											<li class="m-b-20">
+												<input name="email" class="form-control" type="text" placeholder="邮箱" tips="请输入你常用的电子邮箱" errortips="邮箱格式不正确" value="<?php echo $this->email; ?>" />
+											</li>
+
+											<li class="clearfix">
+												<button class="btn btn-lg btn-primary submit" id="sns-register-submit">进入脑壳网</button>
+                                            </li>
+										</ul>
+									</form>
+								</div>
+						    </div>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-2"></div>
+			</div>
+		</div>
+	</section>
+</section>
+
+<script type="text/javascript" src="<?php echo G_STATIC_URL; ?>/js/app/register.js"></script>
+
+<?php TPL::output('global/footer.tpl.htm'); ?>
