@@ -105,7 +105,7 @@
 		<?php if($this->show_question_quiz) { ?>
 			<div class="qz-body">
 				<input type="hidden" name="qz-id" value="<?php echo $this->question_info['question_quiz']['id']; ?>">
-				<input type="hidden" name="qz-content" value='<?php echo $this->question_info['question_quiz']['content']; ?>'>
+				<input type="hidden" name="qz-content" value="<?php echo base64_encode($this->question_info['question_quiz']['content']); ?>">
 				<input type="hidden" name="qz-record-id" value="<?php echo $this->question_quiz_record_id; ?>">
 				<input type="hidden" name="qz-record-try-count" value="<?php echo $this->quiz_record_count; ?>">
 				<input type="hidden" name="qz-record-passed" value="<?php echo $this->passed_quiz; ?>">

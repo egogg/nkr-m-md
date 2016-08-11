@@ -35,7 +35,8 @@
   "devDependencies": {
     "jquery.cookie": "jquery-cookie#^1.4.1",
     "bootstrap": "^3.3.6",
-    "jquery-form": "^3.46.0"
+    "jquery-form": "^3.46.0",
+    "base64": "^1.0.0"
   },
   "overrides": {
     "Flot": {
