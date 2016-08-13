@@ -8,7 +8,7 @@
                     <div class="ar-author">
                         <?php if ($this->article_info['user_info']) { ?>
                             <a class="user-tag user-img" href="people/<?php echo $this->article_info['user_info']['url_token']; ?>">
-                                <img class="ar-author-img" src="<?php echo get_avatar_url($this->article_info['user_info']['uid'], 'min'); ?>" alt="" />
+                                <img class="ar-author-img" src="<?php echo get_avatar_url($this->article_info['user_info']['uid'], 'min'); ?><?php if($this->article_info['user_info']['profile_update_time']) { echo '?v=' . $this->article_info['user_info']['profile_update_time']; } ?>" alt="" />
                             </a>
                             <a class="user-tag user-name" href="people/<?php echo $this->article_info['user_info']['url_token']; ?>"><?php echo $this->article_info['user_info']['user_name']; ?></a>
                         <?php } ?>

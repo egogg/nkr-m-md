@@ -45,7 +45,7 @@
                         </li>
                         <li class="dropdown">
                             <a class="hi-avatar" data-toggle="dropdown" href="">
-                                <img alt="<?php echo $this->user_info['user_name']; ?>" src="<?php echo get_avatar_url($this->user_info['uid'], 'min'); ?>" />
+                                <img alt="<?php echo $this->user_info['user_name']; ?>" src="<?php echo get_avatar_url($this->user_info['uid'], 'min'); ?><?php if($this->user_info['profile_update_time']) { echo '?v=' . $this->user_info['profile_update_time']; } ?>" />
                                 <span class="caret"></span>
                                 <?php if ($this->user_info['inbox_unread'] != 0) {?>
                                     <i class="him-counts"><?php echo $this->user_info['inbox_unread']?></i>

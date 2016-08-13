@@ -2,7 +2,7 @@
     <div class="ci-header media">
         <div class="pull-left">
             <a class="user-tag user-img" data-id="<?php echo $this->answer_info['uid']; ?>" href="people/<?php echo $this->answer_info['user_info']['url_token']; ?>" class="pull-left">
-                <img class="ci-user-img" src="<?php echo get_avatar_url($this->answer_info['uid'], 'mid'); ?>" alt="" /> 
+                <img class="ci-user-img" src="<?php echo get_avatar_url($this->answer_info['uid'], 'mid'); ?><?php if($this->answer_info['user_info']['profile_update_time']) { echo '?v=' . $this->answer_info['user_info']['profile_update_time']; } ?>" alt="" /> 
             </a>
         </div>
         <div class="media-body">

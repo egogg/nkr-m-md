@@ -467,9 +467,14 @@ $(document).ready(function(){
 			var PASSED_QUIZ = $('input[name=qz-record-passed]').val();
 			var TRY_COUNT = $('input[name=qz-record-try-count]').val();
 
-			initCountdownTimer(90);
-			setupCoundownTimerAffix();
-			parseQuestionQuiz(TRY_COUNT == 0 || (TRY_COUNT > 0 && PASSED_QUIZ), !PASSED_QUIZ);
+			if($('input[name=qz-content]').length) {
+				parseQuestionQuiz(TRY_COUNT == 0 || (TRY_COUNT > 0 && PASSED_QUIZ), !PASSED_QUIZ);
+			}
+
+			if($('#countdown-timer').length) {
+				initCountdownTimer(90);
+				setupCoundownTimerAffix();
+			}
 		});
 	}
 

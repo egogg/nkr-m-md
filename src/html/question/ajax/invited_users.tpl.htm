@@ -3,7 +3,7 @@
 		<div class="list-group-item media qi-item">
             <div class="pull-left">
                 <a class="user-tag user-img" data-id="<?php echo $val['recipient_info']['uid']; ?>" href="people/<?php echo $val['recipient_info']['url_token']; ?>">
-                	<img class="qii-user-img" alt="" src="<?php echo get_avatar_url($val['recipient_info']['uid'], 'mid'); ?>" />
+                	<img class="qii-user-img" alt="" src="<?php echo get_avatar_url($val['recipient_info']['uid'], 'mid'); ?><?php if($val['recipient_info']['profile_update_time']) { echo '?v=' . $val['recipient_info']['profile_update_time']; } ?>" />
                 </a>
             </div>
             <div class="media-body">

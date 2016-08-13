@@ -12,7 +12,7 @@
 					<div class="q-publisher">
 						<?php if ($this->question_info['user_info']) { ?>
 							<a href="people/<?php echo $this->question_info['user_info']['url_token']; ?>" target="_blank" rel="nofollow" class="user-tag user-img" data-id="<?php echo $this->question_info['user_info']['uid']; ?>">
-								<img src="<?php echo get_avatar_url($this->question_info['user_info']['uid'], 'min'); ?>" alt="" />
+								<img src="<?php echo get_avatar_url($this->question_info['user_info']['uid'], 'min'); ?><?php if($this->question_info['user_info']['profile_update_time']) { echo '?v=' . $this->question_info['user_info']['profile_update_time']; } ?>" alt="" />
 							</a>
 							<a href="people/<?php echo $this->question_info['user_info']['url_token']; ?>" target="_blank" rel="nofollow" class="user-tag user-name" data-id="<?php echo $this->question_info['user_info']['uid']; ?>">
 								<?php echo $this->question_info['user_info']['user_name']; ?>
@@ -114,7 +114,7 @@
 										<li class="list-group-item media <?php if($key > 2) { ?>hide<?php } ?>">
 		                                    <div class="pull-left">
 		                                        <a class="user-tag user-img" data-id="<?php echo $val['user_info']['uid']; ?>" href="people/<?php echo $val['user_info']['url_token']; ?>">
-		                                        	<img class="qia-user-img" alt="" src="<?php echo get_avatar_url($val['user_info']['uid'], 'mid'); ?>" />
+		                                        	<img class="qia-user-img" alt="" src="<?php echo get_avatar_url($val['user_info']['uid'], 'mid'); ?><?php if($val['user_info']['profile_update_time']) { echo '?v=' . $val['user_info']['profile_update_time']; } ?>" />
 		                                        </a>
 		                                    </div>
 		                                    <div class="media-body">

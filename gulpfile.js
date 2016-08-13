@@ -60,7 +60,7 @@ gulp.task('js', function() {
 	        ], { base: './' }))
 		.pipe(concat('app.js'))
 		.pipe(rename('app.min.js'))
-		// .pipe(uglify())
+		.pipe(uglify())
 		.pipe(gulp.dest(diststatic + '/js/'));
 });
 

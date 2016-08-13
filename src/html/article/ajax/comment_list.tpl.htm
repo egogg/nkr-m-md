@@ -4,7 +4,7 @@
             <div class="ci-header media">
                 <div class="pull-left">
                     <a class="user-tag user-img" data-id="<?php echo $val['user_info']['uid']; ?>" href="people/<?php echo $val['user_info']['url_token']; ?>">
-                        <img class="ci-user-img" src="<?php echo get_avatar_url($val['uid'], 'mid'); ?>" alt="<?php echo $val['user_info']['user_name']; ?>" />
+                        <img class="ci-user-img" src="<?php echo get_avatar_url($val['uid'], 'mid'); ?><?php if($val['user_info']['profile_update_time']) { echo '?v=' . $val['user_info']['profile_update_time']; } ?>" alt="<?php echo $val['user_info']['user_name']; ?>" />
                     </a>
                 </div>
                 <div class="media-body">

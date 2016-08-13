@@ -4,7 +4,7 @@
 			<div class="favi-header media">
 				<div class="pull-left">
 					<a class="user-tag user-img" href="people/<?php echo $val['user_info']['url_token']; ?>">
-						<img class="avatar-img" src="<?php echo get_avatar_url($val['user_info']['uid'], 'mid'); ?>" alt="<?php echo $val['user_info']['user_name']; ?>" />
+						<img class="avatar-img" src="<?php echo get_avatar_url($val['user_info']['uid'], 'mid'); ?><?php if($val['user_info']['profile_update_time']) { echo '?v=' . $val['user_info']['profile_update_time']; } ?>" alt="<?php echo $val['user_info']['user_name']; ?>" />
 					</a>
 				</div>
 				<div class="media-body">
