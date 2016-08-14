@@ -374,3 +374,147 @@
 	}
 }
 	
+.draft-header {
+	h3 {
+		font-size: 14px;
+		margin: 0;
+		padding: 0;
+		font-weight: 500;
+
+		a {
+			color: #000;
+		}
+	}
+}
+
+.draft-content {
+	padding: 10px 0;
+}
+
+.draft-footer {
+	.draft-time {
+		color: @m-gray;
+	}
+
+	.draft-actions {
+		float: right;
+		font-size: 0;
+
+		li {
+			display: inline-block;
+			margin-left: 15px;
+			
+			a {
+				font-size: 12px;
+				color: @m-gray;
+			}
+		}
+	}
+}
+
+.ust-group {
+	.ustg-header {
+		margin-bottom: 15px;
+		h3 {
+			font-size: 14px;
+			margin: 0;
+			padding: 0;
+			color: #000;
+
+			.icon {
+				font-size: 17px;
+				vertical-align: text-bottom;
+				margin-right: 5px;
+			}
+		}
+	}
+
+	.ustg-alert-message {
+		margin-bottom: 30px;
+	}
+
+	.ustg-body {
+		dl {
+			margin-bottom: 20px;
+
+			dt {
+				padding-bottom: 10px;
+			}
+		}
+
+		.ustg-avatar-upload {
+			padding-top: 10px;
+
+			a {
+				display: inline-block;
+				width: 100px;
+			}
+		}
+
+		.ustg-signature-box {
+			border: 1px solid #f7f7f7;
+		    padding: 10px;
+		    height: 80px;
+		    border-radius: 2px;
+		    color: @text-color;
+		}
+	}
+}
+
+.usto-header {
+	margin-bottom: 15px;
+
+	.usto-items {
+		font-weight: 700;
+	}
+}
+
+.usto-list {
+	& > li {
+		list-style: none;
+		padding: 10px 0;
+	}
+}
+
+.usto-items {
+	display: table;
+	width: 100%;
+
+	& > li {
+		display: table-cell;
+		width: 30%;
+		text-align: center;
+
+		.icon {
+			font-size: 17px;
+    		vertical-align: text-bottom;
+		}
+	}
+}
+
+.ust-send-invitation {
+	margin-top: 15px;
+}
+
+.invi-header {
+	margin-bottom: 10px;
+}
+
+.invi-actions {
+	margin-top: 10px;
+	font-size: 0;
+
+	& > li {
+		display: inline-block;
+		margin-right: 15px;
+		
+		&:last-child {
+			margin-right: 0;
+		}
+
+		a {
+			font-size: 12px;
+			color: @m-gray;
+		}
+	}
+}

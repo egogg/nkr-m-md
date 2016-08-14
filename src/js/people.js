@@ -60,3 +60,30 @@ $(document).ready(function(){
 		NKR.load_list_view(G_BASE_URL + '/inbox/ajax/load_more_inbox_read/id-' + DIALOG_ID, $('#ibr-load-more'), $('#ibr-list'), 2, onListLoadComplete);
 	}
 });
+
+$(document).ready(function(){
+	NKR.load_list_view(G_BASE_URL + '/draft/ajax/list/', $('#draft-load-more'), $('#draft-list'), 2, function(element, complete){
+		if(complete) {
+			element.addClass('no-more');
+            element.html('已加载全部草稿');
+		}
+	});
+});
+
+$(document).ready(function(){
+	NKR.load_list_view(G_BASE_URL + '/integral/ajax/list/', $('#integral-load-more'), $('#integral-list'), 2, function(element, complete){
+		if(complete) {
+			element.addClass('no-more');
+            element.html('已加载全部积分记录');
+		}
+	});
+});
+
+$(document).ready(function(){
+	NKR.load_list_view(G_BASE_URL + '/invitation/ajax/invitation_list/', $('#invitation-load-more'), $('#invitation-list'), 2, function(element, complete){
+		if(complete) {
+			element.addClass('no-more');
+            element.html('已加载全部邀请');
+		}
+	});
+})
