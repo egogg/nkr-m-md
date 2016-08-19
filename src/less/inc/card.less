@@ -17,8 +17,8 @@
 
         h2 {
             margin: 0;
-            line-height: 17px;
             font-size: 14px;
+            line-height: 30px;
             font-weight: 400;
             
             small {
@@ -27,7 +27,25 @@
                 color: #AEAEAE;
                 line-height: 160%;
             }
+
+            .icon {
+                font-size: 17px;
+                vertical-align: text-bottom;
+                margin-right: 5px;
+            }
         } 
+        
+        .link-action {
+            color: @text-color;
+            display: inline-block;
+            font-size: 13px;
+            float: right;
+
+            .caret {
+                position: relative;
+                top: -1px;
+            }
+        }
 
         &.ch-alt {
             &:not([class*="bgm-"]) {

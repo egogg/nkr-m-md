@@ -7,23 +7,23 @@
                         <?php $has_img = false; ?>
                         <?php foreach ($article['attachs'] AS $attach) { ?>
                             <?php if ($attach['is_image']) { ?>
-                                <img class="al-img responsive-img" 
+                                <img class="ali-img responsive-img" 
                                 src="<?php echo $attach['attachment']; ?>" alt="<?php echo $article['title']; ?>">
                                 <?php $has_img = true; ?>
                             <?php break; } ?>
                         <?php } ?>
                         <?php if(!$has_img) { ?>
-                            <img class="al-img blank-img">
+                            <img class="ali-img blank-img">
                         <?php } ?>
                     </a>
                 </div>
                 <div class="media-body">
-                    <h2><a href="article/<?php echo $article['id']; ?>"><?php echo $article['title']; ?></a></h2>
-                    <ul class="al-stats">
+                    <h2 class="ali-title"><a href="article/<?php echo $article['id']; ?>"><?php echo $article['title']; ?></a></h2>
+                    <ul class="ali-stats">
                         <li><i class="icon icon-view"></i> <?php echo $article['views']; ?></li>
                         <li><i class="icon icon-comment"></i> <?php echo $article['comments']; ?></li>
                     </ul>
-                    <a class="al-category" href="article/category-<?php echo $article['category_id']; ?>"><?php echo $article['category_info']['title']; ?></a>
+                    <a class="ali-category" href="article/category-<?php echo $article['category_id']; ?>"><?php echo $article['category_info']['title']; ?></a>
                 </div>
             </div>
         </div>

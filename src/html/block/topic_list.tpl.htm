@@ -2,26 +2,27 @@
 	<?php foreach($this->topic_list AS $key => $val) {?>
 		<div class="card tl-item">
 			<div class="card-header card-padding">
-				<div class="tl-title">
+				<h2 class="tli-title">
 					<a href="topic/<?php echo $val['topic_id'];?>">
-						<h2><?php echo $val['topic_title'];?></h2>
+						<?php echo $val['topic_title'];?>
 					</a>
-				</div>
-				<a href="javascript:void(0);" onclick="NKR.User.follow($(this), 'topic', <?php echo $val['topic_id']; ?>);" class="tl-follow follow <?php if ($val['following']) { ?> following <?php } ?>">
+				</h2>
+				
+				<a href="javascript:void(0);" onclick="NKR.User.follow($(this), 'topic', <?php echo $val['topic_id']; ?>);" class="tli-follow follow <?php if ($val['following']) { ?> following <?php } ?>">
                     <?php if ($val['following']) { ?>已关注<?php } else { ?>+ 关注<?php } ?>
                 </a>
 			</div>
 			<div class="card-body card-padding">
 				<a href="topic/<?php echo $val['topic_id'];?>"><img class="img-responsive" alt="" src="<?php echo get_topic_pic_url('max', $val['topic_pic']); ?>" /></a>
-				<div class="tl-content">
+				<div class="tli-content">
 					<?php echo cjk_substr(str_replace("\r\n", ' ', preg_replace('|\[.*\].*\[\/.*\]|si', '', strip_tags($val['topic_description']))), 0, 28, 'UTF-8', '...'); ?> <a target="_blank" href="topic/<?php echo $val['topic_id']; ?>">进入专题 <i class="icon icon-right"></i>
 				</div>
-				<div class="tl-footer">
-					<ul class="tl-stats">
+				<div class="tli-footer">
+					<ul class="tli-stats">
 						<li>收录 <?php echo $val['question_count']; ?></li>
 						<li>关注 <?php echo $val['focus_count']; ?></li>
 					</ul>
-					<a class="tl-category" href="topic/channel-topic__topic_id-<?php echo $val['category_id']; ?>"><?php echo $val['category']; ?></a>
+					<a class="tli-category" href="topic/channel-topic__topic_id-<?php echo $val['category_id']; ?>"><?php echo $val['category']; ?></a>
 				</div>
 			</div>
 		</div>

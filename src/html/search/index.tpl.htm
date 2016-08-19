@@ -2,43 +2,70 @@
 
 <section id="main">
     <section id="content">
-        <div class="container">
+        <div class="container search">
             <div class="card">
-                <div class="card-header">
-                    <h2><strong class="c-lightblue"><?php echo addslashes($this->keyword); ?></strong> 的搜索结果</h2>
-                </div>
-                <div class="card-body">
-                    <div role="tabpanel">
-                        <ul class="tab-nav" role="tablist" id="search-type">
-                            <li><a href="#questions">问题</a></li>
-                            <li><a href="#topics">专题</a></li>
-                            <li><a href="#articles">知识</a></li>
-                            <li><a href="#users">用户</a></li>
-                        </ul>
-                        <div class="tab-content">
-                            <div class="listview">
-                                <div class="lv-body" id="search_result">
-                                </div>
+                <div class="card-body card-padding">
+                    <form action="search/" id="search-form" method="post">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="icon icon-search"></i></span>
+                            <div class="fg-line">
+                                <input class="form-control" type="text" name="q" placeholder="搜索题目、专题、知识或人" value="<?php echo addslashes($this->keyword); ?>" />
                             </div>
-                            <div class="load-more">
-                                <a href="javascript:void(0);" auto-load="false" id="search_result_more" data-page="1">
-                                    <i class="md md-refresh"></i> 加载更多
-                                </a>
-                            </div> 
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
+
+             <div role="tabpanel">
+                <ul class="tab-nav tn-justified s-type" role="tablist" id="s-type">
+                    <li role="presentation" class="active"><a data-toggle="tab" role="tab" href="#questions">问题</a></li>
+                    <li role="presentation"><a data-toggle="tab" role="tab" href="#topics">专题</a></li>
+                    <li role="presentation"><a data-toggle="tab" role="tab" href="#articles">知识</a></li>
+                    <li role="presentation"><a data-toggle="tab" role="tab" href="#users">用户</a></li>
+                </ul>
+                
+                <div class="tab-content s-body">
+                    <div role="tabpanel" class="tab-pane active" id="questions">
+                        <div class="question-list s-result" id="s-questions"></div>
+                        <div class="load-more">
+                            <a href="javascript:void(0);" auto-load="false" id="s-questions-load-more">
+                                <i class="icon icon-load-more"></i> 加载更多
+                            </a>
+                        </div> 
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="topics">
+                        <div class="topic-list s-result" id="s-topics"></div>
+                        <div class="load-more">
+                            <a href="javascript:void(0);" auto-load="false" id="s-topics-load-more">
+                                <i class="icon icon-load-more"></i> 加载更多
+                            </a>
+                        </div> 
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="articles">
+                        <div class="article-list s-result" id="s-articles"></div>
+                        <div class="load-more">
+                            <a href="javascript:void(0);" auto-load="false" id="s-articles-load-more">
+                                <i class="icon icon-load-more"></i> 加载更多
+                            </a>
+                        </div> 
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="users">
+                        <div class="card list-group s-result" id="s-users"></div>
+                        <div class="load-more">
+                            <a href="javascript:void(0);" auto-load="false" id="s-users-load-more">
+                                <i class="icon icon-load-more"></i> 加载更多
+                            </a>
+                        </div> 
+                    </div>
+                </div>
+            </div>    
         </div>
     </section>
 </section>
 
-<script type="text/javascript" src="<?php echo G_STATIC_URL; ?>/js/app/search.js"></script>
-
 <script type="text/javascript">
-	search_query = '<?php echo addslashes($this->keyword); ?>';
-	split_query = '<?php echo addslashes($this->split_keyword); ?>';
-	<?php if ($_GET['is_recommend']) { ?>search_recommend = true;<?php } ?>
+	var SEARCH_QUERY = '<?php echo addslashes($this->keyword); ?>';
+	var SPLIT_QUERY = '<?php echo addslashes($this->split_keyword); ?>';
 </script>
 
 <?php TPL::output('global/footer.tpl.htm'); ?>

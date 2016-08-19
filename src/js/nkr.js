@@ -484,7 +484,7 @@ var NKR =
 	                //没有内容
 
 	                if (_this.attr('data-page') == start_page && _this.attr('auto-load') != 'false') {
-	                    container.html('<p class="c-gray text-center p-t-15 p-b-15">' + '没有内容' + '</p>');
+	                    container.html('<div class="list-norecord">' + '没有相关内容' + '</div>');
 	                }
 
 	                complete = true;
@@ -494,7 +494,7 @@ var NKR =
 	            }
 
 	            if (callback != null) {
-	                callback(_this, complete);
+	                callback(_this, complete, container);
 	            }
 	        });
 

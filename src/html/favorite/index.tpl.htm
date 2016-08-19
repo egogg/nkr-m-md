@@ -4,11 +4,11 @@
 	<section id="content">
 		<div class="container favorite">
         	<div class="card">
-        		<div class="card-header upg-header">
+        		<div class="card-header">
         			<h2>
                         <i class="icon icon-bookmark"></i>我的收藏(<?php echo $this->favorite_count; ?>)
                         <?php if ($this->favorite_tags) { ?>
-	                        <a class="fav-category-action" href="#dlg-favorite-category" data-toggle="modal">
+	                        <a class="link-action" href="#dlg-favorite-category" data-toggle="modal">
 	                            <?php if ($this->filter_tag) { ?>
 	                                <?php echo $this->filter_tag; ?>
 	                            <?php } else { ?>
