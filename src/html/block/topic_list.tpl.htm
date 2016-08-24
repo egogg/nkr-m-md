@@ -15,7 +15,7 @@
 			<div class="card-body card-padding">
 				<a href="topic/<?php echo $val['topic_id'];?>"><img class="img-responsive" alt="" src="<?php echo get_topic_pic_url('max', $val['topic_pic']); ?>" /></a>
 				<div class="tli-content">
-					<?php echo cjk_substr(str_replace("\r\n", ' ', preg_replace('|\[.*\].*\[\/.*\]|si', '', strip_tags($val['topic_description']))), 0, 28, 'UTF-8', '...'); ?> <a target="_blank" href="topic/<?php echo $val['topic_id']; ?>">进入专题 <i class="icon icon-right"></i>
+					<?php echo excerpt($val['topic_description'], 0, 28); ?> <a target="_blank" href="topic/<?php echo $val['topic_id']; ?>">进入专题 <i class="icon icon-right"></i>
 				</div>
 				<div class="tli-footer">
 					<ul class="tli-stats">

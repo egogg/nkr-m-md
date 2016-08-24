@@ -25,11 +25,6 @@ gulp.task('html', function() {
 });
 
 gulp.task('css', function() {
-	var lessStream = gulp.src('./src/less/app.less')
-		.pipe(less({ 
-			paths: ['./src/less/inc']
-		}));
-
 	var cssLibStream =  gulp.src(mainBowerFiles())
 		.pipe(filter('src/js/libs/**/*.css'))
 		.pipe(concat('app.lib.css'));
@@ -38,9 +33,21 @@ gulp.task('css', function() {
 	var iconStream = gulp.src('./src/fonts/naokr-webfont.zip')
 		.pipe(unzip())
 		.pipe(cssFilter)
-		.pipe(replace(/(url\(\'fonts)/g, 'url(\'../fonts/naokr'));
+		.pipe(replace(/(url\(\'fonts)/g, 'url(\'../fonts/naokr'))
+		.pipe(concat('app.font.css'));
 
-	return merge(lessStream, cssLibStream, iconStream)
+	var lessStream = gulp.src('./src/less/app.less')
+		.pipe(less({ 
+			paths: ['./src/less/inc']
+		}))
+		.pipe(concat('app.main.css'));
+
+	return merge(cssLibStream, iconStream, lessStream)
+		.pipe(order([
+            'app.lib.css',
+            'app.font.css',
+            'app.main.css'
+	        ], { base: './' }))
 		.pipe(concat('app.css'))
 		.pipe(rename('app.min.css'))
 		.pipe(cssmin())
@@ -80,7 +87,7 @@ gulp.task('fonts', function() {
 		.pipe(fontFilter)
 		.pipe(flatten())
 		.pipe(gulp.dest(diststatic + '/fonts/naokr/'));
-
+	
 	return gulp.src('./src/fonts/**/*')
 		.pipe(filter(['**', '!**/fonts/*.zip']))
 		.pipe(gulp.dest(diststatic + '/fonts/'));
@@ -91,5 +98,5 @@ gulp.task('clean', function(){
 });
 
 gulp.task('default', ['clean', 'html', 'css', 'js', 'fonts'],function() {
-	console.log(mainBowerFiles());
+	console.log(mainBowerFiles({ paths: './'}));
 });

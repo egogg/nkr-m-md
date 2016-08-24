@@ -297,3 +297,15 @@ $(document).ready(function(){
         });
     }
 });
+
+/*----------------------------------------------------------
+   Shares
+-----------------------------------------------------------*/
+
+$(document).ready(function(){
+    $('.fs-close').on('click', function(e){
+        e.preventDefault();
+
+        $(this).closest('.footer-share').slideUp(300);
+    });
+});

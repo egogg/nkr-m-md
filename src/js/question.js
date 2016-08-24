@@ -1003,7 +1003,28 @@ $(document).ready(function(){
         		break;
 
         	case 'share' :
+        		if($('.footer-share').is(':visible')) {
+        			$('.footer-share').slideUp(300);
+        		} else {
+        			$('.footer-share').slideDown(300);
+        		}
         		break;
         }
     });
+});
+
+/*----------------------------------------------------------
+   Shares
+-----------------------------------------------------------*/
+
+$(document).ready(function(){
+	if(typeof QUESTION_ID != 'undefined') {
+		if($('.share-items')[0]) {
+	        $('.share-items').nkrShare({
+	        	title : QUESTION_SHARE_TITLE,
+	        	description: QUESTION_SHARE_DESCRIPTION,
+	        	pic : QUESTION_SHARE_PICS 
+	        });
+	    }
+	}
 });

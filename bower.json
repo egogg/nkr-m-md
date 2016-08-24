@@ -30,7 +30,8 @@
     "jquery.easy-pie-chart": "master",
     "Flot": "flot#^0.8.3",
     "mustache.js": "mustache#^2.2.1",
-    "headroom.js": "https://npmcdn.com/headroom.js/bower.zip"
+    "headroom.js": "https://npmcdn.com/headroom.js/bower.zip",
+    "jquery-qrcode": "lrsjng/jquery-qrcode#^0.14.0"
   },
   "devDependencies": {
     "jquery.cookie": "jquery-cookie#^1.4.1",
@@ -50,6 +51,11 @@
       "main": [
         "dist/headroom.js",
         "dist/jQuery.headroom.js"
+      ]
+    },
+    "jquery-qrcode": {
+      "main": [
+        "dist/jquery-qrcode.js"
       ]
     }
   }

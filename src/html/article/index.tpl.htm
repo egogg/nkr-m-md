@@ -2,7 +2,7 @@
 
 <section id="main">
     <section id="content">
-        <div class="container article">
+        <div class="container fullwidth article">
             <div class="card" data-id="<?php echo $this->article_info['id']; ?>">
                 <div class="card-header">
                     <div class="ar-author">
@@ -90,18 +90,9 @@
                             </li>
                         </ul>
                             
-                        <ul class="ar-share pull-right">
-                            <li class="ars-item weibo">
-                                <a onclick="NKR.User.share_out({webid: 'tsina', content: $(this).parents('.aw-question-detail').find('.markitup-box')});">  <i class="icon icon-weibo"></i>
-                                </a>
-                            </li>
-                            
-                            <li class="ars-item wechat">
-                                <a onclick="NKR.User.share_out({webid: 'weixin', content: $(this).parents('.aw-question-detail')});"><i class="icon icon-wechat"></i></a>
-                            </li>
-                            <li class="ars-item more">
-                                <a href="javascript:void(0);">
-                                    <i class="icon icon-more-horiz"></i>
+                        <ul class="arf-actions">
+                            <li>
+                                <a href="#" data-ar-act="share"><i class="icon icon-share"></i>
                                 </a>
                             </li>
                         </ul>
@@ -150,12 +141,35 @@
                 </div>
             </div>
         </div>
+
+        <section class="fixed-footer">
+            <div class="footer-share">
+                <div class="fs-title">
+                    <h3>分享问题到：</h3>
+                    <ul class="actions">
+                        <li><a class="fs-close" href="#"><i class="icon icon-close"></i></a></li>
+                    </ul>
+                </div>
+                <ul class="share-items">
+                    <li><a href="#" class="share-item weibo"><i class="icon icon-weibo"></i></a></li>
+                    <li><a href="#" class="share-item wechat"><i class="icon icon-wechat"></i></a></li>
+                    <li><a href="#" class="share-item qzone"><i class="icon icon-qzone"></i></a></li>
+                    <li><a href="#" class="share-item douban"><i class="icon icon-douban"></i></a></li>
+                </ul>
+            </div>
+        </section>
     </section>
 </section>
 
 <script type="text/javascript">
     var ANSWER_EDIT_TIME = <?php echo get_setting('answer_edit_time'); ?>;
     var ARTICLE_ID = <?php echo $this->article_info['id']; ?>;
+
+    // share items
+
+    var ARTICLE_SHARE_TITLE = "<?php echo $this->article_info['title']; ?>";
+    var ARTICLE_SHARE_DESCRIPTION = "<?php echo cjk_substr(trim(str_replace('\r\n', ' ', preg_replace('|\[.*\].*\[\/.*\]|si', '', strip_tags($this->article_info['message'])))), 0, 80, 'UTF-8', '...'); ?>";
+    var ARTICLE_SHARE_PICS = "<?php foreach($this->article_info['attachs'] AS $attach) {if($attach['is_image']) {echo $attach['attachment']; break;}} ?>";
 </script>
 
 <?php TPL::output('block/fixed_side_toolbar.tpl.htm'); ?>

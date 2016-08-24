@@ -203,8 +203,25 @@
 		</div>
 	</section>
 
-	<section class="question-toolbar">
-		<ul class="qtb-list">
+	<section class="fixed-footer">
+		<!-- share dialog -->
+
+		<div class="footer-share">
+			<div class="fs-title">
+				<h3>分享问题到：</h3>
+				<ul class="actions">
+					<li><a class="fs-close" href="#"><i class="icon icon-close"></i></a></li>
+				</ul>
+			</div>
+			<ul class="share-items">
+				<li><a href="#" class="share-item weibo"><i class="icon icon-weibo"></i></a></li>
+				<li><a href="#" class="share-item wechat"><i class="icon icon-wechat"></i></a></li>
+				<li><a href="#" class="share-item qzone"><i class="icon icon-qzone"></i></a></li>
+				<li><a href="#" class="share-item douban"><i class="icon icon-douban"></i></a></li>
+			</ul>
+		</div>
+
+		<ul class="question-toolbar">
 			<li><a href="#" data-qtb-act="solution"><i class="icon icon-solution"></i> <span class="qtb-icon-text">答案</span></a></li>
 			<li><a href="#" data-qtb-act="comment"><i class="icon icon-comment"></i> <span class="qtb-icon-text">讨论</span></a></li>
 			<li><a href="#" data-qtb-act="invite"><i class="icon icon-person-add"></i> <span class="qtb-icon-text">邀请</span></a></li>
@@ -221,9 +238,7 @@
                     <h4 class="modal-title"><i class="icon icon-solution"></i> 参考答案</h4>
                     <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal" aria-label="Close">取消</button>
                 </div>
-                <div class="modal-body" id="solution-content">
-                    abc
-                </div>
+                <div class="modal-body" id="solution-content"></div>
             </div>
         </div>
     </div>
@@ -247,4 +262,10 @@
 	var PUBLISH_SUCCESS_HINT = '<?php echo $this->is_first_visited; ?>';
 	var PUBLISH_SUCCESS_INTEGRAL = '<?php echo $this->publish_integral; ?>' ;
 	var USER_INTEGRAL = '<?php echo $this->user_integral; ?>';
+
+	// share items
+
+	var QUESTION_SHARE_DESCRIPTION = "<?php if($this->question_info['quiz_info'] AND $this->question_info['quiz_info']['countdown']) { echo '该题为限时答题，你需要在规定的时间内完成答题'; } else {echo cjk_substr(trim(str_replace('\r\n', ' ', preg_replace('|\[.*\].*\[\/.*\]|si', '', strip_tags($this->question_info['question_detail'])))), 0, 20, 'UTF-8', '...');} ?>";
+	var QUESTION_SHARE_TITLE = "<?php if($this->question_info['quiz_info'] AND $this->question_info['quiz_info']['countdown']) { echo '限时答题：***' . cjk_substr($this->question_info['question_content'], 2, 4, 'UTF-8', '***'); } else {echo $this->question_info['question_content']; } ?>";
+	var QUESTION_SHARE_PICS = "<?php if(!($this->question_info['quiz_info'] AND $this->question_info['quiz_info']['countdown']) AND $this->question_info['attachs']) { foreach ($this->question_info['attachs'] AS $attach) {if ($attach['is_image']) { echo $attach['thumb'];}}} ?>";
 </script>

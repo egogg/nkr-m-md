@@ -6,7 +6,7 @@
 /**
  * wrapping the codes, avoid conflict
  */
-(function ($) {
+;(function ($) {
     /**
      * define a plugin
      */

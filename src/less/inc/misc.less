@@ -405,8 +405,6 @@ html {
     }
 }
 
-
-
 /*----------------------------------
     Backdrop
 -----------------------------------*/
@@ -430,4 +428,106 @@ html {
 
 .avatar-img {
     width: 35px;
+}
+
+/*----------------------------------
+    fixed footer
+-----------------------------------*/
+
+.fixed-footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background: #fff;
+    z-index: 2;
+    .z-depth(1);
+}
+
+/*----------------------------------
+    share
+-----------------------------------*/
+
+.footer-share {
+    display: none;
+    padding: 0 15px 30px 15px;
+    border-bottom: 1px solid #eee;
+
+    .fs-title {
+        position: relative;
+
+        h3 {
+            font-size: 14px;
+            line-height: 30px;
+            margin: 0;
+            padding: 15px 0;
+        }
+
+        .actions {
+             position: absolute;
+             right: 0;
+             top: 15px;
+         }
+    }
+}
+
+.share-items {
+    li {
+        display: inline-block;
+        margin-right: 15px;
+
+        &:last-child {
+            margin-right: 0;
+        }
+
+        a {
+            display: block;
+            text-align: center;
+            height: 35px;
+            width: 35px;
+            border-radius: 50%;
+            padding: 8px 0;
+            color: #fff;
+            background-color: rgba(0, 0, 0, 0.1);
+
+            .icon {
+                font-size: 17px;
+                vertical-align: middle;
+            }
+
+            &.weibo {
+                background-color: @m-red;
+            }
+
+            &.qzone {
+                background-color: @m-indigo;
+            }
+
+            &.wechat {
+                background-color: @m-green;
+            }
+
+            &.douban {
+                background-color: @m-lightgreen;
+            }
+
+            &.more {
+                color: @text-color;
+            }
+        }
+    }
+}
+
+.share-description {
+    font-size: 12px;
+    color: @m-gray;
+    margin-top: 10px;
+    width: 210px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.share-qrcode {
+    width: 210px;
+    height: 210px;
+    padding-top: 15px;
 }

@@ -81,7 +81,7 @@
 	            				你需要在规定的时间内完成答题
 	            				<a href="question/<?php echo $question['question_id']; ?>" target="_blank">开始答题 <i class="icon icon-right"></i></a>
 			            	<?php } else { ?>
-		            			<span><?php echo cjk_substr(str_replace("\r\n", ' ', preg_replace('|\[.*\].*\[\/.*\]|si', '', strip_tags($question['question_detail']))), 0, 20, 'UTF-8', '...'); ?></span>
+		            			<span><?php echo excerpt($question['question_detail'], 0, 20); ?></span>
 		            			<a href="question/<?php echo $question['question_id']; ?>" target="_blank">开始答题 <i class="icon icon-right"></i></a>
 			            	<?php } ?>
 		            	</p>

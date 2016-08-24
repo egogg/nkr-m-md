@@ -9,6 +9,8 @@ $(document).ready(function() {
 		);
 	}
 
+	// article comment actions
+
 	$('body').on('click', '[data-arc-act]', function (e) {
 		e.preventDefault();
 
@@ -50,4 +52,39 @@ $(document).ready(function() {
 			break;
         }
 	});
+
+	// article actions
+
+	$('body').on('click', '[data-ar-act]', function (e) {
+		e.preventDefault();
+
+        var _this = $(this);
+        var action = $(this).data('ar-act');
+
+        switch(action) {
+        	case 'share':
+	        	if($('.footer-share').is(':visible')) {
+        			$('.footer-share').slideUp(300);
+        		} else {
+        			$('.footer-share').slideDown(300);
+        		}
+        		break;
+        }
+	});
+});
+
+/*----------------------------------------------------------
+   Shares
+-----------------------------------------------------------*/
+
+$(document).ready(function(){
+	if(typeof ARTICLE_ID != 'undefined') {
+		if($('.share-items')[0]) {
+	        $('.share-items').nkrShare({
+	        	title : ARTICLE_SHARE_TITLE,
+	        	description: ARTICLE_SHARE_DESCRIPTION,
+	        	pic : ARTICLE_SHARE_PICS          
+	        });
+	    }
+	}  
 });

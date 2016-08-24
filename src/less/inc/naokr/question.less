@@ -129,6 +129,9 @@
 ---------------------------------------------------*/
 
 .question {
+	position: absolute !important;
+	overflow-y: scroll;
+	-webkit-overflow-scrolling: touch;
 	padding-bottom: 60px !important;
 
 	.q-publisher {
@@ -309,43 +312,35 @@
 }
 
 .question-toolbar {
-	position: fixed;
-	bottom: 0;
 	width: 100%;
-    background: #fff;
-    z-index: 2;
-    .z-depth(1);
-	
-	.qtb-list {
-		width: 100%;
+	display: table;
 
-		li {
-			display: inline-block;
-			width: 23%;
-			text-align: center;
-			
-			a {
-				padding: 5px 0;
-				display: block;
-				color: @m-gray;
+	li {
+		display: table-cell;
+		width: 0.1%;
+		text-align: center;
+		
+		a {
+			padding: 5px 0;
+			display: block;
+			color: @m-gray;
 
-				&:active {
-					color: @m-lightblue;
-				}
-			}
-
-			.icon {
-				display: block;
-				font-size: 20px;
-			}
-			
-			.qtb-icon-text {
-				display: block;
-				padding-top: 3px;
-				font-size: 12px;
+			&:active {
+				color: @m-lightblue;
 			}
 		}
-	}	
+
+		.icon {
+			display: block;
+			font-size: 20px;
+		}
+		
+		.qtb-icon-text {
+			display: block;
+			padding-top: 3px;
+			font-size: 12px;
+		}
+	}
 }
 
 .question-user-record {
