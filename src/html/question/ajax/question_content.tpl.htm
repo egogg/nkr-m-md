@@ -21,21 +21,21 @@
 			    		<a href="publish/<?php echo $this->question_info['question_id']; ?>">编辑问题</a>
 			    	</li>
 			    	<li data-tigger="hover" data-toggle="tooltip" data-placement="bottom" data-content="编写答案解析" title data-original-title="编写答案解析">
-			    		<a href="javascript:void(0);" onclick="AWS.dialog('solutionEdit', {question_id:<?php echo $this->question_info['question_id']; ?>,solution_id:<?php echo $this->question_info['solution_id']; ?>,attach_access_key:'<?php echo $this->attach_access_key; ?>'});">编辑答案</a>
+			    		<a href="javascript:void(0);" onclick="NKR.dialog('solutionEdit', {question_id:<?php echo $this->question_info['question_id']; ?>,solution_id:<?php echo $this->question_info['solution_id']; ?>,attach_access_key:'<?php echo $this->attach_access_key; ?>'});">编辑答案</a>
 			    	</li>
 			    	<li class="divider"></li>
 	            	<?php if($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator']) { ?>
 		                <li>
-		                    <a href="javascript:void(0);" onclick="AWS.ajax_request(G_BASE_URL + '/question/ajax/lock/', 'question_id=<?php echo $this->question_info['question_id']; ?>');"><?php if ($this->question_info['lock']) { ?>解除锁定<?php } else { ?>锁定问题<?php } ?></a>
+		                    <a href="javascript:void(0);" onclick="NKR.ajax_request(G_BASE_URL + '/question/ajax/lock/', 'question_id=<?php echo $this->question_info['question_id']; ?>');"><?php if ($this->question_info['lock']) { ?>解除锁定<?php } else { ?>锁定问题<?php } ?></a>
 		                </li>
 						<li>
-							<a href="javascript:void(0);" onclick="AWS.ajax_request(G_BASE_URL + '/question/ajax/set_recommend/', 'action=<?php if ($this->question_info['is_recommend']) { ?>un<?php } ?>set&question_id=<?php echo $this->question_info['question_id']; ?>');"><?php if ($this->question_info['is_recommend']) { ?>取消推荐<?php } else { ?>推荐问题<?php } ?></a>
+							<a href="javascript:void(0);" onclick="NKR.ajax_request(G_BASE_URL + '/question/ajax/set_recommend/', 'action=<?php if ($this->question_info['is_recommend']) { ?>un<?php } ?>set&question_id=<?php echo $this->question_info['question_id']; ?>');"><?php if ($this->question_info['is_recommend']) { ?>取消推荐<?php } else { ?>推荐问题<?php } ?></a>
 						</li>
 						<li>
-							<a href="javascript:void(0);" onclick="AWS.ajax_request(G_BASE_URL + '/recommend/ajax/recommend_homepage/', 'type=question&id=<?php echo $this->question_info['question_id']; ?>');"><?php if ($this->is_recommend_homepage) { ?>取消精选<?php } else { ?>首页精选<?php } ?></a>
+							<a href="javascript:void(0);" onclick="NKR.ajax_request(G_BASE_URL + '/recommend/ajax/recommend_homepage/', 'type=question&id=<?php echo $this->question_info['question_id']; ?>');"><?php if ($this->is_recommend_homepage) { ?>取消精选<?php } else { ?>首页精选<?php } ?></a>
 						</li>
 						<li>
-							<a href="javascript:void(0);" onclick="AWS.ajax_request(G_BASE_URL + '/recommend/ajax/recommend_homepage/', 'type=top_question&id=<?php echo $this->question_info['question_id']; ?>');"><?php if ($this->is_top_question) { ?>取消置顶<?php } else { ?>首页置顶<?php } ?></a>
+							<a href="javascript:void(0);" onclick="NKR.ajax_request(G_BASE_URL + '/recommend/ajax/recommend_homepage/', 'type=top_question&id=<?php echo $this->question_info['question_id']; ?>');"><?php if ($this->is_top_question) { ?>取消置顶<?php } else { ?>首页置顶<?php } ?></a>
 						</li>
 					<?php } ?>
 	            </ul>
@@ -89,14 +89,14 @@
 			<i class="icon icon-help"></i> 
 			<?php if($this->question_info['question_quiz']['type'] == '1') { ?>
 				该题为单选题
-			<?php } else if($this->question_info['question_quiz']['type'] == '2') { ?>
+			<?php } elseif($this->question_info['question_quiz']['type'] == '2') { ?>
 				该题为多选题
-			<?php } else if($this->question_info['question_quiz']['type'] == '3') { ?>
+			<?php } elseif($this->question_info['question_quiz']['type'] == '3') { ?>
 				该题为字谜题
-			<?php } else if($this->question_info['question_quiz']['type'] == '4') { ?>
+			<?php } elseif($this->question_info['question_quiz']['type'] == '4') { ?>
 				该题为填空题
 			<?php } else { ?>
-				该题为开放讨论题</span>
+				该题为开放讨论题
 			<?php } ?>
 		</h3>
 		
@@ -105,7 +105,7 @@
 		<?php if($this->show_question_quiz) { ?>
 			<div class="qz-body">
 				<input type="hidden" name="qz-id" value="<?php echo $this->question_info['question_quiz']['id']; ?>" />
-				<input type="hidden" name="qz-content" value="<?php echo base64_encode($this->question_info['question_quiz']['content']); ?>" />
+				<input type="hidden" name="qz-content" value="<?php echo htmlspecialchars($this->question_info['question_quiz']['content'], ENT_QUOTES, 'UTF-8'); ?>" />
 				<input type="hidden" name="qz-record-id" value="<?php echo $this->question_quiz_record_id; ?>" />
 				<input type="hidden" name="qz-record-try-count" value="<?php echo $this->quiz_record_count; ?>" />
 				<input type="hidden" name="qz-record-passed" value="<?php echo $this->passed_quiz; ?>" />
@@ -154,7 +154,7 @@
 							<a href="#" class="btn bgm-orange" data-qz-act="discuss">继续参与讨论</a>
 						</div>
 					<?php } ?>
-				<?php } else if($this->question_info['question_quiz']['countdown'] > 0) { ?>
+				<?php } elseif($this->question_info['question_quiz']['countdown'] > 0) { ?>
 					<!-- 限时答题 -->
 					<div class="qzs-title">你需要在规定的时间内完成答题</div>
 					<div class="qzs-actions">

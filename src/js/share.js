@@ -64,7 +64,7 @@
                 // generate qrcode
 
                 var qrContainer = $('<div></div>');
-                qrContainer.qrcode({render : 'image', text : obj.__url, ecLevel:'H', size:210});
+                qrContainer.qrcode({render : 'image', text : obj.__url, ecLevel:'H', size:210, background:'#fff'});
                 var qrImg = qrContainer.find('img');
 
                 element.bind('click', function(){

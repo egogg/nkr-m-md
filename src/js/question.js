@@ -417,7 +417,7 @@ $(document).ready(function(){
 	}
 
 	function parseQuestionQuiz(enableSubmit, enableCountdown) {
-		QUESTION_QUIZ = atob($('input[name=qz-content]').val());
+		QUESTION_QUIZ = $('input[name=qz-content]').val();
 		QUESTION_QUIZ_ID = $('input[name=qz-id]').val();
 		QUESTION_QUIZ_RECORD_ID = $('input[name=qz-record-id]').val();
 
