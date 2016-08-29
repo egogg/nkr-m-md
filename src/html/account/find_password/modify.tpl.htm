@@ -1,39 +1,45 @@
-<?php TPL::output('global/header_meta.tpl.htm'); ?>
-
-<div class="login-content">
-    <div class="lc-block">
-        <div class="lcb-header">
-        	<h1>找回密码</h1>
-        </div>
-        
-		<div class="lcb-form clearfix">
-			<form id="fpw_form" method="post" action="account/ajax/find_password_modify/">
-				<input type="hidden" name="active_code" value="<?php echo htmlspecialchars($_GET['key']); ?>"/>
-				<div class="input-group m-b-20">
-					<div class="fg-line">
-						<input class="form-control" name="password" type="password" placeholder="新密码" />
-					</div>
-				</div>
-				<div class="input-group m-b-20">
-					<div class="fg-line">
-						<input class="form-control" name="re_password" type="password" placeholder="确认新密码" />
-					</div>
-				</div>
-					
-				<div class="lcb-captcha m-b-20">
-					<img id="captcha" onclick="this.src = G_BASE_URL + '/account/captcha/' + Math.floor(Math.random() * 10000);" src="" class="auth-img"/>
-					<div class="input-group">
-						<div class="fg-line">
-							<input class="form-control" type="text" name="seccode_verify" placeholder="验证码" />
+<!DOCTYPE html>
+<html>
+	<?php TPL::output('global/head'); ?>
+	<body>
+		<div class="login-content">
+		    <div class="lc-block">
+		        <div class="lcb-header">
+		        	<h1>找回密码</h1>
+		        </div>
+		        
+				<div class="lcb-form clearfix">
+					<form id="fpw_form" method="post" action="account/ajax/find_password_modify/">
+						<input type="hidden" name="active_code" value="<?php echo htmlspecialchars($_GET['key']); ?>"/>
+						<div class="input-group m-b-20">
+							<div class="fg-line">
+								<input class="form-control" name="password" type="password" placeholder="新密码" />
+							</div>
 						</div>
-					</div>
-				</div>
+						<div class="input-group m-b-20">
+							<div class="fg-line">
+								<input class="form-control" name="re_password" type="password" placeholder="确认新密码" />
+							</div>
+						</div>
+							
+						<div class="lcb-captcha m-b-20">
+							<img id="captcha" onclick="this.src = G_BASE_URL + '/account/captcha/' + Math.floor(Math.random() * 10000);" src="" class="auth-img"/>
+							<div class="input-group">
+								<div class="fg-line">
+									<input class="form-control" type="text" name="seccode_verify" placeholder="验证码" />
+								</div>
+							</div>
+						</div>
 
-				<div class="clearfix p-t-20">
-					<button class="btn btn-lg btn-primary submit" onclick="NKR.ajax_post($('#fpw_form'), NKR.ajax_processer, 'error_message'); return false;">重置密码</button>
+						<div class="clearfix p-t-20">
+							<button class="btn btn-lg btn-primary submit" onclick="NKR.ajax_post($('#fpw_form'), NKR.ajax_processer, 'error_message'); return false;">重置密码</button>
+						</div>
+						</ul>
+					</form>
 				</div>
-				</ul>
-			</form>
+		    </div>
 		</div>
-    </div>
-</div>
+
+		<?php TPL::output('global/foot'); ?>
+	</body>
+</html>

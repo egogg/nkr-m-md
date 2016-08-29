@@ -1,121 +1,116 @@
-<?php TPL::output('global/header_meta.tpl.htm'); ?>
-<body>
-	<header id="header" class="bgm-blue">
-		<ul class="h-inner">
-           <li class="hi-trigger ma-trigger" data-ma-target="#sidebar" data-ma-act="sidebar-open">
-                <div class="line-wrap">
-                    <div class="line top"></div>
-                    <div class="line center"></div>
-                    <div class="line bottom"></div>
-                </div>
-            </li>
-            <li>
-                <a class="hi-logo" href="explore/"><i class="icon icon-naokr"></i></a>
-            </li>
+<header id="header" class="bgm-blue">
+	<ul class="h-inner">
+       <li class="hi-trigger ma-trigger" data-ma-target="#sidebar" data-ma-act="sidebar-open">
+            <div class="line-wrap">
+                <div class="line top"></div>
+                <div class="line center"></div>
+                <div class="line bottom"></div>
+            </div>
+        </li>
+        <li>
+            <a class="hi-logo" href="explore/"><i class="icon icon-naokr"></i></a>
+        </li>
 
-            <li class="pull-right">
-                <ul class="hi-menu">
-                    <li data-ma-act="search-open">
-                        <a href=""><i class="him-icon icon icon-search"></i></a>
-                    </li>
-                        
-                    <?php if($this->user_id) { ?>
-                        <li class="dropdown">
-                            <a data-toggle="dropdown" href="">
-                                <i class="him-icon icon icon-notifications"></i>
-                                <?php if($this->user_info['notification_unread']) { ?>
-                                    <i class="him-counts"><?php echo $this->user_info['notification_unread']; ?></span></i>
-                                <?php } ?>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-lg pull-right">
-                                <div class="list-group him-notification">
-                                    <div class="lg-header">
-                                        未读消息
-                                        <ul class="actions">
-                                            <li class="dropdown">
-                                                <a href="" data-ma-act="check-all-notifications">
-                                                    <i class="icon icon-check-all"></i>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="lg-body" id="header-notifications" >
-                                    </div>
-
-                                    <a class="view-more" href="notifications/">查看所有消息</a>
+        <li class="pull-right">
+            <ul class="hi-menu">
+                <li data-ma-act="search-open">
+                    <a href=""><i class="him-icon icon icon-search"></i></a>
+                </li>
+                    
+                <?php if($this->user_id) { ?>
+                    <li class="dropdown">
+                        <a data-toggle="dropdown" href="">
+                            <i class="him-icon icon icon-notifications"></i>
+                            <?php if($this->user_info['notification_unread']) { ?>
+                                <i class="him-counts"><?php echo $this->user_info['notification_unread']; ?></span></i>
+                            <?php } ?>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-lg pull-right">
+                            <div class="list-group him-notification">
+                                <div class="lg-header">
+                                    未读消息
+                                    <ul class="actions">
+                                        <li class="dropdown">
+                                            <a href="" data-ma-act="check-all-notifications">
+                                                <i class="icon icon-check-all"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
                                 </div>
+                                <div class="lg-body" id="header-notifications" >
+                                </div>
+
+                                <a class="view-more" href="notifications/">查看所有消息</a>
                             </div>
-                        </li>
-                        <li class="dropdown">
-                            <a class="hi-avatar" data-toggle="dropdown" href="">
-                                <img alt="<?php echo $this->user_info['user_name']; ?>" src="<?php echo get_avatar_url($this->user_info['uid'], 'min'); ?><?php if($this->user_info['profile_update_time']) { echo '?v=' . $this->user_info['profile_update_time']; } ?>" />
-                                <span class="caret"></span>
-                                <?php if ($this->user_info['inbox_unread'] != 0) {?>
-                                    <i class="him-counts"><?php echo $this->user_info['inbox_unread']?></i>
-                                <?php } ?>
-                            </a>
-                            <ul class="dropdown-menu dm-icon pull-right">
-                                <li>
-                                    <a href="publish/"><i class="icon icon-publish"></i> 分享答题</a>
-                                </li>
-                                <?php if ($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator']) { ?>
-                                    <li><a href="publish/article/"><i class="icon icon-articles"></i> 分享知识</a></li>
-                                <?php } ?>
-                                <li class="divider"></li>
-                                <li>
-                                    <a href="people/<?php echo $this->user_info['url_token']; ?>"><i class="icon icon-person"></i> 我的主页</a>
-                                </li>
-                                <li>
-                                    <a href="inbox/"><?php if($this->user_info['inbox_unread'] > 0) { ?><span class="badge" id="inbox_unread"><?php echo $this->user_info['inbox_unread']; ?></span><?php } ?><i class="icon icon-mail"></i> 我的私信</a>
-                                </li>
-                                <li>
-                                    <a href="favorite/"><i class="icon icon-bookmark"></i> 我的收藏</a>
-                                </li>
-                                <li>
-                                    <a href="account/setting/profile/"><i class="icon icon-settings"></i> 我的设置</a>
-                                </li>
-                                <li class="divider"></li>
-                                <li>
-                                    <a href="account/logout/"><i class="icon icon-exit"></i> 退出登录</a>
-                                </li>
-                            </ul>
-                        </li>
-                    <?php } else { ?>
-                        <li>
-                            <a href="account/login/"><i class="him-icon icon icon-person"></i></a>
-                        </li>
-                    <?php } ?>
-                </ul>
-            </li>
-        </ul>
-
-        <!-- header search -->
-
-        <div class="h-search-wrap">
-            <div class="hsw-inner">
-                <i class="hsw-close icon icon-arrow-back" data-ma-act="search-close"></i>
-                <form action="search/" id="h-search-form" method="post">
-                    <input type="text" name="q" placeholder="搜索题目、专题、知识或人" />
-                </form>
-            </div>
-        </div>	
-	</header>
-
-	<aside id="sidebar" class="sidebar c-overflow">
-        <div class="s-content">
-            <ul class="main-menu">
-                <li><a class="<?php if ($_GET['app'] == 'explore') { ?>active<?php } ?>" href="<?php echo base_url(); ?>"><i class="icon icon-home"></i> 首页</a></li>
-                <li><a class="<?php if ($_GET['app'] == 'question') { ?>active<?php } ?>" href="question/"><i class="icon icon-questions"></i> 题库</a></li>
-                <li><a class="<?php if ($_GET['app'] == 'topic') { ?>active<?php } ?>" href="topic/"><i class="icon icon-features"></i> 专题</a></li>
-                <li><a class="<?php if ($_GET['app'] == 'article') { ?>active<?php } ?>" href="article/"><i class="icon icon-articles"></i> 知识</a></li>
-                <li><a class="<?php if ($_GET['app'] == 'people') { ?>active<?php } ?>" href="people/"><i class="icon icon-people"></i> 排行</a></li>
+                        </div>
+                    </li>
+                    <li class="dropdown">
+                        <a class="hi-avatar" data-toggle="dropdown" href="">
+                            <img alt="<?php echo $this->user_info['user_name']; ?>" src="<?php echo get_avatar_url($this->user_info['uid'], 'min'); ?><?php if($this->user_info['profile_update_time']) { echo '?v=' . $this->user_info['profile_update_time']; } ?>" />
+                            <span class="caret"></span>
+                            <?php if ($this->user_info['inbox_unread'] != 0) {?>
+                                <i class="him-counts"><?php echo $this->user_info['inbox_unread']?></i>
+                            <?php } ?>
+                        </a>
+                        <ul class="dropdown-menu dm-icon pull-right">
+                            <li>
+                                <a href="publish/"><i class="icon icon-publish"></i> 分享答题</a>
+                            </li>
+                            <?php if ($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator']) { ?>
+                                <li><a href="publish/article/"><i class="icon icon-articles"></i> 分享知识</a></li>
+                            <?php } ?>
+                            <li class="divider"></li>
+                            <li>
+                                <a href="people/<?php echo $this->user_info['url_token']; ?>"><i class="icon icon-person"></i> 我的主页</a>
+                            </li>
+                            <li>
+                                <a href="inbox/"><?php if($this->user_info['inbox_unread'] > 0) { ?><span class="badge" id="inbox_unread"><?php echo $this->user_info['inbox_unread']; ?></span><?php } ?><i class="icon icon-mail"></i> 我的私信</a>
+                            </li>
+                            <li>
+                                <a href="favorite/"><i class="icon icon-bookmark"></i> 我的收藏</a>
+                            </li>
+                            <li>
+                                <a href="account/setting/profile/"><i class="icon icon-settings"></i> 我的设置</a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a href="account/logout/"><i class="icon icon-exit"></i> 退出登录</a>
+                            </li>
+                        </ul>
+                    </li>
+                <?php } else { ?>
+                    <li>
+                        <a href="account/login/"><i class="him-icon icon icon-person"></i></a>
+                    </li>
+                <?php } ?>
             </ul>
-            <div class="s-logo">
-                <i class="icon icon-naokr"></i>
-                <span class="slogan"> - 思考很快乐</span>
-            </div>
+        </li>
+    </ul>
+
+    <!-- header search -->
+
+    <div class="h-search-wrap">
+        <div class="hsw-inner">
+            <i class="hsw-close icon icon-arrow-back" data-ma-act="search-close"></i>
+            <form action="search/" id="h-search-form" method="post">
+                <input type="text" name="q" placeholder="搜索题目、专题、知识或人" />
+            </form>
         </div>
-    </aside>
+    </div>	
+</header>
 
-    	
-
+<aside id="sidebar" class="sidebar c-overflow">
+    <div class="s-content">
+        <ul class="main-menu">
+            <li><a class="<?php if ($_GET['app'] == 'explore') { ?>active<?php } ?>" href="<?php echo base_url(); ?>"><i class="icon icon-home"></i> 首页</a></li>
+            <li><a class="<?php if ($_GET['app'] == 'question') { ?>active<?php } ?>" href="question/"><i class="icon icon-questions"></i> 题库</a></li>
+            <li><a class="<?php if ($_GET['app'] == 'topic') { ?>active<?php } ?>" href="topic/"><i class="icon icon-features"></i> 专题</a></li>
+            <li><a class="<?php if ($_GET['app'] == 'article') { ?>active<?php } ?>" href="article/"><i class="icon icon-articles"></i> 知识</a></li>
+            <li><a class="<?php if ($_GET['app'] == 'people') { ?>active<?php } ?>" href="people/"><i class="icon icon-people"></i> 排行</a></li>
+        </ul>
+        <div class="s-logo">
+            <i class="icon icon-naokr"></i>
+            <span class="slogan"> - 思考很快乐</span>
+        </div>
+    </div>
+</aside>

@@ -1,41 +1,48 @@
-<?php TPL::output('global/header.tpl.htm'); ?>
-
-<section id="main">
-    <section id="content">
-        <div class="container">
-            <div class="card">
-                <div class="card-header">
-                    <h2 class="user-center-header">
-                        <i class="icon icon-draft"></i>我的草稿
-                    </h2>
-                    <ul class="actions">
-                        <li>
-                            <a href="javascript:void(0);" onclick="NKR.User.delete_draft('', 'clean'); window.location.reload();">
-                                <i class="icon icon-delete"></i>
-                            </a>
-                        </li>
-                    </ul>                           
-                </div>
-                
-                <?php if($this->draft_list) { ?>
-                    <div class="list-group" id="draft-list">
-                        <?php TPL::assign('draft_list', $this->draft_list); ?>
-                        <?php TPL::output('draft/ajax/list'); ?>
+<!DOCTYPE html>
+<html>
+    <?php TPL::output('global/head'); ?>
+    <body>
+        <?php TPL::output('global/header'); ?>
+        <section id="main">
+            <section id="content">
+                <div class="container">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="user-center-header">
+                                <i class="icon icon-draft"></i>我的草稿
+                            </h2>
+                            <ul class="actions">
+                                <li>
+                                    <a href="javascript:void(0);" onclick="NKR.User.delete_draft('', 'clean'); window.location.reload();">
+                                        <i class="icon icon-delete"></i>
+                                    </a>
+                                </li>
+                            </ul>                           
+                        </div>
+                        
+                        <?php if($this->draft_list) { ?>
+                            <div class="list-group" id="draft-list">
+                                <?php TPL::assign('draft_list', $this->draft_list); ?>
+                                <?php TPL::output('draft/ajax/list'); ?>
+                            </div>
+                        <?php } else { ?>
+                            <div class="card-body card-padding">
+                                <div class="list-norecord">没有草稿</div>
+                            </div>
+                        <?php } ?>
                     </div>
-                <?php } else { ?>
-                    <div class="card-body card-padding">
-                        <div class="list-norecord">没有草稿</div>
-                    </div>
-                <?php } ?>
-            </div>
-            
-            <?php if($this->draft_list) { ?>
-                <div class="load-more">
-                    <a href="javascript:void(0);" id="draft-load-more" auto-load="false"><i class="icon icon-load-more"></i>加载更多</a>
+                    
+                    <?php if($this->draft_list) { ?>
+                        <div class="load-more">
+                            <a href="javascript:void(0);" id="draft-load-more" auto-load="false"><i class="icon icon-load-more"></i>加载更多</a>
+                        </div>
+                    <?php } ?>
                 </div>
-            <?php } ?>
-        </div>
-    </section>
-</section>
+            </section>
 
-<?php TPL::output('global/footer.tpl.htm'); ?>
+            <?php TPL::output('global/footer'); ?>
+        </section>
+
+        <?php TPL::output('global/foot'); ?>
+    </body>
+</html>

@@ -1,52 +1,59 @@
-<?php TPL::output('global/header.tpl.htm'); ?>
-
-<section id="main">
-    <section id="content">
-        <div class="container">
-            <div class="card">
-                <div class="card-header upg-header">
-                    <h2>
-                        <i class="icon icon-person-add"></i> 邀请好友注册 
-                    </h2>               
-                </div>
-                <div class="card-body card-padding">
-                    <div class="alert alert-success" role="alert">你还有<strong><?php echo $this->user_info['invitation_available']; ?></strong>个邀请名额</div>
-                    <form id="invitation_form" method="post" action="invitation/ajax/invite/" onsubmit="return false">
-                        
-                        <div class="fg-line">
-                            <input class="form-control" type="text" name="email" placeholder="请输入好友邮箱" />
+<!DOCTYPE html>
+<html>
+    <?php TPL::output('global/head'); ?>
+    <body>
+        <?php TPL::output('global/header'); ?>
+        <section id="main">
+            <section id="content">
+                <div class="container">
+                    <div class="card">
+                        <div class="card-header upg-header">
+                            <h2>
+                                <i class="icon icon-person-add"></i> 邀请好友注册 
+                            </h2>               
                         </div>
-                        
-                        <a class="btn btn-primary ust-send-invitation" onclick="NKR.ajax_post($('#invitation_form')); return false;">发送邀请</a>
-                        
-                    </form>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-header upg-header">
-                    <h2>
-                        <i class="icon icon-people"></i> 已经邀请的好友
-                    </h2>
-                </div>
-                <?php if($this->invitation_list) { ?>
-                    <ul class="list-group" id="invitation-list">
-                        <?php TPL::assign('invitation_list', $this->invitation_list); ?>
-                        <?php TPL::output('invitation/ajax/invitation_list'); ?>
-                    </ul>
-                <?php } else { ?>
-                    <div class="card-body card-padding">
-                        <div class="list-norecord">没有邀请记录</div>
+                        <div class="card-body card-padding">
+                            <div class="alert alert-success" role="alert">你还有<strong><?php echo $this->user_info['invitation_available']; ?></strong>个邀请名额</div>
+                            <form id="invitation_form" method="post" action="invitation/ajax/invite/" onsubmit="return false">
+                                
+                                <div class="fg-line">
+                                    <input class="form-control" type="text" name="email" placeholder="请输入好友邮箱" />
+                                </div>
+                                
+                                <a class="btn btn-primary ust-send-invitation" onclick="NKR.ajax_post($('#invitation_form')); return false;">发送邀请</a>
+                                
+                            </form>
+                        </div>
                     </div>
-                <?php } ?>
-            </div>
+                    <div class="card">
+                        <div class="card-header upg-header">
+                            <h2>
+                                <i class="icon icon-people"></i> 已经邀请的好友
+                            </h2>
+                        </div>
+                        <?php if($this->invitation_list) { ?>
+                            <ul class="list-group" id="invitation-list">
+                                <?php TPL::assign('invitation_list', $this->invitation_list); ?>
+                                <?php TPL::output('invitation/ajax/invitation_list'); ?>
+                            </ul>
+                        <?php } else { ?>
+                            <div class="card-body card-padding">
+                                <div class="list-norecord">没有邀请记录</div>
+                            </div>
+                        <?php } ?>
+                    </div>
 
-            <?php if($this->invitation_list) { ?>
-                <div class="load-more">
-                    <a href="javascript:void(0);" id="invitation-load-more" auto-load="false"><i class="icon icon-load-more"></i>加载更多</a>
+                    <?php if($this->invitation_list) { ?>
+                        <div class="load-more">
+                            <a href="javascript:void(0);" id="invitation-load-more" auto-load="false"><i class="icon icon-load-more"></i>加载更多</a>
+                        </div>
+                    <?php } ?>
                 </div>
-            <?php } ?>
-        </div>
-    </section>
-</section>
+            </section>
 
-<?php TPL::output('global/footer.tpl.htm'); ?>
+            <?php TPL::output('global/footer'); ?>
+        </section>
+
+        <?php TPL::output('global/foot'); ?>
+    </body>
+</html>

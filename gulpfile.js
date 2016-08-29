@@ -20,7 +20,11 @@ var disthtml = '/Users/dengxiaodi/Sites/m.wecenter/views/default';
 
 gulp.task('html', function() {
 	return gulp.src(['./src/html/**/*.htm', './src/html/**/*.php'])
-    	.pipe(htmlmin({collapseWhitespace: true}))
+    	.pipe(htmlmin({
+    		collapseWhitespace: true, 
+    		removeScriptTypeAttributes: true,
+    		removeStyleLinkTypeAttributes: true
+    	}))
     	.pipe(gulp.dest(disthtml));
 });
 

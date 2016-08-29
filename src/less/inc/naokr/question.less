@@ -127,187 +127,183 @@
 /*--------------------------------------------------
     Styles for question page
 ---------------------------------------------------*/
-
 .question {
-	position: absolute !important;
-	overflow-y: scroll;
-	-webkit-overflow-scrolling: touch;
-	padding-bottom: 60px !important;
+	padding-bottom: 60px;
+}
 
-	.q-publisher {
-		display: inline-block;
+.q-publisher {
+	display: inline-block;
+
+	img {
+		width: 24px;
+		height: 24px;
+		border-radius: 50%;
+	}
+}
+
+.q-tags {
+	float: right;
+}
+
+.qc-title {
+	position: relative;
+
+	h2 {
+		margin: 0;
+		font-size: 18px;
+		padding-right: 2em;
+		line-height: 1.5;
+
+		small {
+			display: block;
+			margin-top: 10px;
+		}
+	}
+
+	.actions {
+		position: absolute;
+		right: 0;
+		top: -3px;
+	}
+}
+
+.qc-body {
+	margin-top: 2em;
+	
+	.countdown-timer-wrap {
+		margin-bottom: 15px;
+	}
+
+	.countdown-timer {
+		& > li {
+			display: inline-block;
+			margin-right: 15px;
+		}
+
+		.easy-pie {
+			.dial {
+				position: absolute;
+			    font-weight: 300;
+			    width: 100%;
+			    line-height: 100%;
+			    font-size: 16px;
+			    margin-top: 37px;
+			    text-align: center;
+			}
+
+			.dial-title {
+				position: absolute;
+			    width: 100%;
+			    text-align: center;
+			    bottom: -3px;
+			    left: 0;
+			}
+		}
+
+		&.affix {
+			top: 25%;
+			right: 0;
+			z-index: 2;
+			border-top-left-radius: 2px;
+			border-bottom-left-radius: 2px;
+			.z-depth(1);
+			background-color: #fff;
+			padding: 5px 0;
+
+			.dial {
+				font-size: 14px;
+				margin-top: 23px;
+			}
+
+			& > li {
+				display: block;
+				margin: 0;
+				padding: 0 5px;
+			}
+		}
+	}
+
+	.qc-detail {
+		font-size: 14px;
+		line-height: 1.7;
 
 		img {
-			width: 24px;
-			height: 24px;
-			border-radius: 50%;
+			display: block;
+			max-width: 100%;
+			margin: 1em 0;
 		}
 	}
 
-	.q-tags {
-		float: right;
+	.qc-quiz {
+		margin: 20px 0;
 	}
 	
-	.qc-title {
-		position: relative;
+	.qz-title {
+		margin: 0;
+		color: @m-gray;
+		font-size: 14px;
+		margin-bottom: 15px;
 
-		h2 {
-			margin: 0;
-			font-size: 18px;
-			padding-right: 2em;
-			line-height: 1.5;
-
-			small {
-				display: block;
-				margin-top: 10px;
-			}
-		}
-
-		.actions {
-			position: absolute;
-			right: 0;
-			top: -3px;
+		.icon {
+			font-size: 17px;
+			vertical-align: text-bottom;
 		}
 	}
 
-	.qc-body {
-		margin-top: 2em;
-		
-		.countdown-timer-wrap {
-			margin-bottom: 15px;
-		}
+	.qz-state {
+		position: relative;
+		border-left: 3px solid @m-amber;
+	    padding: 15px 0 15px 15px;
+	    background-color: rgba(0, 0, 0, 0.02);
 
-		.countdown-timer {
-			& > li {
-				display: inline-block;
-				margin-right: 15px;
-			}
-
-			.easy-pie {
-				.dial {
-					position: absolute;
-				    font-weight: 300;
-				    width: 100%;
-				    line-height: 100%;
-				    font-size: 16px;
-				    margin-top: 37px;
-				    text-align: center;
-				}
-
-				.dial-title {
-					position: absolute;
-				    width: 100%;
-				    text-align: center;
-				    bottom: -3px;
-				    left: 0;
-				}
-			}
-
-			&.affix {
-				top: 25%;
-				right: 0;
-				z-index: 2;
-				border-top-left-radius: 2px;
-				border-bottom-left-radius: 2px;
-				.z-depth(1);
-				background-color: #fff;
-				padding: 5px 0;
-
-				.dial {
-					font-size: 14px;
-					margin-top: 23px;
-				}
-
-				& > li {
-					display: block;
-					margin: 0;
-					padding: 0 5px;
-				}
-			}
-		}
-
-		.qc-detail {
+		.qzs-title {
 			font-size: 14px;
-			line-height: 1.7;
-
-			img {
-				display: block;
-				max-width: 100%;
-				margin: 1em 0;
-			}
-		}
-
-		.qc-quiz {
-			margin: 20px 0;
-		}
-		
-		.qz-title {
-			margin: 0;
-			color: @m-gray;
-			font-size: 14px;
-			margin-bottom: 15px;
 
 			.icon {
 				font-size: 17px;
-    			vertical-align: text-bottom;
+				vertical-align: text-bottom;
+			}
+
+			&.success {
+				color: @m-green;
+			}
+
+			&.failed {
+				color: @m-red;
 			}
 		}
 
-		.qz-state {
-			position: relative;
-			border-left: 3px solid @m-amber;
-		    padding: 15px 0 15px 15px;
-		    background-color: rgba(0, 0, 0, 0.02);
+		.qzs-record-detail {
+			position: absolute;
+			right: 10px;
+			top: 17px;
+		}
 
-			.qzs-title {
-				font-size: 14px;
+		.qzs-actions {
+			margin-top: 15px;
+		}
+	}
+}
 
-				.icon {
-					font-size: 17px;
-					vertical-align: text-bottom;
-				}
+.q-footer {
+	padding: 15px;
+	border-top: 1px solid #eee;
+	.q-stats {
+		display: inline-block;
+		line-height: 23px;
 
-				&.success {
-					color: @m-green;
-				}
+		li {
+			display: inline-block;
+			margin-right: 10px;
 
-				&.failed {
-					color: @m-red;
-				}
-			}
-
-			.qzs-record-detail {
-				position: absolute;
-				right: 10px;
-				top: 17px;
-			}
-
-			.qzs-actions {
-				margin-top: 15px;
+			a {
+				color: @m-gray;
 			}
 		}
 	}
 
-	.q-footer {
-		padding: 15px;
-		border-top: 1px solid #eee;
-		.q-stats {
-			display: inline-block;
-			line-height: 23px;
-
-			li {
-				display: inline-block;
-				margin-right: 10px;
-
-				a {
-					color: @m-gray;
-				}
-			}
-		}
-
-		.q-follow {
-			float: right;
-		}
+	.q-follow {
+		float: right;
 	}
 }
 

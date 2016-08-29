@@ -1,3 +1,15 @@
+$(window).load(function () {
+    /*----------------------------------------------------------
+        Page Loader
+     -----------------------------------------------------------*/
+    
+    if($('.page-loader')[0]) {
+        setTimeout (function () {
+            $('.page-loader').fadeOut();
+        }, 500);
+    }
+});
+
 $(document).ready(function () {
 
     /*-------------------------------------------
@@ -27,9 +39,13 @@ $(document).ready(function () {
     /*-------------------------------------------
         Header scroll hide/show
     ---------------------------------------------*/
-
-    $('#header').headroom();
-
+    
+    $('#header').headroom({
+        offset: 200,
+        tolerance: 5,
+        scroller: document.getElementById('main')
+    });
+    
     /*-------------------------------------------
         Header events
     ---------------------------------------------*/

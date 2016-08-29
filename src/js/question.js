@@ -9,7 +9,8 @@ $(document).ready(function(){
     {
     	$('.question-select-wrap').height(qs.height());
         qs.affix({
-            offset: { top: qs.offset().top}
+            offset: { top: qs.offset().top},
+            target: $('#main')
         });
     }
 
@@ -201,7 +202,8 @@ $(document).ready(function(){
 	        });
 
 	        timerElement.affix({
-	            offset: { top: timerElement.offset().top}
+	            offset: { top: timerElement.offset().top},
+	            target: $('#main')
 	        });
 	    }
 	}
@@ -1011,6 +1013,25 @@ $(document).ready(function(){
         		break;
         }
     });
+});
+
+/*----------------------------------------------------------
+   User records
+-----------------------------------------------------------*/
+
+$(document).ready(function(){
+    if($('#qur-load-more').length) {
+        function onUserQuizRecordLoadMore(element, complete) {
+            if(complete) {
+                element.addClass('no-more');
+                element.html('没有更多记录');
+            }
+        }
+
+        // 加载更多
+
+        NKR.load_list_view(G_BASE_URL + "/question/ajax/load_more_question_quiz_record_user/question_id-<?php echo $this->question_info['question_id']; ?>__uid-<?php echo $this->quiz_user_info['uid']; ?>", $('#qur-load-more'), $('#qur-records'), 2, onUserQuizRecordLoadMore);
+    }
 });
 
 /*----------------------------------------------------------

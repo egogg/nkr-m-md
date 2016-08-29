@@ -1,44 +1,51 @@
-<?php TPL::output('global/header.tpl.htm'); ?>
+<!DOCTYPE html>
+<html>
+    <?php TPL::output('global/head'); ?>
+    <body>
+        <?php TPL::output('global/header'); ?>
+        <section id="main">
+            <section id="content">
+                <div class="container">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>
+                                <i class="icon icon-mail"></i> 我与 <a class="user-tag user-name" data-id="<?php echo $this->recipient_user['uid']; ?>" href="people/<?php echo $this->recipient_user['url_token']; ?>"><?php echo $this->recipient_user['user_name']; ?></a> 的私信
+                            </h2>
+                            <ul class="actions">
+                                <li>
+                                    <a href="inbox/">
+                                       <i class="icon icon-left"></i>
+                                    </a>
+                                </li>
+                            </ul>                           
+                        </div>
+                        <div class="ibr-reply-box">
+                            <form action="inbox/ajax/send/" method="post" id="recipient_form">
+                                <input type="hidden" name="post_hash" value="<?php echo new_post_hash(); ?>" />
+                                <input type="hidden" name="recipient" value="<?php echo $this->recipient_user['user_name']; ?>" />
+                                <textarea type="text" name="message" id="inbox-reply-message" placeholder="你的回复……"></textarea>
+                            </form>
+                            <button onclick="NKR.ajax_post($('#recipient_form'));"><i class="icon icon-send"></i></button>
+                        </div>
+                        <div class="list-group" id="ibr-list">
+                            <?php TPL::assign('read_list', $this->list); ?>
+                            <?php TPL::output('inbox/ajax/read_list'); ?>
+                        </div>
+                    </div>
 
-<section id="main">
-    <section id="content">
-        <div class="container">
-            <div class="card">
-                <div class="card-header">
-                    <h2>
-                        <i class="icon icon-mail"></i> 我与 <a class="user-tag user-name" data-id="<?php echo $this->recipient_user['uid']; ?>" href="people/<?php echo $this->recipient_user['url_token']; ?>"><?php echo $this->recipient_user['user_name']; ?></a> 的私信
-                    </h2>
-                    <ul class="actions">
-                        <li>
-                            <a href="inbox/">
-                               <i class="icon icon-left"></i>
-                            </a>
-                        </li>
-                    </ul>                           
+                    <div class="load-more">
+                        <a href="javascript:void(0);" id="ibr-load-more" auto-load="false"><i class="icon icon-load-more"></i> 加载更多</a>
+                    </div>
                 </div>
-                <div class="ibr-reply-box">
-                    <form action="inbox/ajax/send/" method="post" id="recipient_form">
-                        <input type="hidden" name="post_hash" value="<?php echo new_post_hash(); ?>" />
-                        <input type="hidden" name="recipient" value="<?php echo $this->recipient_user['user_name']; ?>" />
-                        <textarea type="text" name="message" id="inbox-reply-message" placeholder="你的回复……"></textarea>
-                    </form>
-                    <button onclick="NKR.ajax_post($('#recipient_form'));"><i class="icon icon-send"></i></button>
-                </div>
-                <div class="list-group" id="ibr-list">
-                    <?php TPL::assign('read_list', $this->list); ?>
-                    <?php TPL::output('inbox/ajax/read_list'); ?>
-                </div>
-            </div>
+            </section>
 
-            <div class="load-more">
-                <a href="javascript:void(0);" id="ibr-load-more" auto-load="false"><i class="icon icon-load-more"></i> 加载更多</a>
-            </div>
-        </div>
-    </section>
-</section>
-
-<script type="text/javascript">
-    var DIALOG_ID = "<?php echo $this->dialog_id; ?>";
-</script>
-
-<?php TPL::output('global/footer.tpl.htm'); ?>
+            <?php TPL::output('global/footer'); ?>
+        </section>
+        
+        <script type="text/javascript">
+            var DIALOG_ID = "<?php echo $this->dialog_id; ?>";
+        </script>
+        
+        <?php TPL::output('global/foot'); ?>
+    </body>
+</html>

@@ -1,90 +1,97 @@
-<?php TPL::output('global/header.tpl.htm'); ?>
+<!DOCTYPE html>
+<html>
+    <?php TPL::output('global/head'); ?>
+    <body>
+        <?php TPL::output('global/header'); ?>
+        <section id="main">
+            <section id="content">
+                <div class="container">
+                    <div class="card following">
+                        <div class="card-header">
+                            <h2>
+                                <?php if($this->current_menu == 'following_friends') { ?>
+                                    <i class="icon icon-people-focus"></i>关注 <?php echo $this->user['friend_count']; ?> 人 
+                                <?php } else if ($this->current_menu == 'following_fans') { ?>
+                                    <i class="icon icon-people"></i>被 <?php echo $this->user['fans_count']; ?> 人关注 
+                                <?php } else { ?>
+                                    <i class="icon icon-topic-focus"></i>关注的专题 (<?php echo $this->user['topic_focus_count']; ?>)
+                                <?php } ?>
 
-<section id="main">
-    <section id="content">
-        <div class="container">
-            <div class="card following">
-                <div class="card-header">
-                    <h2>
+                                
+                            </h2>
+                            <ul class="actions">
+                                <li><a href="people/<?php echo $this->user['url_token']; ?>"><i class="icon icon-left"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="flw-lists">
                         <?php if($this->current_menu == 'following_friends') { ?>
-                            <i class="icon icon-people-focus"></i>关注 <?php echo $this->user['friend_count']; ?> 人 
+                            <?php if($this->friends_list) { ?>
+                                <div class="flw-friend-list card list-group" id="flw-friend-list">
+                                    <?php TPL::assign('user_list', $this->friends_list); ?>
+                                    <?php TPL::output('block/user_list'); ?>
+                                </div>
+                            <?php } ?>
+                            <?php if($this->user['friend_count'] > 0) { ?>
+                                <div class="load-more">
+                                    <a href="javascript:void(0);" id="flw-friends-load-more" auto-load="false" data-page="1"><i class="icon icon-load-more"></i> 加载更多</a>
+                                </div>
+                            <?php } else { ?>
+                                <div class="card">
+                                    <div class="card-body card-padding">
+                                        <div class="list-norecord">没有关注的人</div>
+                                    </div>
+                                </div>
+                            <?php } ?>
                         <?php } else if ($this->current_menu == 'following_fans') { ?>
-                            <i class="icon icon-people"></i>被 <?php echo $this->user['fans_count']; ?> 人关注 
+                            <?php if($this->fans_list) { ?>
+                                <div class="flw-fans-list card list-group" id="flw-fans-list">
+                                    <?php TPL::assign('user_list', $this->fans_list); ?>
+                                    <?php TPL::output('block/user_list'); ?>
+                                </div>
+                            <?php } ?>
+                            <?php if($this->user['fans_count'] > 0) { ?>
+                                <div class="load-more">
+                                    <a href="javascript:void(0);" id="flw-fans-load-more" auto-load="false" data-page="1"><i class="icon icon-load-more"></i> 加载更多</a>
+                                </div>
+                            <?php } else { ?>
+                                <div class="card">
+                                    <div class="card-body card-padding">
+                                        <div class="list-norecord">没有被人关注</div>
+                                    </div>
+                                </div>
+                            <?php } ?>
                         <?php } else { ?>
-                            <i class="icon icon-topic-focus"></i>关注的专题 (<?php echo $this->user['topic_focus_count']; ?>)
+                                <?php if ($this->focus_topics) { ?>
+                                    <div class="flw-topic-list topic-list" id="flw-topic-list">
+                                        <?php TPL::assign('topic_list', $this->focus_topics); ?>
+                                        <?php TPL::output('block/topic_list'); ?>
+                                    </div>
+                                <?php } ?>
+                                <?php if($this->user['topic_focus_count'] > 0) { ?>
+                                <div class="load-more">
+                                    <a href="javascript:void(0);" id="flw-topics-load-more" auto-load="false" data-page="1"><i class="icon icon-load-more"></i> 加载更多</a>
+                                </div>
+                            <?php } else { ?>
+                                <div class="card">
+                                    <div class="card-body card-padding">
+                                        <div class="list-norecord">没有关注的专题</div>
+                                    </div>
+                                </div>
+                            <?php } ?>
                         <?php } ?>
-
-                        
-                    </h2>
-                    <ul class="actions">
-                        <li><a href="people/<?php echo $this->user['url_token']; ?>"><i class="icon icon-left"></i></a></li>
-                    </ul>
+                    </div>
                 </div>
-            </div>
+            </section>
 
-            <div class="flw-lists">
-                <?php if($this->current_menu == 'following_friends') { ?>
-                    <?php if($this->friends_list) { ?>
-                        <div class="flw-friend-list card list-group" id="flw-friend-list">
-                            <?php TPL::assign('user_list', $this->friends_list); ?>
-                            <?php TPL::output('block/user_list'); ?>
-                        </div>
-                    <?php } ?>
-                    <?php if($this->user['friend_count'] > 0) { ?>
-                        <div class="load-more">
-                            <a href="javascript:void(0);" id="flw-friends-load-more" auto-load="false" data-page="1"><i class="icon icon-load-more"></i> 加载更多</a>
-                        </div>
-                    <?php } else { ?>
-                        <div class="card">
-                            <div class="card-body card-padding">
-                                <div class="list-norecord">没有关注的人</div>
-                            </div>
-                        </div>
-                    <?php } ?>
-                <?php } else if ($this->current_menu == 'following_fans') { ?>
-                    <?php if($this->fans_list) { ?>
-                        <div class="flw-fans-list card list-group" id="flw-fans-list">
-                            <?php TPL::assign('user_list', $this->fans_list); ?>
-                            <?php TPL::output('block/user_list'); ?>
-                        </div>
-                    <?php } ?>
-                    <?php if($this->user['fans_count'] > 0) { ?>
-                        <div class="load-more">
-                            <a href="javascript:void(0);" id="flw-fans-load-more" auto-load="false" data-page="1"><i class="icon icon-load-more"></i> 加载更多</a>
-                        </div>
-                    <?php } else { ?>
-                        <div class="card">
-                            <div class="card-body card-padding">
-                                <div class="list-norecord">没有被人关注</div>
-                            </div>
-                        </div>
-                    <?php } ?>
-                <?php } else { ?>
-                        <?php if ($this->focus_topics) { ?>
-                            <div class="flw-topic-list topic-list" id="flw-topic-list">
-                                <?php TPL::assign('topic_list', $this->focus_topics); ?>
-                                <?php TPL::output('block/topic_list'); ?>
-                            </div>
-                        <?php } ?>
-                        <?php if($this->user['topic_focus_count'] > 0) { ?>
-                        <div class="load-more">
-                            <a href="javascript:void(0);" id="flw-topics-load-more" auto-load="false" data-page="1"><i class="icon icon-load-more"></i> 加载更多</a>
-                        </div>
-                    <?php } else { ?>
-                        <div class="card">
-                            <div class="card-body card-padding">
-                                <div class="list-norecord">没有关注的专题</div>
-                            </div>
-                        </div>
-                    <?php } ?>
-                <?php } ?>
-            </div>
-        </div>
-    </section>
-</section>
+            <?php TPL::output('global/footer'); ?>
+        </section>
+        
+        <script>
+            var PEOPLE_USER_ID = '<?php echo $this->user['uid']; ?>';
+        </script>
 
-<script type="text/javascript">
-    var PEOPLE_USER_ID = '<?php echo $this->user['uid']; ?>';
-</script>
-
-<?php TPL::output('global/footer.tpl.htm'); ?>
+        <?php TPL::output('global/foot'); ?>
+    </body>
+</html>

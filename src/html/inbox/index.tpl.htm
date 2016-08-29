@@ -1,40 +1,49 @@
-<?php TPL::output('global/header.tpl.htm'); ?>
+<!DOCTYPE html>
+<html>
+    <?php TPL::output('global/head'); ?>
+    <body>
+        <?php TPL::output('global/header'); ?>
+        <section id="main">
+            <section id="content">
+                <div class="container inbox">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>
+                                <i class="icon icon-mail"></i>我的私信 
+                            </h2>
+                            <ul class="actions">
+                                <li>
+                                    <a href="account/setting/privacy/#!inbox">
+                                        <i class="icon icon-settings"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0);" onclick="NKR.dialog('inbox', '');">
+                                        <i class="icon icon-add"></i>
+                                    </a>
+                                </li>
+                            </ul>                           
+                        </div>
+                        <div class="list-group">
+                            <?php TPL::assign('inbox_list', $this->list); ?>
+                            <?php TPL::output('block/inbox_list'); ?>
+                        </div>
+                    </div>
+                    <?php if($this->pagination) { ?>
+                        <div class="card">
+                            <div class="card-body card-padding">
+                                <?php echo $this->pagination; ?>
+                            </div> 
+                        </div>
+                    <?php } ?>
+                </div>
+            </section>
 
-<section id="main">
-    <section id="content">
-        <div class="container inbox">
-            <div class="card">
-                <div class="card-header">
-                    <h2>
-                        <i class="icon icon-mail"></i>我的私信 
-                    </h2>
-                    <ul class="actions">
-                        <li>
-                            <a href="account/setting/privacy/#!inbox">
-                                <i class="icon icon-settings"></i>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0);" onclick="NKR.dialog('inbox', '');">
-                                <i class="icon icon-add"></i>
-                            </a>
-                        </li>
-                    </ul>                           
-                </div>
-                <div class="list-group">
-                    <?php TPL::assign('inbox_list', $this->list); ?>
-                    <?php TPL::output('block/inbox_list'); ?>
-                </div>
-            </div>
-            <?php if($this->pagination) { ?>
-                <div class="card">
-                    <div class="card-body card-padding">
-                        <?php echo $this->pagination; ?>
-                    </div> 
-                </div>
-            <?php } ?>
-        </div>
-    </section>
-</section>
+            <?php TPL::output('global/footer'); ?>
+        </section>
 
-<?php TPL::output('global/footer.tpl.htm'); ?>
+        <?php TPL::output('global/foot'); ?>
+    </body>
+</html>
+
+            

@@ -1,63 +1,70 @@
-<?php TPL::output('global/header.tpl.htm'); ?>
-
-<section id="main">
-    <section id="content">
-        <div class="container">
-            <div class="card">
-                <div class="card-header">    
-                    <h2>
-                        <i class="icon icon-settings"></i>我的设置
-                    </h2>          
-                </div>
-                <?php TPL::output('account/setting/setting_tabs.tpl.htm'); ?>
-                <div class="card-body card-padding">
-                    <form class="setting-security" action="account/ajax/modify_password/" method="post" id="setting_form">
-                    	<section class="ust-group">
-                            <?php if($this->user_info['is_auto_password']) { ?>
-                                <div class="alert alert-warning alert-dismissible ustg-alert-message" role="alert">
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
-                                    你的帐户还没有设置密码，请设置新的密码
-                                </div>
-                            <?php } ?>
-                            
-                            <div class="ustg-body">
-                                <?php if(!$this->user_info['is_auto_password']) { ?>
-                                	<dl>
-                                		<dt>当前密码</dt>
-                                		<dd>
-                                            <div class="fg-line">
-                                                <input type="password" class="form-control" id="input-password-old" name="old_password" />
-                                            </div>
-                                		</dd>
-                                	</dl>
-                                <?php } ?>
-                                
-                            	<dl>
-                            		<dt>新的密码</dt>
-                            		<dd>
-                                        <div class="fg-line">
-                                            <input type="password" class="form-control" id="input-password-new" name="password" />
+<!DOCTYPE html>
+<html>
+    <?php TPL::output('global/head'); ?>
+    <body>
+        <?php TPL::output('global/header'); ?>
+        <section id="main">
+            <section id="content">
+                <div class="container">
+                    <div class="card">
+                        <div class="card-header">    
+                            <h2>
+                                <i class="icon icon-settings"></i>我的设置
+                            </h2>          
+                        </div>
+                        <?php TPL::output('account/setting/setting_tabs.tpl.htm'); ?>
+                        <div class="card-body card-padding">
+                            <form class="setting-security" action="account/ajax/modify_password/" method="post" id="setting_form">
+                                <section class="ust-group">
+                                    <?php if($this->user_info['is_auto_password']) { ?>
+                                        <div class="alert alert-warning alert-dismissible ustg-alert-message" role="alert">
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                            你的帐户还没有设置密码，请设置新的密码
                                         </div>
-                            		</dd>
-                            	</dl>
+                                    <?php } ?>
+                                    
+                                    <div class="ustg-body">
+                                        <?php if(!$this->user_info['is_auto_password']) { ?>
+                                            <dl>
+                                                <dt>当前密码</dt>
+                                                <dd>
+                                                    <div class="fg-line">
+                                                        <input type="password" class="form-control" id="input-password-old" name="old_password" />
+                                                    </div>
+                                                </dd>
+                                            </dl>
+                                        <?php } ?>
+                                        
+                                        <dl>
+                                            <dt>新的密码</dt>
+                                            <dd>
+                                                <div class="fg-line">
+                                                    <input type="password" class="form-control" id="input-password-new" name="password" />
+                                                </div>
+                                            </dd>
+                                        </dl>
 
-                            	<dl>
-                            		<dt>确认密码</dt>
-                            		<dd>
-                                        <div class="fg-line">
-                                            <input type="password" class="form-control" id="input-password-re-new" name="re_password" />
-                                        </div>
-                            		</dd>
-                            	</dl>
-                            </div>
-                        </section>
-                    </form>
+                                        <dl>
+                                            <dt>确认密码</dt>
+                                            <dd>
+                                                <div class="fg-line">
+                                                    <input type="password" class="form-control" id="input-password-re-new" name="re_password" />
+                                                </div>
+                                            </dd>
+                                        </dl>
+                                    </div>
+                                </section>
+                            </form>
 
-                    <a href="javascript:;" class="btn btn-primary" onclick="NKR.ajax_post($('#setting_form'));">保存</a>
+                            <a href="javascript:;" class="btn btn-primary" onclick="NKR.ajax_post($('#setting_form'));">保存</a>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-    </section>
-</section>
+            </section>
 
-<?php TPL::output('global/footer.tpl.htm'); ?>
+            <?php TPL::output('global/footer'); ?>
+        </section>
+
+        <?php TPL::output('global/foot'); ?>
+    </body>
+</html>

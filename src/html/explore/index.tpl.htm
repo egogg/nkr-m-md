@@ -1,69 +1,85 @@
-<?php TPL::output('global/header.tpl.htm'); ?>
-
-<section id="main">
-
-    <!-- 幻灯页 -->
-    
-    <?php if($this->slides) { ?>
-        <section class="m-slide">
-            <div class="swiper-container">
-                <div class="swiper-wrapper">
-                    <?php foreach ($this->slides as $index => $slide) { ?>
-                        <div class="swiper-slide">
-                            <a href="<?php echo $slide['link']; ?>"><img src="<?php echo get_slide_img_url($slide['id'], 'max'); ?>" alt="<?php echo $slide['title']; ?>"></a>
-                        </div>
-                    <?php } ?>
-                </div>
-                <div class="swiper-pagination"></div>
-            </div>
-        </section>
-    <?php } ?>
-
-    <!-- 网站公告 -->
+<!DOCTYPE html>
+<html>
+    <?php TPL::output('global/head'); ?>
+    <body>
+        <?php TPL::output('global/header'); ?>
+        <section id="main">
+            <!-- 幻灯页 -->
             
-    <?php TPL::output("block/site_announce.tpl.htm"); ?>
-
-    <section id="content">
-        <div class="container">
-            <div class="main-recommends">
-                <div role="tabpanel">
-                    <ul class="tab-nav tn-simple" role="tablist">
-                        <li class="active" role="presentation"><a class="mr-tab" href="#mr-questions" aria-controls="mr-questions" role="tab" data-toggle="tab" aria-expanded="false">精选答题</a></li>
-                        <li role="presentation"><a class="mr-tab" href="#mr-topics" aria-controls="mr-topics" role="tab" data-toggle="tab" aria-expanded="false">精选专题</a>
-                        </li>
-                        <li role="presentation"><a class="mr-tab" href="#mr-articles" aria-controls="mr-articles" role="tab" data-toggle="tab" aria-expanded="false">精选知识</a>
-                        </li>
-                    </ul>
-
-                    <div class="tab-content">
-                        <div role="tabpanel" class="tab-pane active" id="mr-questions">
-                            <div class="tc-list question-list" id="question-list">
-                                <?php TPL::assign('question_list', $this->recommend_homepage_questions); ?>
-                                <?php TPL::output('block/question_list.tpl.htm'); ?>
-                            </div>
-                            
-                            <div class="load-more">
-                                <a href="#" id="ql-load-more" auto-load="false"><i class="icon icon-load-more"></i> 更多答题</a>
-                            </div>
+            <?php if($this->slides) { ?>
+                <section class="m-slide">
+                    <div class="swiper-container">
+                        <div class="swiper-wrapper">
+                            <?php foreach ($this->slides as $index => $slide) { ?>
+                                <div class="swiper-slide">
+                                    <a href="<?php echo $slide['link']; ?>">
+                                        <img src="<?php echo get_slide_img_url($slide['id'], 'max'); ?>" alt="<?php echo $slide['title']; ?>">
+                                    </a>
+                                    <div class="ms-content">
+                                        <a href="<?php echo $slide['link']; ?>"><h2 class="msc-title"><?php echo $slide['title']; ?></h2></a>
+                                        <a href="<?php echo $slide['link']; ?>"><small class="msc-description"><?php echo $slide['description']; ?></small></a>
+                                    </div>
+                                    <a href="<?php echo $slide['category_info']['link'];?>" class="ms-category">
+                                        <?php echo $slide['category_info']['title']; ?>
+                                    </a>
+                                </div>
+                            <?php } ?>
                         </div>
-                        <div role="tabpanel" class="tab-pane" id="mr-topics">
-                            <div class="tc-list topic-list" id="topic-list"></div> 
+                        <div class="swiper-pagination"></div>
+                    </div>
+                </section>
+            <?php } ?>
 
-                            <div class="load-more">
-                                <a href="#" id="tl-load-more" auto-load="false"><i class="icon icon-load-more"></i> 更多专题</a>
-                            </div>
-                        </div>
-                        <div role="tabpanel" class="tab-pane" id="mr-articles">
-                            <div class="tc-list article-list" id="article-list"></div> 
+            <!-- 网站公告 -->
+                    
+            <?php TPL::output("block/site_announce"); ?>
 
-                            <div class="load-more">
-                                <a href="#" id="al-load-more" auto-load="false"><i class="icon icon-load-more"></i> 更多知识</a>
+            <section id="content">
+                <div class="container">
+                    <div class="main-recommends">
+                        <div role="tabpanel">
+                            <ul class="tab-nav tn-simple" role="tablist">
+                                <li class="active" role="presentation"><a class="mr-tab" href="#mr-questions" aria-controls="mr-questions" role="tab" data-toggle="tab" aria-expanded="false">精选答题</a></li>
+                                <li role="presentation"><a class="mr-tab" href="#mr-topics" aria-controls="mr-topics" role="tab" data-toggle="tab" aria-expanded="false">精选专题</a>
+                                </li>
+                                <li role="presentation"><a class="mr-tab" href="#mr-articles" aria-controls="mr-articles" role="tab" data-toggle="tab" aria-expanded="false">精选知识</a>
+                                </li>
+                            </ul>
+
+                            <div class="tab-content">
+                                <div role="tabpanel" class="tab-pane active" id="mr-questions">
+                                    <div class="tc-list question-list" id="question-list">
+                                        <?php TPL::assign('question_list', $this->recommend_homepage_questions); ?>
+                                        <?php TPL::output('block/question_list'); ?>
+                                    </div>
+                                    
+                                    <div class="load-more">
+                                        <a href="#" id="ql-load-more" auto-load="false"><i class="icon icon-load-more"></i> 更多答题</a>
+                                    </div>
+                                </div>
+                                <div role="tabpanel" class="tab-pane" id="mr-topics">
+                                    <div class="tc-list topic-list" id="topic-list"></div> 
+
+                                    <div class="load-more">
+                                        <a href="#" id="tl-load-more" auto-load="false"><i class="icon icon-load-more"></i> 更多专题</a>
+                                    </div>
+                                </div>
+                                <div role="tabpanel" class="tab-pane" id="mr-articles">
+                                    <div class="tc-list article-list" id="article-list"></div> 
+
+                                    <div class="load-more">
+                                        <a href="#" id="al-load-more" auto-load="false"><i class="icon icon-load-more"></i> 更多知识</a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-    </section> 
-</section>
+            </section>
 
-<?php TPL::output('global/footer.tpl.htm'); ?>
+            <?php TPL::output('global/footer'); ?>
+        </section>
+        
+        <?php TPL::output('block/page_loader'); ?>
+        <?php TPL::output('global/foot'); ?>
+    </body>
+</html>

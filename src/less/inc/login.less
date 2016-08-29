@@ -1,21 +1,23 @@
 .login-content {
+    position: relative;
     min-height: 100vh;
     text-align: center;
     background-color: @m-white;
 }
 
 .lc-block {
-    max-width: 500px;
-    padding-top: 45px;
-    padding-bottom: 35px;
+    display: block;
+    position: absolute;
     width: 80%;
-    display: inline-block;
-    position: relative;
+    top: 50%;
+    left: 10%;
+    transform: translateY(-50%);
 
     .lcb-header {
         margin-bottom: 30px;
         h1 {
             font-size: 18px;
+            margin: 0;
         }
 
         .lcb-logo {
@@ -135,8 +137,8 @@
         margin-top: 50px;
         .lcb-sns-title {
             h2 {
-                padding: 0;
-                margin: 15px 0;
+                padding: 0 0 20px 0;
+                margin: 0;
                 font-size: 15px;
                 color: @text-color;
             }
@@ -145,18 +147,40 @@
         .lcb-sns-items {
             margin: 0;
             padding: 0;
+            display: table;
+            width: 100%;
 
             li {
-                display: inline-block;
+                display: table-cell;
                 text-decoration: none;
-                padding: 0 10px;
+                padding: 0;
+                width: 0.1%;
+                text-align: left;
+                
+                a {
+                    display: block;
+                    font-size: 13px;
+                    border-radius: 2px;
 
-                &:first-child {
-                    padding-left: 0;
+                    .icon {
+                        font-size: 17px;
+                        vertical-align: text-bottom;
+                        margin-right: 5px;
+                    }
+
+                    &.weibo {
+                        color: @m-red;
+                        border-color: @m-red;
+                    }
+
+                    &.qq {
+                        color: @m-blue;
+                        border-color: @m-blue;
+                    }
                 }
 
                 &:last-child {
-                    padding-right: 0;
+                    text-align: right;
                 }
             }  
         }

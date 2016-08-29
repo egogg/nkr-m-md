@@ -1,146 +1,153 @@
-<?php TPL::output('global/header.tpl.htm'); ?>
-
-<section id="main">
-    <section id="content">
-        <div class="container fullwidth article">
-            <div class="card" data-id="<?php echo $this->article_info['id']; ?>">
-                <div class="card-header">
-                    <div class="ar-author">
-                        <?php if ($this->article_info['user_info']) { ?>
-                            <a class="user-tag user-img" href="people/<?php echo $this->article_info['user_info']['url_token']; ?>">
-                                <img class="ar-author-img" src="<?php echo get_avatar_url($this->article_info['user_info']['uid'], 'min'); ?><?php if($this->article_info['user_info']['profile_update_time']) { echo '?v=' . $this->article_info['user_info']['profile_update_time']; } ?>" alt="" />
-                            </a>
-                            <a class="user-tag user-name" href="people/<?php echo $this->article_info['user_info']['url_token']; ?>"><?php echo $this->article_info['user_info']['user_name']; ?></a>
-                        <?php } ?>
-                    </div>
-                    
-                    <!-- 管理选项 -->
-                    <?php if ($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator']) { ?>
-                        <ul class="actions">
-                            <li data-tigger="hover" data-toggle="tooltip" data-placement="bottom" data-content="编辑文章" title data-original-title="编辑文章">
-                                <a href="publish/article/<?php echo $this->article_info['id']; ?>">
-                                    <i class="icon icon-publish"></i>
-                                </a>
-                            </li>
-                            <li class="dropdown">
-                                <a href="#" data-toggle="dropdown" aria-expanded="false">
-                                    <i class="icon icon-more-vert"></i>
-                                </a>
-                                
-                                <ul class="dropdown-menu dropdown-menu-right">
-                                    <li>
-                                        <a href="javascript:;" onclick="NKR.ajax_request(G_BASE_URL + '/article/ajax/lock/', 'article_id=<?php echo $this->article_info['id']; ?>');"><?php if ($this->article_info['lock']) { ?>解除锁定<?php } else { ?>锁定文章<?php } ?></a>
+<!DOCTYPE html>
+<html>
+    <?php TPL::output('global/head'); ?>
+    <body>
+        <?php TPL::output('global/header'); ?>
+        <section id="main">
+            <section id="content">
+                <div class="container fullwidth article">
+                    <div class="card" data-id="<?php echo $this->article_info['id']; ?>">
+                        <div class="card-header">
+                            <div class="ar-author">
+                                <?php if ($this->article_info['user_info']) { ?>
+                                    <a class="user-tag user-img" href="people/<?php echo $this->article_info['user_info']['url_token']; ?>">
+                                        <img class="ar-author-img" src="<?php echo get_avatar_url($this->article_info['user_info']['uid'], 'min'); ?><?php if($this->article_info['user_info']['profile_update_time']) { echo '?v=' . $this->article_info['user_info']['profile_update_time']; } ?>" alt="" />
+                                    </a>
+                                    <a class="user-tag user-name" href="people/<?php echo $this->article_info['user_info']['url_token']; ?>"><?php echo $this->article_info['user_info']['user_name']; ?></a>
+                                <?php } ?>
+                            </div>
+                            
+                            <!-- 管理选项 -->
+                            <?php if ($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator']) { ?>
+                                <ul class="actions">
+                                    <li data-tigger="hover" data-toggle="tooltip" data-placement="bottom" data-content="编辑文章" title data-original-title="编辑文章">
+                                        <a href="publish/article/<?php echo $this->article_info['id']; ?>">
+                                            <i class="icon icon-publish"></i>
+                                        </a>
                                     </li>
-                                    <li>
-                                        <a href="javascript:;" onclick="NKR.dialog('confirm', {'message' : '确认删除?'}, function(){NKR.ajax_request(G_BASE_URL + '/article/ajax/remove_article/', 'article_id=<?php echo $this->article_info['id']; ?>');});">删除文章</a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:;" onclick="NKR.ajax_request(G_BASE_URL + '/article/ajax/set_recommend/', 'action=<?php if ($this->article_info['is_recommend']) { ?>un<?php } ?>set&article_id=<?php echo $this->article_info['id']; ?>');"><?php if ($this->article_info['is_recommend']) { ?>取消推荐<?php } else { ?>推荐文章<?php } ?></a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:;" onclick="NKR.ajax_request(G_BASE_URL + '/recommend/ajax/recommend_homepage/', 'type=article&id=<?php echo $this->article_info['id']; ?>');"><?php if ($this->article_info['is_recommend_homepage']) { ?>取消精选<?php } else { ?>首页精选<?php } ?></a>
+                                    <li class="dropdown">
+                                        <a href="#" data-toggle="dropdown" aria-expanded="false">
+                                            <i class="icon icon-more-vert"></i>
+                                        </a>
+                                        
+                                        <ul class="dropdown-menu dropdown-menu-right">
+                                            <li>
+                                                <a href="javascript:;" onclick="NKR.ajax_request(G_BASE_URL + '/article/ajax/lock/', 'article_id=<?php echo $this->article_info['id']; ?>');"><?php if ($this->article_info['lock']) { ?>解除锁定<?php } else { ?>锁定文章<?php } ?></a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:;" onclick="NKR.dialog('confirm', {'message' : '确认删除?'}, function(){NKR.ajax_request(G_BASE_URL + '/article/ajax/remove_article/', 'article_id=<?php echo $this->article_info['id']; ?>');});">删除文章</a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:;" onclick="NKR.ajax_request(G_BASE_URL + '/article/ajax/set_recommend/', 'action=<?php if ($this->article_info['is_recommend']) { ?>un<?php } ?>set&article_id=<?php echo $this->article_info['id']; ?>');"><?php if ($this->article_info['is_recommend']) { ?>取消推荐<?php } else { ?>推荐文章<?php } ?></a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:;" onclick="NKR.ajax_request(G_BASE_URL + '/recommend/ajax/recommend_homepage/', 'type=article&id=<?php echo $this->article_info['id']; ?>');"><?php if ($this->article_info['is_recommend_homepage']) { ?>取消精选<?php } else { ?>首页精选<?php } ?></a>
+                                            </li>
+                                        </ul>
                                     </li>
                                 </ul>
-                            </li>
-                        </ul>
-                    <?php } ?>
-                </div>
-                <div class="card-body card-padding">
-                    <div class="ar-title">
-                        <h1><?php echo $this->article_info['title']; ?></h1>
-                        <small class="c-gray"><?php echo date_friendly($this->article_info['add_time']); ?></small>
-                    </div>
-                    <div class="ar-content">
-                        <?php echo $this->article_info['message']; ?>
+                            <?php } ?>
+                        </div>
+                        <div class="card-body card-padding">
+                            <div class="ar-title">
+                                <h1><?php echo $this->article_info['title']; ?></h1>
+                                <small class="c-gray"><?php echo date_friendly($this->article_info['add_time']); ?></small>
+                            </div>
+                            <div class="ar-content">
+                                <?php echo $this->article_info['message']; ?>
 
-                        <?php if ($this->article_info['attachs']) {  ?>
-                            <div class="aw-upload-img-list">
-                                <?php foreach ($this->article_info['attachs'] AS $attach) { ?>
-                                <?php if ($attach['is_image'] AND (!$this->article_info['attachs_ids'] OR !in_array($attach['id'], $this->article_info['attachs_ids']))) { ?>
-                                    <a href="<?php echo $attach['attachment']; ?>" target="_blank" data-fancybox-group="thumb" rel="lightbox"><img src="<?php echo $attach['attachment']; ?>" class="img-polaroid" alt="<?php echo $attach['file_name']; ?>" /></a>
+                                <?php if ($this->article_info['attachs']) {  ?>
+                                    <div class="aw-upload-img-list">
+                                        <?php foreach ($this->article_info['attachs'] AS $attach) { ?>
+                                        <?php if ($attach['is_image'] AND (!$this->article_info['attachs_ids'] OR !in_array($attach['id'], $this->article_info['attachs_ids']))) { ?>
+                                            <a href="<?php echo $attach['attachment']; ?>" target="_blank" data-fancybox-group="thumb" rel="lightbox"><img src="<?php echo $attach['attachment']; ?>" class="img-polaroid" alt="<?php echo $attach['file_name']; ?>" /></a>
+                                        <?php } ?>
+                                        <?php } ?>
+                                    </div>
                                 <?php } ?>
+
+                                <?php if ($this->article_info['attachs']) {  ?>
+                                <ul class="aw-upload-file-list">
+                                    <?php foreach ($this->article_info['attachs'] AS $attach) { ?>
+                                    <?php if (!$attach['is_image'] AND (!$this->article_info['attachs_ids'] OR !in_array($attach['id'], $this->article_info['attachs_ids']))) { ?>
+                                        <li><a href="<?php echo download_url($attach['file_name'], $attach['attachment']); ?>"><i class="icon icon-attach"></i> <?php echo $attach['file_name']; ?></a></li>
+                                    <?php } ?>
+                                    <?php } ?>
+                                </ul>
                                 <?php } ?>
                             </div>
-                        <?php } ?>
-
-                        <?php if ($this->article_info['attachs']) {  ?>
-                        <ul class="aw-upload-file-list">
-                            <?php foreach ($this->article_info['attachs'] AS $attach) { ?>
-                            <?php if (!$attach['is_image'] AND (!$this->article_info['attachs_ids'] OR !in_array($attach['id'], $this->article_info['attachs_ids']))) { ?>
-                                <li><a href="<?php echo download_url($attach['file_name'], $attach['attachment']); ?>"><i class="icon icon-attach"></i> <?php echo $attach['file_name']; ?></a></li>
-                            <?php } ?>
-                            <?php } ?>
-                        </ul>
-                        <?php } ?>
-                    </div>
-                    
-                    <div class="ar-agree">
-                       <!--  <div class="article-action-agree <?php if (!$this->user_id OR $this->user_id == $this->article_info['uid']) { ?> disabled<?php } ?>"> -->
-                        <a href="javascript:void(0);" class="ar-action-agree <?php if ($this->article_info['vote_info']['rating'] == 1) { ?>active <?php } ?> " onclick="NKR.User.article_vote($(this), <?php echo $this->article_info['id']; ?>, 1);"><i class="icon icon-agree"></i> 赞同 <span class="ar-agree-count"><?php echo $this->article_info['votes']; ?></span></a>
-                        <!-- </div> -->
-                    </div>
-
-                    <div class="ar-footer clearfix">
-                        <ul class="ar-stats pull-left">
-                            <li>
-                                <a href="javascript:void(0);"><i class="icon icon-view"></i> <?php echo $this->article_info['views']; ?></a>
-                            </li>
-                            <li>
-                                <a href="javascript:;" onclick="NKR.dialog('favorite', {item_id:<?php echo $this->article_info['id']; ?>, item_type:'article'});"><i class="icon icon-bookmark"></i> <?php echo $this->bookmark_count; ?></a>
-                            </li>
-                        </ul>
                             
-                        <ul class="arf-actions">
-                            <li>
-                                <a href="#" data-ar-act="share"><i class="icon icon-share"></i>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="card ar-comments">
-                <div class="card-header comment-header">
-                    <h3>
-                        <i class="icon icon-comment"></i> <?php echo $this->comments_count; ?>条评论
-                    </h3>
-                </div>
-                <div class="card-body">
-                    <form action="article/ajax/save_comment/" onsubmit="return false;" method="post" class="arc-form" id="arc-form">
-                        <input type="hidden" name="post_hash" value="<?php echo new_post_hash(); ?>" />
-                        <input type="hidden" name="article_id" value="<?php echo $this->article_info['id']; ?>" />
-                        <div class="arc-reply-box wp-post">
-                            <textarea name="message" id="comment_editor" class="wp-text autosize" placeholder="写下你的评论" <?php if(!$this->user_id ||$this->article_info['lock']) { ?> disabled="disabled"<?php } ?>></textarea>
-                            <div class="wp-actions clearfix">
-                                <div class="wp-hint">
-                                    <?php if ($this->article_info['lock']) { ?>
-                                        该文章已经被锁定
-                                    <?php } else if (!$this->user_id) { ?>
-                                       <a href="account/login/">登录</a> 后发表评论
-                                    <?php } ?>
-                                </div>
-                                <button class="btn btn-sm btn-primary pull-right" data-arc-act="submit" <?php if(!$this->user_id || $this->article_info['lock']) { ?> disabled="disabled"<?php } ?>>提交评论</button>
+                            <div class="ar-agree">
+                               <!--  <div class="article-action-agree <?php if (!$this->user_id OR $this->user_id == $this->article_info['uid']) { ?> disabled<?php } ?>"> -->
+                                <a href="javascript:void(0);" class="ar-action-agree <?php if ($this->article_info['vote_info']['rating'] == 1) { ?>active <?php } ?> " onclick="NKR.User.article_vote($(this), <?php echo $this->article_info['id']; ?>, 1);"><i class="icon icon-agree"></i> 赞同 <span class="ar-agree-count"><?php echo $this->article_info['votes']; ?></span></a>
+                                <!-- </div> -->
+                            </div>
+
+                            <div class="ar-footer clearfix">
+                                <ul class="ar-stats pull-left">
+                                    <li>
+                                        <a href="javascript:void(0);"><i class="icon icon-view"></i> <?php echo $this->article_info['views']; ?></a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:;" onclick="NKR.dialog('favorite', {item_id:<?php echo $this->article_info['id']; ?>, item_type:'article'});"><i class="icon icon-bookmark"></i> <?php echo $this->bookmark_count; ?></a>
+                                    </li>
+                                </ul>
+                                    
+                                <ul class="arf-actions">
+                                    <li>
+                                        <a href="#" data-ar-act="share"><i class="icon icon-share"></i>
+                                        </a>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
-                    </form>
-                    
-                    <div class="comment-list">
-                        <ul class="list-group" id="arc-comment-list">
-                            <?php if ($this->comments) { ?>
-                                <?php TPL::assign('comment_list', $this->comments); ?>
-                                <?php TPL::output('article/ajax/comment_list'); ?>
-                            <?php } ?>
-                        </ul>
+                    </div>
+                    <div class="card ar-comments">
+                        <div class="card-header comment-header">
+                            <h3>
+                                <i class="icon icon-comment"></i> <?php echo $this->comments_count; ?>条评论
+                            </h3>
+                        </div>
+                        <div class="card-body">
+                            <form action="article/ajax/save_comment/" onsubmit="return false;" method="post" class="arc-form" id="arc-form">
+                                <input type="hidden" name="post_hash" value="<?php echo new_post_hash(); ?>" />
+                                <input type="hidden" name="article_id" value="<?php echo $this->article_info['id']; ?>" />
+                                <div class="arc-reply-box wp-post">
+                                    <textarea name="message" id="comment_editor" class="wp-text autosize" placeholder="写下你的评论" <?php if(!$this->user_id ||$this->article_info['lock']) { ?> disabled="disabled"<?php } ?>></textarea>
+                                    <div class="wp-actions clearfix">
+                                        <div class="wp-hint">
+                                            <?php if ($this->article_info['lock']) { ?>
+                                                该文章已经被锁定
+                                            <?php } else if (!$this->user_id) { ?>
+                                               <a href="account/login/">登录</a> 后发表评论
+                                            <?php } ?>
+                                        </div>
+                                        <button class="btn btn-sm btn-primary pull-right" data-arc-act="submit" <?php if(!$this->user_id || $this->article_info['lock']) { ?> disabled="disabled"<?php } ?>>提交评论</button>
+                                    </div>
+                                </div>
+                            </form>
+                            
+                            <div class="comment-list">
+                                <ul class="list-group" id="arc-comment-list">
+                                    <?php if ($this->comments) { ?>
+                                        <?php TPL::assign('comment_list', $this->comments); ?>
+                                        <?php TPL::output('article/ajax/comment_list'); ?>
+                                    <?php } ?>
+                                </ul>
 
-                        <?php if($this->comments_count > 15) { ?>
-                            <div class="load-more">
-                                <a href="#" auto-load="false" id="arc-load-more" data-page="1"><i class="icon icon-load-more"></i> 更多评论</a>
+                                <?php if($this->comments_count > 15) { ?>
+                                    <div class="load-more">
+                                        <a href="#" auto-load="false" id="arc-load-more" data-page="1"><i class="icon icon-load-more"></i> 更多评论</a>
+                                    </div>
+                                <?php } ?>
                             </div>
-                        <?php } ?>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
+            </section>
+            
+            <?php TPL::output('global/footer'); ?>
+        </section>
 
         <section class="fixed-footer">
             <div class="footer-share">
@@ -158,19 +165,18 @@
                 </ul>
             </div>
         </section>
-    </section>
-</section>
+        
+        <script>
+            var ANSWER_EDIT_TIME = <?php echo get_setting('answer_edit_time'); ?>;
+            var ARTICLE_ID = <?php echo $this->article_info['id']; ?>;
 
-<script type="text/javascript">
-    var ANSWER_EDIT_TIME = <?php echo get_setting('answer_edit_time'); ?>;
-    var ARTICLE_ID = <?php echo $this->article_info['id']; ?>;
+            // share items
 
-    // share items
+            var ARTICLE_SHARE_TITLE = "<?php echo $this->article_info['title']; ?>";
+            var ARTICLE_SHARE_DESCRIPTION = "<?php echo excerpt($this->article_info['message'], 0, 80); ?>";
+            var ARTICLE_SHARE_PICS = "<?php foreach($this->article_info['attachs'] AS $attach) {if($attach['is_image']) {echo $attach['attachment']; break;}} ?>";
+        </script>
 
-    var ARTICLE_SHARE_TITLE = "<?php echo $this->article_info['title']; ?>";
-    var ARTICLE_SHARE_DESCRIPTION = "<?php echo cjk_substr(trim(str_replace('\r\n', ' ', preg_replace('|\[.*\].*\[\/.*\]|si', '', strip_tags($this->article_info['message'])))), 0, 80, 'UTF-8', '...'); ?>";
-    var ARTICLE_SHARE_PICS = "<?php foreach($this->article_info['attachs'] AS $attach) {if($attach['is_image']) {echo $attach['attachment']; break;}} ?>";
-</script>
-
-<?php TPL::output('block/fixed_side_toolbar.tpl.htm'); ?>
-<?php TPL::output('global/footer.tpl.htm'); ?>
+        <?php TPL::output('global/foot'); ?>
+    </body>
+</html>

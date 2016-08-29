@@ -1,48 +1,55 @@
-<?php TPL::output('global/header.tpl.htm'); ?>
-
-<section id="main">
-    <section id="content">
-        <div class="container">
-            <div class="card">
-                <div class="card-header">
-                    <h2>
-                        <i class="icon icon-integral"></i>我的积分
-                    </h2>
-                </div>
-                <?php if($this->log_list) { ?>
-                    <div class="card-body table-responsive">
-                        <table class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th>时间</th>
-                                    <th>积分</th>
-                                    <th>余额</th>
-                                    <th>描述</th>
-                                    <th>相关信息</th>
-                                </tr>
-                            </thead>
-                            
-                            <tbody id="integral-list">
-                                <?php TPL::assign('log_list', $this->log_list); ?>
-                                <?php TPL::assign('log_details', $this->log_details); ?>
-                                <?php TPL::output('integral/ajax/list'); ?>
-                            </tbody>
-                        </table>
+<!DOCTYPE html>
+<html>
+    <?php TPL::output('global/head'); ?>
+    <body>
+        <?php TPL::output('global/header'); ?>
+        <section id="main">
+            <section id="content">
+                <div class="container">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>
+                                <i class="icon icon-integral"></i>我的积分
+                            </h2>
+                        </div>
+                        <?php if($this->log_list) { ?>
+                            <div class="card-body table-responsive">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>时间</th>
+                                            <th>积分</th>
+                                            <th>余额</th>
+                                            <th>描述</th>
+                                            <th>相关信息</th>
+                                        </tr>
+                                    </thead>
+                                    
+                                    <tbody id="integral-list">
+                                        <?php TPL::assign('log_list', $this->log_list); ?>
+                                        <?php TPL::assign('log_details', $this->log_details); ?>
+                                        <?php TPL::output('integral/ajax/list'); ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <?php } else { ?>
+                            <div class="card-body card-padding">
+                                <div class="list-norecord">没有积分记录</div>
+                            </div> 
+                        <?php } ?>
                     </div>
-                <?php } else { ?>
-                    <div class="card-body card-padding">
-                        <div class="list-norecord">没有积分记录</div>
-                    </div> 
-                <?php } ?>
-            </div>
 
-            <?php if($this->log_list) { ?>
-                <div class="load-more">
-                    <a href="javascript:void(0);" id="integral-load-more" auto-load="false"><i class="icon icon-load-more"></i>加载更多</a>
+                    <?php if($this->log_list) { ?>
+                        <div class="load-more">
+                            <a href="javascript:void(0);" id="integral-load-more" auto-load="false"><i class="icon icon-load-more"></i>加载更多</a>
+                        </div>
+                    <?php } ?>
                 </div>
-            <?php } ?>
-        </div>
-    </section>
-</section>
+            </section>
+            
+            <?php TPL::output('global/footer'); ?>
+        </section>
 
-<?php TPL::output('global/footer.tpl.htm'); ?>
+        <?php TPL::output('global/foot'); ?>
+    </body>
+</html>

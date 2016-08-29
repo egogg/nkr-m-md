@@ -1,72 +1,79 @@
-<?php TPL::output('global/header.tpl.htm'); ?>
+<!DOCTYPE html>
+<html>
+    <?php TPL::output('global/head'); ?>
+    <body>
+        <?php TPL::output('global/header'); ?>
+        <section id="main">
+            <section id="content">
+                <div class="container favorite">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>
+                                <i class="icon icon-bookmark"></i>我的收藏(<?php echo $this->favorite_count; ?>)
+                                <?php if ($this->favorite_tags) { ?>
+                                    <a class="link-action" href="#dlg-favorite-category" data-toggle="modal">
+                                        <?php if ($this->filter_tag) { ?>
+                                            <?php echo $this->filter_tag; ?>
+                                        <?php } else { ?>
+                                            全部收藏
+                                        <?php } ?> 
+                                        <i class="caret"></i>
+                                    </a>
+                                <?php } ?>
+                            </h2>
+                        </div>
 
-<section id="main">
-	<section id="content">
-		<div class="container favorite">
-        	<div class="card">
-        		<div class="card-header">
-        			<h2>
-                        <i class="icon icon-bookmark"></i>我的收藏(<?php echo $this->favorite_count; ?>)
-                        <?php if ($this->favorite_tags) { ?>
-	                        <a class="link-action" href="#dlg-favorite-category" data-toggle="modal">
-	                            <?php if ($this->filter_tag) { ?>
-	                                <?php echo $this->filter_tag; ?>
-	                            <?php } else { ?>
-	                                全部收藏
-	                            <?php } ?> 
-	                            <i class="caret"></i>
-	                        </a>
+                        <?php if($this->list) { ?>
+                            <div class="card-body list-group">
+                                <?php TPL::assign('favorite_list', $this->list); ?>
+                                <?php TPL::output('block/favorite_list'); ?>
+                            </div>
+                        <?php } else { ?>
+                            <div class="card-body card-padding">
+                                <div class="list-norecord">没有收藏的内容</div>
+                            </div>
                         <?php } ?>
-                    </h2>
-        		</div>
-
-				<?php if($this->list) { ?>
-		    		<div class="card-body list-group">
-		    			<?php TPL::assign('favorite_list', $this->list); ?>
-		    			<?php TPL::output('block/favorite_list'); ?>
-		    		</div>
-	    		<?php } else { ?>
-                    <div class="card-body card-padding">
-                        <div class="list-norecord">没有收藏的内容</div>
                     </div>
-    			<?php } ?>
-        	</div>
-    		<?php if ($this->favorite_tags) { ?>
-			 	<section class="favorite-category category-select">
-	                <!-- favorite category modal -->
-	                
-	                <div class="modal modal-fullpage fade" id="dlg-favorite-category" tabindex="-1" role="dialog" aria-hidden="true">
-	                    <div class="modal-dialog">
-	                        <div class="modal-content">
-	                            <div class="modal-header">
-	                                <h4 class="modal-title"><i class="icon icon-filter"></i> 收藏分类</h4>
-	                                <button type="button" class="btn btn-link" data-dismiss="modal" aria-label="Close">取消</button>
-	                            </div>
-	                            <div class="modal-body">
-	                            	<ul class="category-list favorite-tags">
-				        				<li><a href="favorite/" class="<?php if(!$this->filter_tag) { ?>active<?php } ?>">全部收藏</a></li>
-				        				<?php foreach ($this->favorite_tags AS $key => $val) { ?>
-											<li>
-												<a class="<?php if($this->filter_tag == $val['title']) { ?>active<?php } ?>" href="favorite/tag-<?php echo urlencode($val['title']); ?>"><?php echo $val['title']; ?></a>
-											</li>
-										<?php } ?>
-				        			</ul>
-	                            </div>
-	                        </div>
-	                    </div>
-	                </div>
-	            </section>
-    		<?php } ?>
-			
-    		<?php if($this->pagination) { ?>
-	    		<div class="card">
-	    			<div class="card-body card-padding">
-	    				<?php echo $this->pagination; ?>
-	    			</div>
-	    		</div>
-    		<?php } ?>
-		</div>
-	</section>
-</section>
+                    <?php if ($this->favorite_tags) { ?>
+                        <section class="favorite-category category-select">
+                            <!-- favorite category modal -->
+                            
+                            <div class="modal modal-fullpage fade" id="dlg-favorite-category" tabindex="-1" role="dialog" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title"><i class="icon icon-filter"></i> 收藏分类</h4>
+                                            <button type="button" class="btn btn-link" data-dismiss="modal" aria-label="Close">取消</button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <ul class="category-list favorite-tags">
+                                                <li><a href="favorite/" class="<?php if(!$this->filter_tag) { ?>active<?php } ?>">全部收藏</a></li>
+                                                <?php foreach ($this->favorite_tags AS $key => $val) { ?>
+                                                    <li>
+                                                        <a class="<?php if($this->filter_tag == $val['title']) { ?>active<?php } ?>" href="favorite/tag-<?php echo urlencode($val['title']); ?>"><?php echo $val['title']; ?></a>
+                                                    </li>
+                                                <?php } ?>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    <?php } ?>
+                    
+                    <?php if($this->pagination) { ?>
+                        <div class="card">
+                            <div class="card-body card-padding">
+                                <?php echo $this->pagination; ?>
+                            </div>
+                        </div>
+                    <?php } ?>
+                </div>
+            </section>
 
-<?php TPL::output('global/footer.tpl.htm'); ?>
+            <?php TPL::output('global/footer'); ?>
+        </section>
+
+        <?php TPL::output('global/foot'); ?>
+    </body>
+</html>

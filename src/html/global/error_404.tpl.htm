@@ -20,116 +20,102 @@
 	    margin: 0;
 	}
 
-	.four-zero-content {
-	    background: #fff; 
-	    padding: 20px;
-	    font-family: 'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB', 'Microsoft YaHei', 'WenQuanYi Micro Hei',sans-serif;
+	body {
+		background: #fff; 
+		font-weight: 400;
+    	font-family: Helvetica, Arial, "Microsoft YaHei", "Hiragino Sans GB", sans-serif;
+    	font-size: 13px;
+    	color: #5e5e5e;
 	}
 
-	.four-zero-content:before {
-	    height: 50%;
-	    width: 100%;
-	    position: absolute;
-	    top: 0;
-	    left: 0;
-	    background: #f3f3f3;
-	    content: "";
+	a {
+		text-decoration: none;
+		color: #03A9F4;
+	}
+
+	h2 {
+	    color: #000;
+	    font-weight: 100;
+	    font-size: 80px;
+	    margin: 0;
+	}
+
+	p {
+		margin: 0;
+		line-height: 1.7;
+		color: #9e9e9e;
 	}
 
 	.four-zero {
-	    background: #03a9f4;
-	    box-shadow: 0 1px 11px rgba(0, 0, 0, 0.27);
-	    border-radius: 2px;
+	    background: #fff;
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        z-index: 1000;
+	}
+
+	.fz-content {
+		text-align: center;
+	    width: 80%;
 	    position: absolute;
+	    left: 10%;
 	    top: 50%;
-	    margin-top: -150px;
-	    color: #fff;
-	    text-align: center;
-	    padding: 15px;
-	    height: 300px;
-	    width: 500px;
-	    left: 50%;
-	    margin-left: -250px;
+	    transform: translateY(-50%);
 	}
 
-	.four-zero h2 {
-	    line-height: 0;
-	    color: #fff;
-	    font-weight: 100;
-	    font-size: 90px;
+	.fz-title {
+		margin-bottom: 20px;
 	}
 
-	.four-zero small {
+	.fz-title small {
 	    display: block;
-	    font-size: 24px;
-	    margin-top: -10px;
+	    font-size: 17px;
 	}
 
-	.four-zero p {
-		margin: 20px 0;
-		font-size: 16px;
+	.fz-body {
+		margin-bottom: 30px;
 	}
 
-	.four-zero footer {
-	  background: rgba(0, 0, 0, 0.13);
-	  position: absolute;
-	  left: 0;
-	  bottom: 0;
-	  width: 100%;
-	  padding: 10px 0;
+	.fz-actions {
+		margin: 0;
+		padding: 0;
 	}
 
-	.four-zero footer > a {
-	  font-size: 14px;
-	  display: inline-block;
-	  color: #FFF;
-	  margin: 0 10px;
-	  padding: 0 15px;
-	  line-height: 40px;
-	  background: rgba(0, 0, 0, 0.09);
-	  border-radius: 2px;
-	  text-align: center;
-	  text-decoration: none;
-	  -webkit-transition: all;
-	  -o-transition: all;
-	  transition: all;
-	  -webkit-transition-duration: 300ms;
-	  transition-duration: 300ms;
+	.fz-actions li {
+		display: inline-block;
+		margin: 0 15px;
 	}
 
-	.four-zero footer > a:hover {
-	  background: rgba(0, 0, 0, 0.2);
-	}
-
-	@media (max-width: 767px) {
-	  .four-zero {
-	    width: calc(100% - 70px);
-	    left: 20px;
-	    margin-left: 0;
-	    height: 260px;
-	    margin-top: -130px;
-	  }
-
-	  .four-zero h2 {
-	    font-size: 64px;
-	  }
-
-	  .four-zero p {
-	  	font-size: 14px;
-	  }
+	.fz-slogan {
+		font-size: 12px;
+	    margin-top: 100px;
+	    color: rgba(0, 0, 0, 0.3);
 	}
 </style>
 </head>
-	<body class="four-zero-content">        
+	<body>        
         <div class="four-zero">
-            <h2>404</h2>
-            <small>您要找的页面不存在</small>
-            <p>您的链接地址有误或者该答题已经被作者删除，您可以尝试：</p>
-            
-            <footer>
-                <a href="javascript:history.go(-1)">返回上页</a>
-                <a href="http://www.naokr.com/">返回首页</a>
-            </footer>
+        	<div class="fz-content">
+        		<div class="fz-title">
+        			<h2>404</h2>
+		            <small>您要找的页面不存在</small>
+        		</div>
+	        	
+	        	<div class="fz-body">
+	        		<p>您的链接地址有误或相关内容已被删除，请确认您是从正确的途径打开本站链接</p>
+	        	</div>
+
+	            <ul class="fz-actions">
+	                <li><a href="javascript:history.go(-1)">返回上一页</a></li>
+	                <li><a href="http://m.naokr.com/">回到首页</a></li>
+	            </ul>
+
+	            <div class="fz-slogan">
+	            	脑壳网－思考很快乐
+	            </div>
+        	</div>
         </div>
     </body>
 </html>

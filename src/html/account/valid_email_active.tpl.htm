@@ -1,17 +1,23 @@
-<?php TPL::output('global/header_meta.tpl.htm'); ?>
-
-<div class="login-content">
-    <div class="lc-block">
-        <div class="lcb-header">
-            <h1>邮箱验证</h1>
-        </div>
-        
-        <p>感谢您的注册! 点击<strong>验证邮箱</strong>来激活您在脑壳网的账户</p>
-		<div class="lcb-content lcb-form">
-			<form action="account/ajax/valid_email_active/" method="post" id="active_form">
-				<input type="hidden" name="active_code" value="<?php echo $this->active_code; ?>" />
-				<button class="btn btn-primary btn-normal submit" onclick="NKR.ajax_post($('#active_form')); return false;">验证邮箱</button>
-			</form>	
+<!DOCTYPE html>
+<html>
+    <?php TPL::output('global/head'); ?>
+    <body>
+        <div class="login-content">
+		    <div class="lc-block">
+		        <div class="lcb-header">
+		            <h1>邮箱验证</h1>
+		        </div>
+		        
+		        <p>感谢您的注册! 点击<strong>验证邮箱</strong>来激活您在脑壳网的账户</p>
+				<div class="lcb-content lcb-form">
+					<form action="account/ajax/valid_email_active/" method="post" id="active_form">
+						<input type="hidden" name="active_code" value="<?php echo $this->active_code; ?>" />
+						<button class="btn btn-primary btn-normal submit" onclick="NKR.ajax_post($('#active_form')); return false;">验证邮箱</button>
+					</form>	
+				</div>
+		    </div>
 		</div>
-    </div>
-</div>
+
+		<?php TPL::output('global/foot'); ?>
+    </body>
+</html>

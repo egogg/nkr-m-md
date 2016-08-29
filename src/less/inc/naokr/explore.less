@@ -16,9 +16,59 @@
 	margin-bottom: 10px;
 
 	.swiper-slide {
+		position: relative;
+
 		img {
 			width: 100%;
 		}
+
+		.ms-content {
+			position: absolute;
+			display: block;
+			padding: 0 25px;
+    		width: 100%;
+			bottom: 20px;
+
+			.msc-title {
+				padding: 0 0 10px 0;
+				margin: 0;
+				font-size: 15px;
+				font-weight: 700;
+				color: #fff;
+				overflow: hidden;
+			    text-overflow: ellipsis;
+			    white-space: nowrap;
+			}
+
+			.msc-description {
+				font-size: 12px;
+				color: #fff;
+				overflow: hidden;
+			    height: 3em;
+			}
+
+		
+		}
+
+		.ms-category {
+			position: absolute;
+		    top: 10px;
+		    right: 10px;
+		    color: #fff;
+		    font-size: 11px;
+		    background: rgba(255, 255, 255, 0.2);
+		    padding: 3px 8px 2px 8px;
+		    border-radius: 2px;
+		}
+	}
+
+	.swiper-pagination {
+		bottom: 5px;
+	}
+	
+	.swiper-pagination-bullet {
+		height: 6px;
+		width: 6px;
 	}
 
 	.swiper-pagination-bullet-active {

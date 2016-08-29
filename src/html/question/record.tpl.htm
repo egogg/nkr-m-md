@@ -1,94 +1,100 @@
-<?php TPL::output('global/header.tpl.htm'); ?>
-
-<section id="main">
-    <section id="content">
-        <div class="container">
-            <div class="card">
-                <div role="tabpanel">
-                    <ul class="tab-nav tn-justified" role="tablist">
-                        <li class="active" role="presentation"><a class="qzr-tab" href="#qzr-records" aria-controls="qzr-records" role="tab" data-toggle="tab" aria-expanded="false">答题记录</a></li>
-                        <li role="presentation"><a class="qzr-tab" href="#qzr-summary" aria-controls="qzr-summary" role="tab" data-toggle="tab" aria-expanded="false">答题统计</a>
-                        </li>
-                    </ul>
-                    <div class="tab-content">
-                        <div role="tabpanel" class="tab-pane active" id="qzr-records">
-                            <div class="list-group qzr-list" id="qzr-list">
-                                <?php TPL::assign('quiz_record_list', $this->question_quiz_record); ?>
-                                <?php TPL::output('block/quiz_record_list.tpl.htm'); ?>
-                            </div> 
-                            
-                            <div class="load-more">
-                                <a href="#" id="qzr-load-more" auto-load="false" data-page="1"><i class="icon icon-load-more"></i> 更多记录</a>
-                            </div>
-                        </div>
-                        <div role="tabpanel" class="tab-pane" id="qzr-summary">
-                            <div id="qzr-chart"></div>
-                            <ul class="list-group">
-                                <li class="list-group-item">
-                                    <span><i class="icon icon-count"></i> 答题总数</span> <strong><?php echo $this->question_info['quiz_count_total']; ?></strong>
-                                </li>
-
-                                <li class="list-group-item">
-                                    <span><i class="icon icon-check"></i> 答题成功</span> <strong><?php echo $this->question_info['quiz_count_passed']; ?></strong>
-                                </li>
-
-                                <li class="list-group-item">
-                                    <span><i class="icon icon-close"></i> 答题失败</span> <strong><?php echo $this->question_info['quiz_count_total'] - $this->question_info['quiz_count_passed']; ?></strong>
-                                </li>
-
-                                <li class="list-group-item">
-                                    <span><i class="icon icon-timeout"></i> 答题超时</span> <strong><?php echo $this->question_info['quiz_count_timeout']; ?></strong>
-                                </li>
-
-                                <li class="list-group-item">
-                                    <span><i class="icon icon-flag"></i> 一次通过</span> <strong><?php echo $this->question_info['quiz_count_POFT']; ?></strong>
+<!DOCTYPE html>
+<html>
+    <?php TPL::output('global/head'); ?>
+    <body>
+        <?php TPL::output('global/header'); ?>
+        <section id="main">
+            <section id="content">
+                <div class="container">
+                    <div class="card">
+                        <div role="tabpanel">
+                            <ul class="tab-nav tn-justified" role="tablist">
+                                <li class="active" role="presentation"><a class="qzr-tab" href="#qzr-records" aria-controls="qzr-records" role="tab" data-toggle="tab" aria-expanded="false">答题记录</a></li>
+                                <li role="presentation"><a class="qzr-tab" href="#qzr-summary" aria-controls="qzr-summary" role="tab" data-toggle="tab" aria-expanded="false">答题统计</a>
                                 </li>
                             </ul>
+                            <div class="tab-content">
+                                <div role="tabpanel" class="tab-pane active" id="qzr-records">
+                                    <div class="list-group qzr-list" id="qzr-list">
+                                        <?php TPL::assign('quiz_record_list', $this->question_quiz_record); ?>
+                                        <?php TPL::output('block/quiz_record_list'); ?>
+                                    </div> 
+                                    
+                                    <div class="load-more">
+                                        <a href="#" id="qzr-load-more" auto-load="false" data-page="1"><i class="icon icon-load-more"></i> 更多记录</a>
+                                    </div>
+                                </div>
+                                <div role="tabpanel" class="tab-pane" id="qzr-summary">
+                                    <div id="qzr-chart"></div>
+                                    <ul class="list-group">
+                                        <li class="list-group-item">
+                                            <span><i class="icon icon-count"></i> 答题总数</span> <strong><?php echo $this->question_info['quiz_count_total']; ?></strong>
+                                        </li>
+
+                                        <li class="list-group-item">
+                                            <span><i class="icon icon-check"></i> 答题成功</span> <strong><?php echo $this->question_info['quiz_count_passed']; ?></strong>
+                                        </li>
+
+                                        <li class="list-group-item">
+                                            <span><i class="icon icon-close"></i> 答题失败</span> <strong><?php echo $this->question_info['quiz_count_total'] - $this->question_info['quiz_count_passed']; ?></strong>
+                                        </li>
+
+                                        <li class="list-group-item">
+                                            <span><i class="icon icon-timeout"></i> 答题超时</span> <strong><?php echo $this->question_info['quiz_count_timeout']; ?></strong>
+                                        </li>
+
+                                        <li class="list-group-item">
+                                            <span><i class="icon icon-flag"></i> 一次通过</span> <strong><?php echo $this->question_info['quiz_count_POFT']; ?></strong>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </section>
-</section>
+            </section>
 
-<script type="text/javascript">
-    var QUESTION_QUIZ_STATS_TOTAL = "<?php echo $this->question_info['quiz_count_total']; ?>";
-    var QUESTION_QUIZ_STATS_PASSED = "<?php echo $this->question_info['quiz_count_passed']; ?>";
-    var QUESTION_QUIZ_STATS_TIMEOUT = "<?php echo $this->question_info['quiz_count_timeout']; ?>";
-    var QUESTION_QUIZ_STATS_FAILED = "<?php echo $this->question_info['quiz_count_total'] - $this->question_info['quiz_count_passed'] - $this->question_info['quiz_count_timeout']; ?>";
+            <?php TPL::output('global/footer'); ?>
+        </section>
+        
+        <script>
+            var QUESTION_QUIZ_STATS_TOTAL = "<?php echo $this->question_info['quiz_count_total']; ?>";
+            var QUESTION_QUIZ_STATS_PASSED = "<?php echo $this->question_info['quiz_count_passed']; ?>";
+            var QUESTION_QUIZ_STATS_TIMEOUT = "<?php echo $this->question_info['quiz_count_timeout']; ?>";
+            var QUESTION_QUIZ_STATS_FAILED = "<?php echo $this->question_info['quiz_count_total'] - $this->question_info['quiz_count_passed'] - $this->question_info['quiz_count_timeout']; ?>";
 
-    $(document).ready(function(){
-        var recordData = [
-            {data: parseInt(QUESTION_QUIZ_STATS_FAILED), color: '#F44336', label: '失败'},
-            {data: parseInt(QUESTION_QUIZ_STATS_PASSED), color: '#8BC34A', label: '成功'},
-            {data: parseInt(QUESTION_QUIZ_STATS_TIMEOUT), color: '#FF5722', label: '超时'}        
-        ];
-        $.plot('#qzr-chart', recordData, {
-            series: {
-                pie : {
-                    show: true,
-                    stroke: { 
-                        width: 2,
+            $(document).ready(function(){
+                var recordData = [
+                    {data: parseInt(QUESTION_QUIZ_STATS_FAILED), color: '#F44336', label: '失败'},
+                    {data: parseInt(QUESTION_QUIZ_STATS_PASSED), color: '#8BC34A', label: '成功'},
+                    {data: parseInt(QUESTION_QUIZ_STATS_TIMEOUT), color: '#FF5722', label: '超时'}        
+                ];
+                $.plot('#qzr-chart', recordData, {
+                    series: {
+                        pie : {
+                            show: true,
+                            stroke: { 
+                                width: 2,
+                            }
+                        }
+                    },
+                    legend: {
+                        show: false
+                    }
+                });
+
+                // 绑定加载更多
+
+                function onQuizRecordLoadMore(element, complete) {
+                    if(complete) {
+                        element.addClass('no-more');
+                        element.html('没有更多记录');
                     }
                 }
-            },
-            legend: {
-                show: false
-            }
-        });
 
-        // 绑定加载更多
-
-        function onQuizRecordLoadMore(element, complete) {
-            if(complete) {
-                element.addClass('no-more');
-                element.html('没有更多记录');
-            }
-        }
-
-        NKR.load_list_view(G_BASE_URL + "/question/ajax/load_more_question_quiz_record/question_id-<?php echo $this->question_info['question_id']; ?>", $('#qzr-load-more'), $('#qzr-list'), 2, onQuizRecordLoadMore);
-    });
-</script>
-
-<?php TPL::output('global/footer.tpl.htm'); ?>
+                NKR.load_list_view(G_BASE_URL + "/question/ajax/load_more_question_quiz_record/question_id-<?php echo $this->question_info['question_id']; ?>", $('#qzr-load-more'), $('#qzr-list'), 2, onQuizRecordLoadMore);
+            });
+        </script>
+        <?php TPL::output('global/foot'); ?>
+    </body>
+</html>

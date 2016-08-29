@@ -1,17 +1,23 @@
-<?php TPL::output('global/header_meta.tpl.htm'); ?>
+<!DOCTYPE html>
+<html>
+    <?php TPL::output('global/head'); ?>
+    <body>
+        <div class="login-content">
+            <div class="lc-block">
+                <div class="lcb-header">
+                    <h1>找回密码</h1>
+                </div>
+                
+                <div class="lcb-content">
+                    <p class="c-green">密码重置链接已经发到您邮箱 <strong><?php echo $this->email; ?></strong></p>
+                    <small class="c-gray">请登录你的邮箱完成密码更改</small>
+                </div>
+                <div class="lcb-homelink">
+                    <a class="btn btn-primary btn-icon-text" href="<?php echo base_url(); ?>"><i class="icon icon-home"></i> 进入脑壳网</a>
+                </div>
+            </div>
+        </div>
 
-<div class="login-content">
-    <div class="lc-block">
-        <div class="lcb-header">
-        	<h1>找回密码</h1>
-        </div>
-        
-		<div class="lcb-content">
-        	<p class="c-green">密码重置链接已经发到您邮箱 <strong><?php echo $this->email; ?></strong></p>
-        	<small class="c-gray">请登录你的邮箱完成密码更改</small>
-        </div>
-        <div class="lcb-homelink">
-        	<a class="btn btn-primary btn-icon-text" href="<?php echo base_url(); ?>"><i class="icon icon-home"></i> 进入脑壳网</a>
-        </div>
-    </div>
-</div>
+        <?php TPL::output('global/foot'); ?>
+    </body>
+</html>

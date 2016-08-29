@@ -1,0 +1,62 @@
+<head>
+	<meta content="text/html;charset=utf-8" http-equiv="Content-Type" />
+	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
+	<meta property="qc:admins" content="07702556776617326375" />
+	<meta http-equiv="X-UA-Compatible" content="<?php echo X_UA_COMPATIBLE; ?>" />
+	<meta name="renderer" content="webkit" />
+	<title><?php echo $this->page_title; ?></title>
+	<meta name="keywords" content="<?php echo $this->_meta_keywords; ?>" />
+	<meta name="description" content="<?php echo $this->_meta_description; ?>"  />
+	<base href="<?php echo base_url();?>/<?php if (get_setting('url_rewrite_enable') != 'Y') { ?><?php echo G_INDEX_SCRIPT; ?><?php } ?>" /><!--[if IE]></base><![endif]-->
+	<link href="<?php echo G_STATIC_URL; ?>/css/<?php echo $this->template_name; ?>/img/favicon.ico?v=<?php echo G_VERSION_BUILD; ?>" rel="shortcut icon" type="image/x-icon" />
+
+	<link rel="stylesheet" href="<?php echo G_STATIC_URL; ?>/m/css/app.min.css?v=<?php echo G_VERSION_BUILD; ?>" />
+
+	<?php $post_hash_var_name = strtoupper(md5(TIMESTAMP . $this->userinfo['salt'])); ?>
+	<script type="text/javascript">
+		var _<?php echo $post_hash_var_name; ?>="<?php echo new_post_hash(); ?>";
+		var G_POST_HASH=_<?php echo $post_hash_var_name; ?>;
+		var G_INDEX_SCRIPT = "<?php if (get_setting('url_rewrite_enable') != 'Y') echo G_INDEX_SCRIPT; ?>";
+		var G_SITE_NAME = "<?php echo addcslashes(get_setting('site_name'), '\"'); ?>";
+		var G_BASE_URL = "<?php echo base_url(); if (get_setting('url_rewrite_enable') != 'Y') { ?>/<?php echo rtrim(G_INDEX_SCRIPT, '/'); } ?>";
+		var G_STATIC_URL = "<?php echo G_STATIC_URL; ?>";
+		var G_UPLOAD_URL = "<?php echo get_setting('upload_url'); ?>";
+		var G_USER_ID = "<?php echo $this->user_id; ?>";
+		var G_USER_NAME = "<?php echo addcslashes($this->user_info['user_name'], '\"'); ?>";
+		var G_UPLOAD_ENABLE = "<?php echo get_setting('upload_enable'); ?>";
+		var G_UNREAD_NOTIFICATION = 0;
+		var G_NOTIFICATION_INTERVAL = <?php echo intval(get_setting('unread_flush_interval')) * 1000; ?>;
+		var G_CAN_CREATE_TOPIC = "<?php echo $this->user_info['permission']['create_topic']; ?>";
+		var G_ADVANCED_EDITOR_ENABLE = "<?php echo get_setting('advanced_editor_enable'); ?>";
+		var G_USER_QUIZ_MESSAGE_INTERVAL = <?php echo intval(get_setting('user_quiz_message_interval')) * 1000; ?>;
+
+		<?php if (human_valid('question_valid_hour')) { ?>
+			var G_QUICK_PUBLISH_HUMAN_VALID = true;
+		<?php } ?>
+
+		var G_USER_INVALID_EMAIL = "";
+		<?php if ($this->user_id AND $this->user_info['email'] AND !$this->user_info['valid_email'] AND get_setting('register_valid_type') != 'N') { ?>
+			G_USER_INVALID_EMAIL = "<?php echo $this->user_info['email']; ?>";
+		<?php } ?>
+		var G_SITE_ANNOUNCE_CLOSE = '<?php echo substr(md5(get_setting('site_announce')), 0, 10); ?>';
+	</script>
+
+	<script src="<?php echo G_STATIC_URL; ?>/m/js/app.min.js?v=<?php echo G_VERSION_BUILD; ?>"></script>
+
+	<!-- google analytics tracking-->
+
+	<script>
+	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+	  ga('create', 'UA-82765912-1', 'auto');
+	  ga('send', 'pageview');
+
+	</script>
+
+	<!--[if lte IE 8]>
+		<script type="text/javascript" src="<?php echo G_STATIC_URL; ?>/js/respond.js"></script>
+	<![endif]-->
+</head>
