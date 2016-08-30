@@ -72,7 +72,8 @@
         // Get direction option
 
         var horizontal = $this.hasClass('horizontal');
-        var offsetY, offsetX;
+        var offsetY = 0; 
+        var offsetX = 0;
 
         if (horizontal === true) {
             offsetX = 40;
@@ -80,9 +81,9 @@
             offsetY = 40;
         }
 
-        $this.removeClass('active');
         var time = 0;
         $this.find('ul .btn').velocity("stop", true);
         $this.find('ul .btn').velocity({ opacity: "0", scaleX: ".4", scaleY: ".4", translateY: offsetY + 'px', translateX: offsetX + 'px' }, { duration: 80 });
+        $this.removeClass('active');
     };
 }(jQuery));

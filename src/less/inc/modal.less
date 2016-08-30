@@ -50,7 +50,7 @@
 		}
 
 		.modal-backdrop {
-			background: #fff;
+			background: #fff;			
 		}
 
 		.modal-footer {
@@ -119,12 +119,14 @@
 	}
 
 	&.modal-fullpage {
+		height: 100%;
 		.modal-dialog {
 			margin: 0;
 		}
 
 		.modal-content {
 			min-height: 100vh;
+			height: 100%;
 			border-radius: 0;
 			box-shadow: none;
 
@@ -155,7 +157,8 @@
 
 body {
 	&.modal-open {
-		position: fixed;
-		width: 100%;
+		#main {
+			overflow-y: hidden;
+		}
 	}
 }

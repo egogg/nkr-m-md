@@ -1,18 +1,20 @@
-<?php foreach ($this->answer_list AS $key => $val) { ?>
-    <a class="list-group-item anl-item" href="question/<?php echo $val['question_info']['question_id']; ?>">
-        <h3 class="anl-question-title"><?php echo $val['question_info']['question_content']; ?></h3>  
-        <div class="anl-answer-content">
-            <?php echo cjk_substr($val['answer_content'], 0, 130, 'UTF-8', '...'); ?>
-        </div>
-        
-        <div class="anl-footer">
-            <ul class="anl-stats">
-                <li><i class="icon icon-agree"></i> <?php echo $val['agree_count']; ?></li>
-            </ul>
+<?php if($this->answer_list) { ?>
+    <?php foreach ($this->answer_list AS $key => $val) { ?>
+        <a class="list-group-item anl-item" href="question/<?php echo $val['question_info']['question_id']; ?>">
+            <h3 class="anl-question-title"><?php echo $val['question_info']['question_content']; ?></h3>  
+            <div class="anl-answer-content">
+                <?php echo cjk_substr($val['answer_content'], 0, 130, 'UTF-8', '...'); ?>
+            </div>
+            
+            <div class="anl-footer">
+                <ul class="anl-stats">
+                    <li><i class="icon icon-agree"></i> <?php echo $val['agree_count']; ?></li>
+                </ul>
 
-            <ul class="anl-stats pull-right">
-                <li><?php echo date_friendly($val['add_time']); ?></li>
-            </ul>
-        </div>
-    </a>
+                <ul class="anl-stats pull-right">
+                    <li><?php echo date_friendly($val['add_time']); ?></li>
+                </ul>
+            </div>
+        </a>
+    <?php } ?>
 <?php } ?>

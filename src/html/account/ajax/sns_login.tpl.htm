@@ -1,8 +1,5 @@
 <div class="lcb-sns">
 	<?php if ($this->return_url) $return_url = 'return_url-' . base64_encode($this->return_url); ?>
-	<div class="lcb-sns-title">
-		<h2>社交账号登录</h2>
-	</div>
 	
 	<ul class="lcb-sns-items">
 		<li><a class="qq" href="account/openid/qq/bind/<?php echo $return_url; ?>"><i class="icon icon-qq"></i>QQ帐号登录</a></li>
