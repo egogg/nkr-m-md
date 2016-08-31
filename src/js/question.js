@@ -447,22 +447,6 @@ $(document).ready(function(){
 	}
 
 	function loadQuestionContent() {
-		var spinner = '<div class="sk-spinner sk-circle">' +
-			'<div class="sk-circle1 sk-child"></div>' +
-			'<div class="sk-circle2 sk-child"></div>' +
-			'<div class="sk-circle3 sk-child"></div>' +
-			'<div class="sk-circle4 sk-child"></div>' +
-			'<div class="sk-circle5 sk-child"></div>' +
-			'<div class="sk-circle6 sk-child"></div>' +
-			'<div class="sk-circle7 sk-child"></div>' +
-			'<div class="sk-circle8 sk-child"></div>' +
-			'<div class="sk-circle9 sk-child"></div>' +
-			'<div class="sk-circle10 sk-child"></div>' +
-			'<div class="sk-circle11 sk-child"></div>' +
-			'<div class="sk-circle12 sk-child"></div>' +
-			'</div>';
-		$('#q-content').html(spinner);
-		
 		$.get(G_BASE_URL + '/question/ajax/init_question_content/id-' + QUESTION_ID, function (response) {
 			$('#q-content').html(response);
 
@@ -874,6 +858,7 @@ $(document).ready(function(){
 
 $(document).ready(function(){
 	function showQuestionSolution() {
+		$('#dlg-solution').modal();
 		$.get(G_BASE_URL + '/question/ajax/get_question_solution/question_id-' + QUESTION_ID, function (response) {
 			if (!response) {
 				AWS.alert('获取答案解析失败！');
@@ -882,7 +867,6 @@ $(document).ready(function(){
 			}
 
 			$('#solution-content').html(response);
-			$('#dlg-solution').modal();
 		});
 	}
 

@@ -34,32 +34,7 @@
                             </div>
                         <?php } ?>
                     </div>
-                    <?php if ($this->favorite_tags) { ?>
-                        <section class="favorite-category category-select">
-                            <!-- favorite category modal -->
-                            
-                            <div class="modal modal-fullpage fade" id="dlg-favorite-category" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="false">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h4 class="modal-title"><i class="icon icon-filter"></i> 收藏分类</h4>
-                                            <button type="button" class="btn btn-link" data-dismiss="modal" aria-label="Close">取消</button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <ul class="category-list favorite-tags">
-                                                <li><a href="favorite/" class="<?php if(!$this->filter_tag) { ?>active<?php } ?>">全部收藏</a></li>
-                                                <?php foreach ($this->favorite_tags AS $key => $val) { ?>
-                                                    <li>
-                                                        <a class="<?php if($this->filter_tag == $val['title']) { ?>active<?php } ?>" href="favorite/tag-<?php echo urlencode($val['title']); ?>"><?php echo $val['title']; ?></a>
-                                                    </li>
-                                                <?php } ?>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
-                    <?php } ?>
+            
                     
                     <?php if($this->pagination) { ?>
                         <div class="card">
@@ -70,6 +45,31 @@
                     <?php } ?>
                 </div>
             </section>
+               
+            <!-- favorite category modal -->
+                
+            <div class="modal modal-fullpage fade" id="dlg-favorite-category" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="false">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title"><i class="icon icon-filter"></i> 收藏分类</h4>
+                            <button type="button" class="btn btn-link" data-dismiss="modal" aria-label="Close">取消</button>
+                        </div>
+                        <div class="modal-body">
+                            <ul class="category-list favorite-tags">
+                                <li><a href="favorite/" class="<?php if(!$this->filter_tag) { ?>active<?php } ?>">全部收藏</a></li>
+                                <?php if ($this->favorite_tags) { ?>
+                                    <?php foreach ($this->favorite_tags AS $key => $val) { ?>
+                                        <li>
+                                            <a class="<?php if($this->filter_tag == $val['title']) { ?>active<?php } ?>" href="favorite/tag-<?php echo urlencode($val['title']); ?>"><?php echo $val['title']; ?></a>
+                                        </li>
+                                    <?php } ?>
+                                <?php } ?>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <?php TPL::output('global/footer'); ?>
         </section>

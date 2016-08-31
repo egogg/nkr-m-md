@@ -64,22 +64,22 @@
 			}
 		}
 	}
+}
 
-	.modal-body {
-		&.list {
-			padding: 0;
+.modal-body {
+	&.list {
+		padding: 0;
 
-			.list-group {
-				margin-top: 18px;
-			}
+		.list-group {
+			margin-top: 18px;
+		}
 
-			.list-group-item {
-				padding-left: 26px;
+		.list-group-item {
+			padding-left: 26px;
 
-				&.active {
-					background: none;
-					color: @m-lightblue;
-				}
+			&.active {
+				background: none;
+				color: @m-lightblue;
 			}
 		}
 	}
@@ -599,6 +599,13 @@
 /*--------------------------------------------------
     Styles for question solution
 ---------------------------------------------------*/
+
+#solution-content {
+	.sk-spinner {
+		position: relative;
+		top: 150px;
+	}
+}
 
 .question-solution {
 	padding-top: 20px;
