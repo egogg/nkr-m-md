@@ -119,21 +119,23 @@
 	}
 
 	&.modal-fullpage {
+		min-height: 100vh;
 		height: 100%;
 		width: 100%;
 		padding: 0;
 		margin: 0;
-
+		
 		.modal-dialog {
 			margin: 0;
+			height: 100%;
 		}
 
 		.modal-content {
-			min-height: 100vh;
 			height: 100%;
 			width: 100%;
 			border-radius: 0;
 			box-shadow: none;
+			overflow-y: scroll;
 
 			.modal-header {
 				border-bottom: 1px solid rgba(0, 0, 0, 0.08);
